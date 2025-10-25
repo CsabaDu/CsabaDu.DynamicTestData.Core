@@ -19,12 +19,25 @@ Visit the **[Wiki](https://github.com/CsabaDu/CsabaDu.DynamicTestData/wiki)** fo
 
 ## 📘 Table of Contents
 
+- [**CsabaDu.DynamicTestData — Modular Architecture**](#csabadudynamictestdata--modular-architecture))
 - [**Changelog**](#changelog)
 - [**Contributing**](#contributing)
 - [**License**](#license)
 - [**Contact**](#contact)
 - [**FAQ**](#faq)
 - [**Troubleshooting**](#troubleshooting)
+
+---
+
+## CsabaDu.DynamicTestData — Modular Architecture
+
+### **Overview**  
+
+**CsabaDu.DynamicTestData** has been reorganized from a single monolithic package into a set of focused, aligned modules (NuGet packages) while keeping a clean, consistent namespace hierarchy under `CsabaDu.DynamicTestData.*`. Modules are deployable package boundaries; namespaces are logical organization inside those packages. The new layout reduces transitive dependencies, clarifies responsibilities, and makes it easier for consumers to adopt only what they need.
+
+See the Segregated Architecture Diagram for a visual overview of module boundaries and namespace relationships:
+
+![CsabaDu_DynamicTestData_Segregated_Simplified](https://raw.githubusercontent.com/CsabaDu/CsabaDu.DynamicTestData/refs/heads/master/Images/CsabaDu_DynamicTestData_Segregated_Simplified.svg)
 
 ---
 
