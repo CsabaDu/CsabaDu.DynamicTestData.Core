@@ -39,6 +39,32 @@ See the Segregated Architecture Diagram for a visual overview of module boundari
 
 ![CsabaDu_DynamicTestData_Segregated_Simplified](https://raw.githubusercontent.com/CsabaDu/CsabaDu.DynamicTestData/refs/heads/Core_Lite/_Images/CsabaDu_DynamicTestData_Segregated_Simplified.svg)
 
+
+### **Modules and contents**
+
+**Core Foundation Module (package: `CsabaDu.DynamicTestData.Core`)**  
+
+Essential types and interfaces — foundation for other modules.
+
+Namespaces and highlights: 
+- `CsabaDu.DynamicTestData.Statics`  
+  - Extensions.cs — utility extension methods and small helpers  
+
+- `CsabaDu.DynamicTestData.TestDataTypes`  
+  - `Interfaces` — core contracts:
+	- *IExpected.cs*
+	- *INamedTestCase.cs*
+	- *ITestData.cs*
+	- *ITestDataReturns.cs*
+	- *ITestDataThrows.cs*
+  - Concrete helpers:
+	- *TestData.cs*
+	- *TestDataReturns.cs*
+	- *TestDataThrows.cs*
+	- *TestDataFactory.cs*
+
+Purpose: provide the smallest possible dependency surface for library authors, adapters and implementers who only need contracts and DTOs.
+
 ---
 
 ## Changelog
