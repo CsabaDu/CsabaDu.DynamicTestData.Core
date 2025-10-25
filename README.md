@@ -46,22 +46,24 @@ See the Segregated Architecture Diagram for a visual overview of module boundari
 
 Essential types and interfaces — foundation for other modules.
 
-**Namespaces and highlights**: 
+**Namespaces and highlights**:  
+
 - **`CsabaDu.DynamicTestData.Statics`**  
-  - Extensions.cs — utility extension methods and small helpers  
+  - *ArgsCoce.cs*
+  - *PropsCode.cs*
+  - *Extensions.cs*
 
 - **`CsabaDu.DynamicTestData.TestDataTypes`**  
-  - **`Interfaces`** — core contracts:
+  - *TestData.cs*
+  - *TestDataReturns.cs*
+  - *TestDataThrows.cs*
+  - *TestDataFactory.cs*
+  - **`Interfaces`**
 	- *IExpected.cs*
 	- *INamedTestCase.cs*
 	- *ITestData.cs*
 	- *ITestDataReturns.cs*
 	- *ITestDataThrows.cs*
-  - Concrete helpers:
-	- *TestData.cs*
-	- *TestDataReturns.cs*
-	- *TestDataThrows.cs*
-	- *TestDataFactory.cs*
 
 **Purpose**: provide the smallest possible dependency surface for library authors, adapters and implementers who only need contracts and DTOs.
 
