@@ -44,13 +44,15 @@ See the Segregated Architecture Diagram for a visual overview of module boundari
 
 #### **Core Foundation Module (package: `CsabaDu.DynamicTestData.Core`)**  
 
-Essential types and interfaces — foundation for other modules.
+Foundation layer with essential contract surface, DTOs, stateless encoding helpers and strategy definitions.
 
 **Namespaces and highlights**:  
 
 - **`CsabaDu.DynamicTestData.Statics`**  
-  - *ArgsCoce.cs*
-  - *PropsCode.cs*
+  Encoding enums for data strategy:
+  - *ArgsCoce.cs*  
+  - *PropsCode.cs*  
+  Helper methods:
   - *Extensions.cs*
 
 - **`CsabaDu.DynamicTestData.TestDataTypes`**  
