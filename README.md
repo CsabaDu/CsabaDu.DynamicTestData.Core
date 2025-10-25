@@ -73,7 +73,12 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
   - **Factory**:  
 	*TestDataFactory.cs*
 
-**Purpose**: provide the smallest possible dependency surface for library authors, adapters and implementers who only need contracts and DTOs.
+**When to use**:  
+- Implementing framework adapters or conversion strategies that only need contracts and DTOs
+- Authoring manual `IEnumerable<object[]>` producers that require extra metadata (display names, expected/throw semantics) without pulling runtime rows/holders
+- Keeping a minimal dependency footprint in libraries and tools
+
+**Dependencies**: none
 
 ---
 
