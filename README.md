@@ -65,7 +65,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
   	*ITestDataReturns.cs*,  
   	*ITestDataThrows.cs*
 
-- - **`CsabaDu.DynamicTestData.TestDataTypes`**  
+- **`CsabaDu.DynamicTestData.TestDataTypes`**  
   - **DTO record types**:  
 	*TestData.cs*,  
 	*TestDataReturns.cs*,  
