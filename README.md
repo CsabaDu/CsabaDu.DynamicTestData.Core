@@ -55,22 +55,23 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
   - **Helper methods**:  
 	*Extensions.cs*
 
-- **`CsabaDu.DynamicTestData.TestDataTypes`**  
+- **`CsabaDu.DynamicTestData.TestDataTypes.Interfaces`**  
+  - **Testcase name contract**:  
+  	*INamedTestCase.cs*
+  - **DTO contracts**:   
+  	*ITestData.cs*
+  - **Specialization Markers**:  
+  	*IExpected.cs*,  
+  	*ITestDataReturns.cs*,  
+  	*ITestDataThrows.cs*
+
+- - **`CsabaDu.DynamicTestData.TestDataTypes`**  
   - **DTO record types**:  
 	*TestData.cs*,  
 	*TestDataReturns.cs*,  
 	*TestDataThrows.cs*
   - **Factory**:  
 	*TestDataFactory.cs*
-  - **`Interfaces`**
-	- **Testcase name contract**:  
-	  *INamedTestCase.cs*
-	- **DTO contracts**:   
-	  *ITestData.cs*
-	- **Specialization Markers**:  
-	  *IExpected.cs*,  
-	  *ITestDataReturns.cs*,  
-	  *ITestDataThrows.cs*
 
 **Purpose**: provide the smallest possible dependency surface for library authors, adapters and implementers who only need contracts and DTOs.
 
