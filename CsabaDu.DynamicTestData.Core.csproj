@@ -4,6 +4,36 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageIcon>icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <Title>Dynamic Test Data Core</Title>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>2.1.0-beta</Version>
+    <Company>CsabaDu</Company>
+    <Description>Core types of CsabaDu.DynamicTestData, a robust, flexible, extensible, pure .NET framework to facilitate dynamic data-driven testing.</Description>
+    <Copyright>(c) 2025. Csaba Dudas (CsabaDu)</Copyright>
+    <RepositoryUrl>https://github.com/CsabaDu/CsabaDu.DynamicTestData.Core</RepositoryUrl>
+    <PackageTags>dynamic; unit; test; data; driven; typesafe; extensible; mstest; nunit; xunit; xunit.v3; modular;</PackageTags>
+    <PackageReleaseNotes>Initial release of the `CsabaDu.DynamicTestData.Core` framework, by segregating core types of the `CsabaDu.DynamicTestData` framework into a dedicated package.</PackageReleaseNotes>
+    <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

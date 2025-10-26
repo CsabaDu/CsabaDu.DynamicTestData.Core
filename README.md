@@ -86,7 +86,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 
 ### **Version 2.1.0-beta** (2025-10-25)
 
-- Initial release of the `CsabaDu.DynamicTestData.Core` framework.
+- Initial release of the `CsabaDu.DynamicTestData.Core` framework, by segregating core types of the `CsabaDu.DynamicTestData` framework into a dedicated package.
 
 ---
 
