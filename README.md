@@ -164,7 +164,6 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 - Authoring manual `IEnumerable<object[]>` producers that require extra metadata (display names, expected/throw semantics) without pulling runtime rows/holders
 - Keeping a minimal dependency footprint in libraries and tools
 
----
 ##### Dependencies: none
 
 ---
