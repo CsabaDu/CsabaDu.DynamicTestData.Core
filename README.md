@@ -51,9 +51,11 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 - **`CsabaDu.DynamicTestData.Statics`**  
   - **Encoding enums for data strategy**:  
     *ArgsCoce.cs*  
-	- `ArgsCode` : enum
+	- `ArgsCode` : enum  
+	
     *PropsCode.cs*  
-	- `PropsCode` : enum
+	- `PropsCode` : enum  
+	
   - **Helper methods**:  
 	*Extensions.cs*  
 	- `Extensions` : static class
