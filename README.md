@@ -46,26 +46,28 @@ See the Segregated Architecture Diagram for a visual overview of module boundari
 
 Foundation layer with essential contract surface, DTOs, stateless encoding helpers and strategy definitions.
 
-**Namespaces and highlights**:  
+##### Namespaces and highlights:  
 
-- **`CsabaDu.DynamicTestData.Statics`**  
-  - **Encoding enums for data strategy**:  
-    *ArgsCoce.cs*  
+**`CsabaDu.DynamicTestData.Statics`**  
+
+- - **Encoding enums for data strategy**:  
+  - *ArgsCoce.cs*  
 	- `ArgsCode` : enum  
-	
-    *PropsCode.cs*  
+  - *PropsCode.cs*  
 	- `PropsCode` : enum  
-	
-  - **Helper methods**:  
-	*Extensions.cs*  
+ 
+- **Helper methods**:  
+  - *Extensions.cs*  
 	- `Extensions` : static class
 
-- **`CsabaDu.DynamicTestData.TestDataTypes.Interfaces`**  
-  - **Testcase name contract**:  
-  	*INamedTestCase.cs*  
-	- `INamedTestCase` : interface
-  - **DTO contracts**:  
-  	*ITestData.cs*  
+**`CsabaDu.DynamicTestData.TestDataTypes.Interfaces`**  
+
+- **Testcase name contract**:  
+  - *INamedTestCase.cs*  
+	- `INamedTestCase` : interface  
+
+- **DTO contracts**:  
+  - *ITestData.cs*  
 	- `ITestData` : interface
 	- `ITestData<TResult>` : interface
 	- `ITestData<TResult, T1>` : interface
@@ -76,20 +78,22 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `ITestData<TResult, T1, T2, T3, T4, T5, T6>` : interface
 	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7>` : interface
 	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8>` : interface
-	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : interface
-  - **Specialization Markers**:  
-  	*IExpected.cs*  
+	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : interface 
+
+- **Specialization Markers**:  
+  - *IExpected.cs*  
 	- `IExpected` : interface  
-  	*ITestDataReturns.cs*  
+  - *ITestDataReturns.cs*  
 	- `ITestDataReturns` : interface,  
 	- `ITestDataReturns<TStruct>` : interface,  
-  	*ITestDataThrows.cs*
+  - *ITestDataThrows.cs*
 	- `ITestDataThrows` : interface,  
 	- `ITestDataThrows<TException>` : interface,  
 
-- **`CsabaDu.DynamicTestData.TestDataTypes`**  
-  - **DTO record types**:  
-	*TestData.cs*  
+**`CsabaDu.DynamicTestData.TestDataTypes`**  
+
+- **DTO record types**:  
+  - *TestData.cs*  
 	- `TestData` : abstract record,
 	- `TestData<T1>` : record,
 	- `TestData<T1, T2>` : record,
@@ -100,8 +104,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestData<T1, T2, T3, T4, T5, T6, T7>` : record,
 	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8>` : record,
 	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record
-  - **DTO record types with expected return value**:  
-	*TestDataReturns.cs*  
+  - *TestDataReturns.cs*  
 	- `TestDataReturns<TStruct>` : abstract record,
 	- `TestDataReturns<TStruct, T1>` : record,
 	- `TestDataReturns<TStruct, T1, T2>` : record,
@@ -112,8 +115,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7>` : record,
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8>` : record,
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record
-  - **DTO record types with expected exception**:  
-	*TestDataThrows.cs*  
+  - *TestDataThrows.cs*  
 	- `TestDataThrows<TException>` : abstract record,
 	- `TestDataThrows<TException, T1>` : record,
 	- `TestDataThrows<TException, T1, T2>` : record,
@@ -124,16 +126,16 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7>` : record,
 	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8>` : record,
 	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record
-  - **Factory**:  
-	*TestDataFactory.cs*
+- **Factory**:  
+  - *TestDataFactory.cs*
 	- `TestDataFactory` : static class
 
-**When to use**:  
+##### When to use:  
 - Implementing framework adapters or conversion strategies that only need contracts and DTOs
 - Authoring manual `IEnumerable<object[]>` producers that require extra metadata (display names, expected/throw semantics) without pulling runtime rows/holders
 - Keeping a minimal dependency footprint in libraries and tools
 
-**Dependencies**: none
+##### Dependencies: none
 
 ---
 
