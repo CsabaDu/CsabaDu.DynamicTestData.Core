@@ -48,6 +48,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 
 ##### Namespaces and highlights:  
 
+---
 **`CsabaDu.DynamicTestData.Statics`**  
 
 - **Encoding enums for data strategy**:  
@@ -66,6 +67,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	
 	- `Extensions` : static class
 
+---
 **`CsabaDu.DynamicTestData.TestDataTypes.Interfaces`**  
 
 - **Testcase name contract**:  
@@ -106,6 +108,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `ITestDataThrows` : interface,  
 	- `ITestDataThrows<TException>` : interface,  
 
+---
 **`CsabaDu.DynamicTestData.TestDataTypes`**  
 
 - **DTO record types**:  
@@ -155,11 +158,13 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	
 	- `TestDataFactory` : static class
 
+---
 ##### When to use:  
 - Implementing framework adapters or conversion strategies that only need contracts and DTOs
 - Authoring manual `IEnumerable<object[]>` producers that require extra metadata (display names, expected/throw semantics) without pulling runtime rows/holders
 - Keeping a minimal dependency footprint in libraries and tools
 
+---
 ##### Dependencies: none
 
 ---
