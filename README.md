@@ -1,4 +1,4 @@
-﻿# CsabaDu.DynamicTestData.Core
+# CsabaDu.DynamicTestData.Core
 
 Core types of **CsabaDu.DynamicTestData**, a robust, flexible, extensible, pure .NET framework to facilitate dynamic data-driven testing.
 
@@ -50,28 +50,81 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 
 - **`CsabaDu.DynamicTestData.Statics`**  
   - **Encoding enums for data strategy**:  
-    *ArgsCoce.cs*,  
-    *PropsCode.cs*
+    *ArgsCoce.cs*  
+	- `ArgsCode` : enum
+    *PropsCode.cs*  
+	- `PropsCode` : enum
   - **Helper methods**:  
 	*Extensions.cs*
+	- `Extensions` : static class
 
 - **`CsabaDu.DynamicTestData.TestDataTypes.Interfaces`**  
   - **Testcase name contract**:  
   	*INamedTestCase.cs*
+	- `INamedTestCase` : interface
   - **DTO contracts**:   
   	*ITestData.cs*
+	- `ITestData` : interface
+	- `ITestData<TResult>` : interface
+	- `ITestData<TResult, T1>` : interface
+	- `ITestData<TResult, T1, T2>` : interface
+	- `ITestData<TResult, T1, T2, T3>` : interface
+	- `ITestData<TResult, T1, T2, T3, T4>` : interface
+	- `ITestData<TResult, T1, T2, T3, T4, T5>` : interface
+	- `ITestData<TResult, T1, T2, T3, T4, T5, T6>` : interface
+	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7>` : interface
+	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8>` : interface
+	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : interface
   - **Specialization Markers**:  
-  	*IExpected.cs*,  
-  	*ITestDataReturns.cs*,  
+  	*IExpected.cs*
+	- `IExpected` : interface  
+  	*ITestDataReturns.cs*
+	- `ITestDataReturns` : interface,  
+	- `ITestDataReturns<TStruct>` : interface,  
   	*ITestDataThrows.cs*
+	- `ITestDataThrows` : interface,  
+	- `ITestDataThrows<TException>` : interface,  
 
 - **`CsabaDu.DynamicTestData.TestDataTypes`**  
   - **DTO record types**:  
-	*TestData.cs*,  
-	*TestDataReturns.cs*,  
+	*TestData.cs*  
+	- `TestData` : abstract record,
+	- `TestData<T1>` : record,
+	- `TestData<T1, T2>` : record,
+	- `TestData<T1, T2, T3>` : record,
+	- `TestData<T1, T2, T3, T4>` : record,
+	- `TestData<T1, T2, T3, T4, T5>` : record,
+	- `TestData<T1, T2, T3, T4, T5, T6>` : record,
+	- `TestData<T1, T2, T3, T4, T5, T6, T7>` : record,
+	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8>` : record,
+	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record
+  - **DTO record types with expected return value**:
+	*TestDataReturns.cs*  
+	- `TestDataReturns<TStruct>` : abstract record,
+	- `TestDataReturns<TStruct, T1>` : record,
+	- `TestDataReturns<TStruct, T1, T2>` : record,
+	- `TestDataReturns<TStruct, T1, T2, T3>` : record,
+	- `TestDataReturns<TStruct, T1, T2, T3, T4>` : record,
+	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5>` : record,
+	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6>` : record,
+	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7>` : record,
+	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8>` : record,
+	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record
+  - **DTO record types with expected exception**:
 	*TestDataThrows.cs*
+	- `TestDataThrows<TException>` : abstract record,
+	- `TestDataThrows<TException, T1>` : record,
+	- `TestDataThrows<TException, T1, T2>` : record,
+	- `TestDataThrows<TException, T1, T2, T3>` : record,
+	- `TestDataThrows<TException, T1, T2, T3, T4>` : record,
+	- `TestDataThrows<TException, T1, T2, T3, T4, T5>` : record,
+	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6>` : record,
+	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7>` : record,
+	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8>` : record,
+	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record
   - **Factory**:  
 	*TestDataFactory.cs*
+	- `TestDataFactory` : static class
 
 **When to use**:  
 - Implementing framework adapters or conversion strategies that only need contracts and DTOs
