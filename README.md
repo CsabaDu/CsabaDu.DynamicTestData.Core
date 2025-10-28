@@ -50,23 +50,28 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 
 **`CsabaDu.DynamicTestData.Statics`**  
 
-- - **Encoding enums for data strategy**:  
+- **Encoding enums for data strategy**:  
+
   - *ArgsCoce.cs*  
 	- `ArgsCode` : enum  
+
   - *PropsCode.cs*  
 	- `PropsCode` : enum  
  
 - **Helper methods**:  
+
   - *Extensions.cs*  
 	- `Extensions` : static class
 
 **`CsabaDu.DynamicTestData.TestDataTypes.Interfaces`**  
 
 - **Testcase name contract**:  
+
   - *INamedTestCase.cs*  
 	- `INamedTestCase` : interface  
 
 - **DTO contracts**:  
+
   - *ITestData.cs*  
 	- `ITestData` : interface
 	- `ITestData<TResult>` : interface
@@ -81,11 +86,14 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : interface 
 
 - **Specialization Markers**:  
+
   - *IExpected.cs*  
 	- `IExpected` : interface  
+
   - *ITestDataReturns.cs*  
 	- `ITestDataReturns` : interface,  
 	- `ITestDataReturns<TStruct>` : interface,  
+
   - *ITestDataThrows.cs*
 	- `ITestDataThrows` : interface,  
 	- `ITestDataThrows<TException>` : interface,  
@@ -93,6 +101,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 **`CsabaDu.DynamicTestData.TestDataTypes`**  
 
 - **DTO record types**:  
+
   - *TestData.cs*  
 	- `TestData` : abstract record,
 	- `TestData<T1>` : record,
@@ -103,7 +112,8 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestData<T1, T2, T3, T4, T5, T6>` : record,
 	- `TestData<T1, T2, T3, T4, T5, T6, T7>` : record,
 	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8>` : record,
-	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record
+	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record  
+
   - *TestDataReturns.cs*  
 	- `TestDataReturns<TStruct>` : abstract record,
 	- `TestDataReturns<TStruct, T1>` : record,
@@ -114,7 +124,8 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6>` : record,
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7>` : record,
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8>` : record,
-	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record
+	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record  
+
   - *TestDataThrows.cs*  
 	- `TestDataThrows<TException>` : abstract record,
 	- `TestDataThrows<TException, T1>` : record,
@@ -125,9 +136,11 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6>` : record,
 	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7>` : record,
 	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8>` : record,
-	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record
+	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record  
+
 - **Factory**:  
-  - *TestDataFactory.cs*
+
+  - *TestDataFactory.cs*  
 	- `TestDataFactory` : static class
 
 ##### When to use:  
