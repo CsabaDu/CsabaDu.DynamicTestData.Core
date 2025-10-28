@@ -51,34 +51,34 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 ---
 **`CsabaDu.DynamicTestData.Statics`**  
 
-- **Encoding enums for data strategy**:  
+- *Encoding enums for data strategy*:  
 
-  - *ArgsCoce.cs*  
+  - **ArgsCoce.cs**  
 	
 	- `ArgsCode` : enum  
 
-  - *PropsCode.cs*  
+  - **PropsCode.cs**  
 	
 	- `PropsCode` : enum  
  
-- **Helper methods**:  
+- *Helper methods*:  
 
-  - *Extensions.cs*  
+  - **Extensions.cs**  
 	
 	- `Extensions` : static class
 
 ---
 **`CsabaDu.DynamicTestData.TestDataTypes.Interfaces`**  
 
-- **Testcase name contract**:  
+- *Testcase name contract*:  
 
-  - *INamedTestCase.cs*  
+  - **INamedTestCase.cs**  
 	
 	- `INamedTestCase` : interface  
 
-- **DTO contracts**:  
+- *DTO contracts*:  
 
-  - *ITestData.cs*  
+  - **ITestData.cs**  
 	
 	- `ITestData` : interface
 	- `ITestData<TResult>` : interface
@@ -92,18 +92,18 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8>` : interface
 	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : interface 
 
-- **Specialization Markers**:  
+- *Specialization Markers*:  
 
-  - *IExpected.cs*  
+  - **IExpected.cs**  
 	
 	- `IExpected` : interface  
 
-  - *ITestDataReturns.cs*  
+  - **ITestDataReturns.cs**  
 	
 	- `ITestDataReturns` : interface,  
 	- `ITestDataReturns<TStruct>` : interface,  
 
-  - *ITestDataThrows.cs*  
+  - **ITestDataThrows.cs**  
 	
 	- `ITestDataThrows` : interface,  
 	- `ITestDataThrows<TException>` : interface,  
@@ -111,9 +111,9 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 ---
 **`CsabaDu.DynamicTestData.TestDataTypes`**  
 
-- **DTO record types**:  
+- *DTO record types*:  
 
-  - *TestData.cs*  
+  - **TestData.cs**  
 	
 	- `TestData` : abstract record,
 	- `TestData<T1>` : record,
@@ -126,7 +126,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8>` : record,
 	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record  
 
-  - *TestDataReturns.cs*  
+  - **TestDataReturns.cs**  
 	
 	- `TestDataReturns<TStruct>` : abstract record,
 	- `TestDataReturns<TStruct, T1>` : record,
@@ -139,7 +139,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8>` : record,
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record  
 
-  - *TestDataThrows.cs*  
+  - **TestDataThrows.cs**  
 	
 	- `TestDataThrows<TException>` : abstract record,
 	- `TestDataThrows<TException, T1>` : record,
@@ -152,14 +152,15 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8>` : record,
 	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record  
 
-- **Factory**:  
+- *Factory*:  
 
-  - *TestDataFactory.cs*  
+  - **TestDataFactory.cs**  
 	
 	- `TestDataFactory` : static class
 
 ---
 ##### When to use:  
+
 - Implementing framework adapters or conversion strategies that only need contracts and DTOs
 - Authoring manual `IEnumerable<object[]>` producers that require extra metadata (display names, expected/throw semantics) without pulling runtime rows/holders
 - Keeping a minimal dependency footprint in libraries and tools
