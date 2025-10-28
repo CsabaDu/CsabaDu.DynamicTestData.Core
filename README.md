@@ -53,14 +53,17 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 - **Encoding enums for data strategy**:  
 
   - *ArgsCoce.cs*  
+	
 	- `ArgsCode` : enum  
 
   - *PropsCode.cs*  
+	
 	- `PropsCode` : enum  
  
 - **Helper methods**:  
 
   - *Extensions.cs*  
+	
 	- `Extensions` : static class
 
 **`CsabaDu.DynamicTestData.TestDataTypes.Interfaces`**  
@@ -68,11 +71,13 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 - **Testcase name contract**:  
 
   - *INamedTestCase.cs*  
+	
 	- `INamedTestCase` : interface  
 
 - **DTO contracts**:  
 
   - *ITestData.cs*  
+	
 	- `ITestData` : interface
 	- `ITestData<TResult>` : interface
 	- `ITestData<TResult, T1>` : interface
@@ -88,13 +93,16 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 - **Specialization Markers**:  
 
   - *IExpected.cs*  
+	
 	- `IExpected` : interface  
 
   - *ITestDataReturns.cs*  
+	
 	- `ITestDataReturns` : interface,  
 	- `ITestDataReturns<TStruct>` : interface,  
 
-  - *ITestDataThrows.cs*
+  - *ITestDataThrows.cs*  
+	
 	- `ITestDataThrows` : interface,  
 	- `ITestDataThrows<TException>` : interface,  
 
@@ -103,6 +111,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 - **DTO record types**:  
 
   - *TestData.cs*  
+	
 	- `TestData` : abstract record,
 	- `TestData<T1>` : record,
 	- `TestData<T1, T2>` : record,
@@ -115,6 +124,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record  
 
   - *TestDataReturns.cs*  
+	
 	- `TestDataReturns<TStruct>` : abstract record,
 	- `TestDataReturns<TStruct, T1>` : record,
 	- `TestDataReturns<TStruct, T1, T2>` : record,
@@ -127,6 +137,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record  
 
   - *TestDataThrows.cs*  
+	
 	- `TestDataThrows<TException>` : abstract record,
 	- `TestDataThrows<TException, T1>` : record,
 	- `TestDataThrows<TException, T1, T2>` : record,
@@ -141,6 +152,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 - **Factory**:  
 
   - *TestDataFactory.cs*  
+	
 	- `TestDataFactory` : static class
 
 ##### When to use:  
