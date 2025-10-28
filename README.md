@@ -55,15 +55,15 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
     *PropsCode.cs*  
 	- `PropsCode` : enum
   - **Helper methods**:  
-	*Extensions.cs*
+	*Extensions.cs*  
 	- `Extensions` : static class
 
 - **`CsabaDu.DynamicTestData.TestDataTypes.Interfaces`**  
   - **Testcase name contract**:  
-  	*INamedTestCase.cs*
+  	*INamedTestCase.cs*  
 	- `INamedTestCase` : interface
-  - **DTO contracts**:   
-  	*ITestData.cs*
+  - **DTO contracts**:  
+  	*ITestData.cs*  
 	- `ITestData` : interface
 	- `ITestData<TResult>` : interface
 	- `ITestData<TResult, T1>` : interface
@@ -76,9 +76,9 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8>` : interface
 	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : interface
   - **Specialization Markers**:  
-  	*IExpected.cs*
+  	*IExpected.cs*  
 	- `IExpected` : interface  
-  	*ITestDataReturns.cs*
+  	*ITestDataReturns.cs*  
 	- `ITestDataReturns` : interface,  
 	- `ITestDataReturns<TStruct>` : interface,  
   	*ITestDataThrows.cs*
@@ -98,7 +98,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestData<T1, T2, T3, T4, T5, T6, T7>` : record,
 	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8>` : record,
 	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record
-  - **DTO record types with expected return value**:
+  - **DTO record types with expected return value**:  
 	*TestDataReturns.cs*  
 	- `TestDataReturns<TStruct>` : abstract record,
 	- `TestDataReturns<TStruct, T1>` : record,
@@ -110,8 +110,8 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7>` : record,
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8>` : record,
 	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record
-  - **DTO record types with expected exception**:
-	*TestDataThrows.cs*
+  - **DTO record types with expected exception**:  
+	*TestDataThrows.cs*  
 	- `TestDataThrows<TException>` : abstract record,
 	- `TestDataThrows<TException, T1>` : record,
 	- `TestDataThrows<TException, T1, T2>` : record,
