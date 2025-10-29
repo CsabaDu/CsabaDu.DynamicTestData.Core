@@ -82,15 +82,7 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
 	
 	- `ITestData` : interface
 	- `ITestData<TResult>` : interface
-	- `ITestData<TResult, T1>` : interface
-	- `ITestData<TResult, T1, T2>` : interface
-	- `ITestData<TResult, T1, T2, T3>` : interface
-	- `ITestData<TResult, T1, T2, T3, T4>` : interface
-	- `ITestData<TResult, T1, T2, T3, T4, T5>` : interface
-	- `ITestData<TResult, T1, T2, T3, T4, T5, T6>` : interface
-	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7>` : interface
-	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8>` : interface
-	- `ITestData<TResult, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : interface 
+	- `ITestData<TResult, T1 ... T9>` : interfaces
 
 - *Specialization Markers*:  
 
@@ -116,41 +108,17 @@ Foundation layer with essential contract surface, DTOs, stateless encoding helpe
   - **TestData.cs**  
 	
 	- `TestData` : abstract record,
-	- `TestData<T1>` : record,
-	- `TestData<T1, T2>` : record,
-	- `TestData<T1, T2, T3>` : record,
-	- `TestData<T1, T2, T3, T4>` : record,
-	- `TestData<T1, T2, T3, T4, T5>` : record,
-	- `TestData<T1, T2, T3, T4, T5, T6>` : record,
-	- `TestData<T1, T2, T3, T4, T5, T6, T7>` : record,
-	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8>` : record,
-	- `TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record  
+	- `TestData<T1 ... T9>` : records,
 
   - **TestDataReturns.cs**  
 	
 	- `TestDataReturns<TStruct>` : abstract record,
-	- `TestDataReturns<TStruct, T1>` : record,
-	- `TestDataReturns<TStruct, T1, T2>` : record,
-	- `TestDataReturns<TStruct, T1, T2, T3>` : record,
-	- `TestDataReturns<TStruct, T1, T2, T3, T4>` : record,
-	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5>` : record,
-	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6>` : record,
-	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7>` : record,
-	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8>` : record,
-	- `TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record  
+	- `TestDataReturns<TStruct, T1 ... T9>` : records,
 
   - **TestDataThrows.cs**  
 	
 	- `TestDataThrows<TException>` : abstract record,
-	- `TestDataThrows<TException, T1>` : record,
-	- `TestDataThrows<TException, T1, T2>` : record,
-	- `TestDataThrows<TException, T1, T2, T3>` : record,
-	- `TestDataThrows<TException, T1, T2, T3, T4>` : record,
-	- `TestDataThrows<TException, T1, T2, T3, T4, T5>` : record,
-	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6>` : record,
-	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7>` : record,
-	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8>` : record,
-	- `TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8, T9>` : record  
+	- `TestDataThrows<TException, T1 ... T9>` : records,
 
 - *Factory*:  
 
