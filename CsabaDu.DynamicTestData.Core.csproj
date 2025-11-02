@@ -9,7 +9,7 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <Title>Dynamic Test Data Core</Title>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>2.1.0-beta</Version>
+    <Version>2.1.1-beta</Version>
     <Company>CsabaDu</Company>
     <Description>Core types of CsabaDu.DynamicTestData, a robust, flexible, extensible, pure .NET framework to facilitate dynamic data-driven testing.</Description>
     <Copyright>(c) 2025. Csaba Dudas (CsabaDu)</Copyright>

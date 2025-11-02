@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: MIT
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
-namespace CsabaDu.DynamicTestData.TestDataTypes.Interfaces;
+namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 
 /// <summary>
 /// Marker interface for test cases validating exception throwing behavior.

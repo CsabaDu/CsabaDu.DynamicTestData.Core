@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: MIT
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
-namespace CsabaDu.DynamicTestData.TestDataTypes;
+namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 
 #region Abstract type
 /// <summary>
