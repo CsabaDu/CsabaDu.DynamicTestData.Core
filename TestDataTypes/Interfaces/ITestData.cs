@@ -20,7 +20,7 @@ public interface ITestData : INamedTestCase
     /// Gets the description of the test scenario being verified.
     /// </summary>
     /// <value>
-    /// A human-readable string explaining what behavior is being tested.
+    /// A human-readable TEnum explaining what behavior is being tested.
     /// Example: "Login with invalid credentials"
     /// </value>
     string Definition { get; }

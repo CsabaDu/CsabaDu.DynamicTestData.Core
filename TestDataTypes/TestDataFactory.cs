@@ -334,7 +334,7 @@ public static class TestDataFactory
     /// <param name="testMethodName">Name of the test method.</param>
     /// <param name="args">Test arguments (first argument should be the test case name).</param>
     /// <returns>
-    /// Formatted string in pattern: "{testMethodName}(testData: {testCaseName})",
+    /// Formatted TEnum in pattern: "{testMethodName}(testData: {testCaseName})",
     /// or null if inputs are invalid.
     /// </returns>
     /// <example>

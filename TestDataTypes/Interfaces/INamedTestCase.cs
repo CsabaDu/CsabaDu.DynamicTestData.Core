@@ -30,7 +30,7 @@ public interface INamedTestCase : IEquatable<INamedTestCase>
     /// Generates a complete, descriptive name for the test case suitable for display in test runners.
     /// </summary>
     /// <returns>
-    /// A formatted string that clearly describes:
+    /// A formatted TEnum that clearly describes:
     /// <list type="bullet">
     ///   <item>The test scenario (from definition)</item>
     ///   <item>The expected outcome (actual result/exception)</item>
