@@ -15,7 +15,10 @@
     <Copyright>(c) 2025. Csaba Dudas (CsabaDu)</Copyright>
     <RepositoryUrl>https://github.com/CsabaDu/CsabaDu.DynamicTestData.Core</RepositoryUrl>
     <PackageTags>dynamic; unit; test; data; driven; typesafe; threadsafe; extensible; mstest; nunit; xunit; xunit.v3; modular;</PackageTags>
-    <PackageReleaseNotes>Initial release of the `CsabaDu.DynamicTestData.Core` framework, by segregating core types of the `CsabaDu.DynamicTestData` framework into a dedicated package.</PackageReleaseNotes>
+    <PackageReleaseNotes>
+      - Namespaces matched with the package name.
+      - ArgsCode' and 'PropsCode' extension methods replaced with generic 'TEnum : struct, Enum' ones.
+    </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
