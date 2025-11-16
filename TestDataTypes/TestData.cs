@@ -22,6 +22,16 @@ public abstract record TestData(string Definition)
 {
     #region Methods
     /// <summary>
+    /// Determines whether the current instance is contained within the specified collection of named test cases.
+    /// </summary>
+    /// <param name="namedTestCases">The collection of <see cref="INamedTestCase"/> instances to search. Can be <see langword="null"/>.</param>
+    /// <returns><see langword="true"/> if the current instance is found in the specified collection; otherwise, <see
+    /// langword="false"/>.  Returns <see langword="false"/> if <paramref name="namedTestCases"/> is <see
+    /// langword="null"/>.</returns>
+    public bool ContainedBy(IEnumerable<INamedTestCase>? namedTestCases)
+    => namedTestCases?.Any(Equals) == true;
+
+    /// <summary>
     /// Determines equality with another <see cref="INamedTestCase"/> based on test case name comparison.
     /// </summary>
     /// <param name="other">The <see cref="INamedTestCase"/> to compare against.</param>
@@ -176,7 +186,7 @@ ITestData<string, T1>
 
     /// <inheritdoc/>
     public override sealed string GetTestCaseName()
-        => TestCaseName;
+    => TestCaseName;
 
     /// <inheritdoc/>
     public override object?[] ToArgs(ArgsCode argsCode)

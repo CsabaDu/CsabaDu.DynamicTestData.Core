@@ -27,6 +27,13 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 public interface INamedTestCase : IEquatable<INamedTestCase>
 {
     /// <summary>
+    /// Determines whether the current instance is contained within the specified collection of named test cases.
+    /// </summary>
+    /// <param name="namedTestCases">The collection of <see cref="INamedTestCase"/> instances to search. Can be <see langword="null"/>.</param>
+    /// <returns></returns>
+    bool ContainedBy(IEnumerable<INamedTestCase>? namedTestCases);
+
+    /// <summary>
     /// Generates a complete, descriptive name for the test case suitable for display in test runners.
     /// </summary>
     /// <returns>
