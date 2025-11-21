@@ -25,7 +25,7 @@ public static class Extensions
     ///   <item>A new array containing existing elements plus <paramref name="newArg"/> (when argsCode is Properties)</item>
     /// </list>
     /// </returns>
-    /// <exception cref="ArgumentException">
+    /// <exception cref="InvalidEnumArgumentException">
     /// Thrown when <paramref name="argsCode"/> is neither Instance nor Properties.
     /// </exception>
     /// <remarks>
