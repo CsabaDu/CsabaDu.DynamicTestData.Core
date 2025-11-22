@@ -22,7 +22,7 @@ ITestDataThrows<TException>
 where TException : Exception
 {
     /// <summary>
-    /// Gets the formatted test case name including the expected exception type.
+    /// Gets the formatted test case name including the expected exception runtime type name.
     /// </summary>
     /// <example>
     /// "Invalid login => throws ArgumentException"
