@@ -128,7 +128,6 @@ where TException : Exception
     => base.ToArgs(argsCode).Add(argsCode, Arg4);
 }
 
-
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4}" />
 /// <typeparam name="T5">The type of the fifth argument.</typeparam>
 /// <param name="Arg5">The fifth argument.</param>
@@ -185,7 +184,6 @@ where TException : Exception
     public override object?[] ToArgs(ArgsCode argsCode)
     => base.ToArgs(argsCode).Add(argsCode, Arg7);
 }
-
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5, T6, T7}" />
 /// <typeparam name="T8">The type of the eighth argument.</typeparam>
