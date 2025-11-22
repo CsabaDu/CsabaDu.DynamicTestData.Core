@@ -95,15 +95,15 @@ public abstract record TestData(string Definition)
             {
                 PropsCode.TestCaseName => args,
                 PropsCode.Expected => propertiesToArgsFrom(1),
-                PropsCode.Returns => propertiesToArgs(this is ITestDataReturns),
-                PropsCode.Throws => propertiesToArgs(this is ITestDataThrows),
+                PropsCode.Returns => propertiesToParams(this is ITestDataReturns),
+                PropsCode.Throws => propertiesToParams(this is ITestDataThrows),
                 _ => throw propsCode.GetInvalidEnumArgumentException(nameof(propsCode)),
             },
             _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
         };
 
         #region Local methods
-        object?[] propertiesToArgs(bool typeMatches)
+        object?[] propertiesToParams(bool typeMatches)
         => typeMatches || this is not IExpected ?
             propertiesToArgsFrom(1)
             : propertiesToArgsFrom(2);
@@ -142,7 +142,7 @@ public abstract record TestData(string Definition)
     /// <param name="result">The test result or outcome to append to the definition.</param>
     /// <returns>
     /// A formatted test case name in the format: "{Definition} => {result}".
-    /// If the Definition is null or whitespace, uses the literal "Definition" as the prefix.
+    /// If the Definition is null or whitespace, uses the literal "Definition" as the definition.
     /// </returns>
     /// <remarks>
     /// This method ensures consistent naming across all test cases by:
@@ -153,9 +153,13 @@ public abstract record TestData(string Definition)
     /// </list>
     /// </remarks>
     protected string GetTestCaseName(string result)
-    => (string.IsNullOrWhiteSpace(Definition) ?
-        nameof(Definition)
-        : Definition) + " => " + result;
+    {
+        string definition = string.IsNullOrWhiteSpace(Definition) ?
+            nameof(Definition)
+            : Definition;
+
+        return $"{definition} => {result}";
+    }
     #endregion
 }
 #endregion
