@@ -352,29 +352,4 @@ public static class TestDataFactory
             : null;
     }
     #endregion
-
-    //#region TestDataToParams
-    ///// <summary>
-    ///// Converts test data to parameters for test execution and extracts the test case name.
-    ///// </summary>
-    ///// <param name="testData">The test data instance to convert.</param>
-    ///// <param name="argsCode">Determines instance vs properties inclusion.</param>
-    ///// <param name="propsCode">Specifies which properties to include.</param>
-    ///// <param name="testCaseName">Output parameter containing the test case name.</param>
-    ///// <returns>An array of parameters for test execution.</returns>
-    ///// <exception cref="ArgumentNullException">
-    ///// Thrown when <paramref name="testData"/> is null.
-    ///// </exception>
-    //public static object?[] TestDataToParams(
-    //    [NotNull] ITestData testData,
-    //    ArgsCode argsCode,
-    //    PropsCode propsCode,
-    //    out string testCaseName)
-    //{
-    //    testCaseName = testData?.GetTestCaseName()
-    //        ?? throw new ArgumentNullException(nameof(testData));
-
-    //    return testData.ToParams(argsCode, propsCode);
-    //}
-    //#endregion
 }
