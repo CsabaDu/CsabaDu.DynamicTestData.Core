@@ -81,7 +81,7 @@ public abstract record TestData(string Definition)
     /// <returns>An array of objects representing the parameters based on the specified <paramref name="argsCode"/>  and
     /// <paramref name="propsCode"/>.</returns>
     /// <exception cref="InvalidOperationException">Thrown if the specified property code requires more parameters than are available.</exception>
-    public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode, out string? testCaseName)
+    public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode, out string testCaseName)
     {
         testCaseName = GetTestCaseName();
         return ToParams(argsCode, propsCode);

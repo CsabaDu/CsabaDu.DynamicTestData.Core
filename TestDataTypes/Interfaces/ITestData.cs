@@ -49,7 +49,7 @@ public interface ITestData : INamedTestCase
     /// generated. This parameter is passed uninitialized.</param>
     /// <returns>An array of objects representing the combined parameters derived from the specified arguments and properties.
     /// The array may contain <see langword="null"/> values if certain parameters are not provided.</returns>
-    object?[] ToParams(ArgsCode argsCode, PropsCode propsCode, out string? testCaseName);
+    object?[] ToParams(ArgsCode argsCode, PropsCode propsCode, out string testCaseName);
 }
 
 /// <summary>
