@@ -94,7 +94,7 @@ public abstract record TestData(string Definition)
             ArgsCode.Properties => propsCode switch
             {
                 PropsCode.TestCaseName => args,
-                PropsCode.Expected => propertiesToArgsFrom(1),
+                PropsCode.Expected => propertiesToParamsFrom(1),
                 PropsCode.Returns => propertiesToParams(this is ITestDataReturns),
                 PropsCode.Throws => propertiesToParams(this is ITestDataThrows),
                 _ => throw propsCode.GetInvalidEnumArgumentException(nameof(propsCode)),
@@ -105,10 +105,10 @@ public abstract record TestData(string Definition)
         #region Local methods
         object?[] propertiesToParams(bool typeMatches)
         => typeMatches || this is not IExpected ?
-            propertiesToArgsFrom(1)
-            : propertiesToArgsFrom(2);
+            propertiesToParamsFrom(1)
+            : propertiesToParamsFrom(2);
 
-        object?[] propertiesToArgsFrom(int index)
+        object?[] propertiesToParamsFrom(int index)
         => (args?.Length ?? 0) > index ?
             args![index..]
             : throw new InvalidOperationException(PropsCountNotEnoughMessage);
