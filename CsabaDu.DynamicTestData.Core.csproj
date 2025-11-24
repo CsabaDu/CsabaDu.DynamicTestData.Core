@@ -9,7 +9,7 @@
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <Title>Dynamic Test Data Core</Title>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>2.2.0-beta</Version>
+    <Version>2.2.3-beta</Version>
     <Company>CsabaDu</Company>
     <Description>Core types of CsabaDu.DynamicTestData, a robust, flexible, extensible, pure .NET framework to facilitate dynamic data-driven testing.</Description>
     <Copyright>(c) 2025. Csaba Dudas (CsabaDu)</Copyright>
@@ -17,7 +17,8 @@
     <PackageTags>dynamic; unit; test; data; driven; typesafe; threadsafe; extensible; mstest; nunit; xunit; xunit.v3; modular;</PackageTags>
     <PackageReleaseNotes>
       - Namespaces matched with the package name.
-      - ArgsCode' and 'PropsCode' extension methods replaced with generic 'TEnum : struct, Enum' ones.
+      - 'ArgsCode' and 'PropsCode' extension methods replaced with generic 'TEnum : struct, Enum' ones.
+      - Static 'TestDataFactory.TestDataToParams' method cancelled, 'ITestData.ToParams(ArgsCode, PropsCode, out string?)' added instead.
     </PackageReleaseNotes>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <IncludeSymbols>True</IncludeSymbols>

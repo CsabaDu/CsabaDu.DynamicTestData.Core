@@ -43,6 +43,17 @@ public interface ITestData : INamedTestCase
     /// A parameter array tailored for test execution.
     /// </returns>
     object?[] ToParams(ArgsCode argsCode, PropsCode propsCode);
+
+    /// <summary>
+    /// Converts the specified arguments and properties into an array of parameters for further processing.
+    /// </summary>
+    /// <param name="argsCode">The code representing the arguments to be included in the parameter array.</param>
+    /// <param name="propsCode">The code representing the properties to be included in the parameter array.</param>
+    /// <param name="testCaseName">When this method returns, contains the name of the test case, or <see langword="null"/> if no test case name is
+    /// generated. This parameter is passed uninitialized.</param>
+    /// <returns>An array of objects representing the combined parameters derived from the specified arguments and properties.
+    /// The array may contain <see langword="null"/> values if certain parameters are not provided.</returns>
+    object?[] ToParams(ArgsCode argsCode, PropsCode propsCode, out string? testCaseName);
 }
 
 /// <summary>
