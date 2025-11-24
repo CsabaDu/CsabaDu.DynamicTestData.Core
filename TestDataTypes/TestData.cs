@@ -71,6 +71,23 @@ public abstract record TestData(string Definition)
     };
 
     /// <summary>
+    /// Converts the specified argument and property codes into an array of parameters,  and optionally retrieves the
+    /// test case name.
+    /// </summary>
+    /// <param name="argsCode">Specifies the type of arguments to include in the resulting parameter array.</param>
+    /// <param name="propsCode">Specifies the type of properties to include in the resulting parameter array.</param>
+    /// <param name="testCaseName">When this method returns, contains the name of the test case, or <see langword="null"/>  if no test case name is
+    /// available. This parameter is passed uninitialized.</param>
+    /// <returns>An array of objects representing the parameters based on the specified <paramref name="argsCode"/>  and
+    /// <paramref name="propsCode"/>.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the specified property code requires more parameters than are available.</exception>
+    public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode, out string? testCaseName)
+    {
+        testCaseName = GetTestCaseName();
+        return ToParams(argsCode, propsCode);
+    }
+
+    /// <summary>
     /// Converts the test data to a parameter array with precise control over included properties.
     /// </summary>
     /// <param name="argsCode">Determines instance vs properties inclusion.</param>
@@ -85,23 +102,8 @@ public abstract record TestData(string Definition)
     /// Thrown when insufficient properties exist for the requested operation.
     /// </exception>
     public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
-    => ToParams(argsCode, propsCode, out _);
-
-    /// <summary>
-    /// Converts the specified argument and property codes into an array of parameters,  and optionally retrieves the
-    /// test case name.
-    /// </summary>
-    /// <param name="argsCode">Specifies the type of arguments to include in the resulting parameter array.</param>
-    /// <param name="propsCode">Specifies the type of properties to include in the resulting parameter array.</param>
-    /// <param name="testCaseName">When this method returns, contains the name of the test case, or <see langword="null"/>  if no test case name is
-    /// available. This parameter is passed uninitialized.</param>
-    /// <returns>An array of objects representing the parameters based on the specified <paramref name="argsCode"/>  and
-    /// <paramref name="propsCode"/>.</returns>
-    /// <exception cref="InvalidOperationException">Thrown if the specified property code requires more parameters than are available.</exception>
-    public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode, out string? testCaseName)
     {
         var args = ToArgs(argsCode);
-        testCaseName = GetTestCaseName();
 
         return argsCode switch
         {
