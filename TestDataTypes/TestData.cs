@@ -80,8 +80,13 @@ public abstract record TestData(string Definition)
     /// available. This parameter is passed uninitialized.</param>
     /// <returns>An array of objects representing the parameters based on the specified <paramref name="argsCode"/>  and
     /// <paramref name="propsCode"/>.</returns>
-    /// <exception cref="InvalidOperationException">Thrown if the specified property code requires more parameters than are available.</exception>
-    public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode, out string testCaseName)
+    /// <exception cref="InvalidEnumArgumentException">
+    /// Thrown when invalid enum values are provided.
+    /// </exception>
+    public object?[] ToParams(
+        ArgsCode argsCode,
+        PropsCode propsCode,
+        out string testCaseName)
     {
         testCaseName = GetTestCaseName();
         return ToParams(argsCode, propsCode);
@@ -98,11 +103,10 @@ public abstract record TestData(string Definition)
     /// <exception cref="InvalidEnumArgumentException">
     /// Thrown when invalid enum values are provided.
     /// </exception>
-    /// <exception cref="InvalidOperationException">
-    /// Thrown when insufficient properties exist for the requested operation.
-    /// </exception>
     public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
     {
+        const int Idx_Expected = 1;
+        const int Idx_Arg1 = 2;
         var args = ToArgs(argsCode);
 
         return argsCode switch
@@ -111,24 +115,22 @@ public abstract record TestData(string Definition)
             ArgsCode.Properties => propsCode switch
             {
                 PropsCode.TestCaseName => args,
-                PropsCode.Expected => propertiesToParamsFrom(1),
-                PropsCode.Returns => propertiesToParams(this is ITestDataReturns),
-                PropsCode.Throws => propertiesToParams(this is ITestDataThrows),
+                PropsCode.Expected => toParamsWithExpected(),
+                PropsCode.Returns => toParamsWithoutExpectedIf(this is ITestDataReturns),
+                PropsCode.Throws => toParamsWithoutExpectedIf(this is ITestDataThrows),
                 _ => throw propsCode.GetInvalidEnumArgumentException(nameof(propsCode)),
             },
             _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
         };
 
         #region Local methods
-        object?[] propertiesToParams(bool typeMatches)
-        => typeMatches || this is not IExpected ?
-            propertiesToParamsFrom(1)
-            : propertiesToParamsFrom(2);
+        object?[] toParamsWithoutExpectedIf(bool typeMatches)
+        => typeMatches ?
+            args[Idx_Arg1..]
+            : toParamsWithExpected();
 
-        object?[] propertiesToParamsFrom(int index)
-        => (args?.Length ?? 0) > index ?
-            args![index..]
-            : throw new InvalidOperationException(PropsCountNotEnoughMessage);
+        object?[] toParamsWithExpected()
+        => args[Idx_Expected..];
         #endregion
     }
 

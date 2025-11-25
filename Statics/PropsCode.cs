@@ -16,20 +16,20 @@ public enum PropsCode
     TestCaseName,
 
     /// <summary>
-    /// Includes all properties of the <see cref="ITestData"/> instance except the 'TestCaseName' property.
+    /// Includes all properties of the <see cref="ITestData"/> instance except the TestCaseName property.
     /// This is useful when the test case name isn't needed to be contained by the test data object array.
     /// </summary>
     Expected,
 
     /// <summary>
-    /// Includes the Expected property only if the <see cref="ITestData"/> instance implements
-    /// <see cref="ITestDataReturns"/>. Otherwise, the Expected property is excluded.
+    /// Excludes the Expected property if the <see cref="ITestData"/> instance implements
+    /// <see cref="ITestDataReturns"/>. Otherwise, the Expected property is included.
     /// </summary>
     Returns,
 
     /// <summary>
-    /// Includes the Expected property only if the <see cref="ITestData"/> instance implements
-    /// <see cref="ITestDataThrows"/>. Otherwise, the Expected property is excluded.
+    /// Excludes the Expected property if the <see cref="ITestData"/> instance implements
+    /// <see cref="ITestDataThrows"/>. Otherwise, the Expected property is included.
     /// </summary>
     Throws,
 }
