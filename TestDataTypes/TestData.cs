@@ -106,7 +106,7 @@ public abstract record TestData(string Definition)
     public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
     {
         const int Idx_Expected = 1;
-        const int Idx_Arg1 = 2;
+        const int Idx_Arg1 = Idx_Expected + 1;
         var args = ToArgs(argsCode);
 
         return argsCode switch
