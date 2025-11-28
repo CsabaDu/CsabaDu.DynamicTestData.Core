@@ -11,12 +11,11 @@ See the Segregated Architecture Diagram for a visual overview of module and name
 
 ![CsabaDu_DynamicTestData_Segregated_Simplified_Full](https://raw.githubusercontent.com/CsabaDu/CsabaDu.DynamicTestData/refs/heads/master/_Images/CsabaDu_DynamicTestData_Segregated_Simplified_Full.svg)
 
-**CsabaDu.DynamicTestData.Core** provides the **foundational architecture** for type‑safe, maintainable test data in .NET. Solves the challenge of keeping inputs, expected outcomes, and exception scenarios consistent across diverse test suites.  
-
 ---
 
 ## Purpose  
-Provides the **foundational architecture** for type‑safe, maintainable test data in .NET. Solves the challenge of keeping inputs, expected outcomes, and exception scenarios consistent across diverse test suites.
+
+**CsabaDu.DynamicTestData.Core** provides the **foundational architecture** for type‑safe, maintainable test data in .NET. Solves the challenge of keeping inputs, expected outcomes, and exception scenarios consistent across diverse test suites.  
 
 ---
 
