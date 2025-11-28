@@ -31,10 +31,10 @@ See the Segregated Architecture Diagram for a visual overview of module and name
 
 | Layer | Role | Example |
 |-------|------|---------|
-| **Interfaces** | Universal access across all test types | `ITestData`, `INamedTestCase` |
+| **Base Interfaces** | Universal access across all test types | `ITestData`, `INamedTestCase` |
 | **Markers** | Intent discovery & pattern matching | `IExpected`, `ITestDataReturns` `ITestDataThrows` |
-| **Concrete Implementations** | Type‑safe operations with context | `TestData<T1..T9>` `TestDataReturns<TStruct, T1..T9>`, `TestDataThrows<TExeption, T1..T9>` |
 | **Generic Constraints** | Compile‑time validation | `ITestData<TResult, T1..T9>`, `ITestDataReturns<TStruct>` `ITestDataThrows<TException>` with constraints |
+| **Concrete Implementations** | Type‑safe operations with context | `TestData<T1..T9>` `TestDataReturns<TStruct, T1..T9>`, `TestDataThrows<TExeption, T1..T9>` |
 
 ---
 
