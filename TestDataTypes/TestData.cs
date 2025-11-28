@@ -114,22 +114,30 @@ public abstract record TestData(string Definition)
             ArgsCode.Instance => args,
             ArgsCode.Properties => propsCode switch
             {
+                // For MSTest: include the test case name so
+                // DynamicDataAttribute.DynamicDataDisplayName can use
+                // TestDataFactory.GetDisplayName to construct the display name.
                 PropsCode.TestCaseName => args,
-                PropsCode.Expected => toParamsWithExpected(),
-                PropsCode.Returns => toParamsWithoutExpectedIf(this is ITestDataReturns),
-                PropsCode.Throws => toParamsWithoutExpectedIf(this is ITestDataThrows),
+
+                // Most common case: exclude test case name from args
+                PropsCode.Expected => argsWithoutTestCaseName(),
+
+                // Useful for NUnit/TestNG style tests returning values
+                PropsCode.Returns => argsWithoutExpectedIf(this is ITestDataReturns),
+                PropsCode.Throws => argsWithoutExpectedIf(this is ITestDataThrows),
+
                 _ => throw propsCode.GetInvalidEnumArgumentException(nameof(propsCode)),
             },
             _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
         };
 
         #region Local methods
-        object?[] toParamsWithoutExpectedIf(bool typeMatches)
+        object?[] argsWithoutExpectedIf(bool typeMatches)
         => typeMatches ?
             args[Idx_Arg1..]
-            : toParamsWithExpected();
+            : argsWithoutTestCaseName();
 
-        object?[] toParamsWithExpected()
+        object?[] argsWithoutTestCaseName()
         => args[Idx_Expected..];
         #endregion
     }
