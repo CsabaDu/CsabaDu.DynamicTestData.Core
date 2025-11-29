@@ -105,8 +105,7 @@ public abstract record TestData(string Definition)
     /// </exception>
     public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
     {
-        const int Idx_Expected = 1;
-        const int Idx_Arg1 = Idx_Expected + 1;
+        const int Idx_Expected = (int)PropsCode.Expected;
         var args = ToArgs(argsCode);
 
         return argsCode switch
@@ -134,11 +133,17 @@ public abstract record TestData(string Definition)
         #region Local methods
         object?[] argsWithoutExpectedIf(bool typeMatches)
         => typeMatches ?
-            args[Idx_Arg1..]
+            argsFrom(Idx_Expected + 1)
             : argsWithoutTestCaseName();
 
         object?[] argsWithoutTestCaseName()
-        => args[Idx_Expected..];
+        => argsFrom(Idx_Expected);
+
+        object?[] argsFrom(int index)
+        => args.Length > index ?
+            args[index..]
+            : throw new InvalidOperationException(
+                PropsCountNotEnoughMessage);
         #endregion
     }
 
@@ -160,7 +165,7 @@ public abstract record TestData(string Definition)
     /// <summary>
     /// Error message for insufficient test data properties.
     /// </summary>
-    internal const string PropsCountNotEnoughMessage =
+    protected const string PropsCountNotEnoughMessage =
         "Insufficient test data properties for the requested operation.";
 
     /// <summary>
