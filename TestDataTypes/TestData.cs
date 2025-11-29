@@ -142,7 +142,8 @@ public abstract record TestData(string Definition)
         object?[] argsFrom(int index)
         => args.Length > index ?
             args[index..]
-            : throw new InvalidOperationException(
+            : throw new ArgumentOutOfRangeException(
+                nameof(propsCode),
                 PropsCountNotEnoughMessage);
         #endregion
     }
@@ -166,7 +167,7 @@ public abstract record TestData(string Definition)
     /// Error message for insufficient test data properties.
     /// </summary>
     protected const string PropsCountNotEnoughMessage =
-        "Insufficient test data properties for the requested operation.";
+        "Insufficient PropsCode for the requested operation.";
 
     /// <summary>
     /// Constructs a standardized test case name by combining the test definition with its result.
