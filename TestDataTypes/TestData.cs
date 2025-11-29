@@ -181,6 +181,10 @@ public abstract record TestData(string Definition)
     /// </remarks>
     protected string GetTestCaseName(string result)
     {
+        result = string.IsNullOrWhiteSpace(result) ?
+            nameof(result)
+            : result;
+
         string definition = string.IsNullOrWhiteSpace(Definition) ?
             nameof(Definition)
             : Definition;

@@ -60,7 +60,7 @@ public static class Extensions
     /// </exception>
     public static TEnum Defined<TEnum>(
         this TEnum enumValue,
-        string paramName)
+        string? paramName)
     where TEnum : struct, Enum
     => Enum.IsDefined(enumValue) ?
         enumValue
@@ -75,7 +75,7 @@ public static class Extensions
     /// <returns>A new <see cref="InvalidEnumArgumentException"/> instance.</returns>
     public static InvalidEnumArgumentException GetInvalidEnumArgumentException<TEnum>(
         this TEnum enumValue,
-        string paramName)
+        string? paramName)
     where TEnum : struct, Enum
     => new(paramName, (int)(object)enumValue, typeof(TEnum));
     #endregion
