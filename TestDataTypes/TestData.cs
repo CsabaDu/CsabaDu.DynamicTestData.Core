@@ -105,7 +105,7 @@ public abstract record TestData(string Definition)
     /// </exception>
     public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
     {
-        const int Idx_Expected = (int)PropsCode.Expected;
+        const int idx_Expected = (int)PropsCode.Expected;
         var args = ToArgs(argsCode);
 
         return argsCode switch
@@ -133,11 +133,11 @@ public abstract record TestData(string Definition)
         #region Local methods
         object?[] argsWithoutExpectedIf(bool typeMatches)
         => typeMatches ?
-            argsFrom(Idx_Expected + 1)
+            argsFrom(idx_Expected + 1)
             : argsWithoutTestCaseName();
 
         object?[] argsWithoutTestCaseName()
-        => argsFrom(Idx_Expected);
+        => argsFrom(idx_Expected);
 
         object?[] argsFrom(int index)
         => args.Length > index ?
