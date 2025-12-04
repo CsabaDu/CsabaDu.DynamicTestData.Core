@@ -25,7 +25,7 @@ where TStruct : struct
     => "returns";
 
     /// <inheritdoc/>
-    public override sealed string GetTestCaseName()
+    public override sealed string TestCaseName
     => GetTestCaseName(Expected.ToString());
 
     /// <summary>

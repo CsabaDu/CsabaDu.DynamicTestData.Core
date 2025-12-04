@@ -26,7 +26,7 @@ where TException : Exception
     => "throws";
 
     /// <inheritdoc/>
-    public override sealed string GetTestCaseName()
+    public override sealed string TestCaseName
     => GetTestCaseName(Expected.GetType().Name);
 
     /// <summary>

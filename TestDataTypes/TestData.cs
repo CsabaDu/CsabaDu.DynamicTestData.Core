@@ -20,13 +20,12 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 public abstract record TestData(string Definition)
 : ITestData
 {
-    //#region Properties
-    ///// <summary>
-    ///// Gets the formatted test case name combining definition and result expectedToString.
-    ///// </summary>
-    //public string TestCaseName
-    //=> GetTestCaseName();
-    //#endregion
+    #region Abstract properties
+    /// <summary>
+    /// Gets the unique name identifying this test case.
+    /// </summary>
+    public abstract string TestCaseName { get; }
+    #endregion
 
     #region Methods
     /// <summary>
@@ -47,14 +46,14 @@ public abstract record TestData(string Definition)
     /// <c>true</c> if the test case names match; otherwise <c>false</c>.
     /// </returns>
     public bool Equals(INamedTestCase? other)
-    => other?.GetTestCaseName() == GetTestCaseName();
+    => other?.TestCaseName == TestCaseName;
 
     /// <summary>
     /// Generates a hash code derived from the return value of the <see cref="GetTestCaseName"/> method.
     /// </summary>
     /// <returns>A stable hash code for the test case.</returns>
     public override int GetHashCode()
-    => GetTestCaseName().GetHashCode();
+    => TestCaseName.GetHashCode();
 
     /// <summary>
     /// Converts the test data to an argument array based on the specified <see cref="ArgsCode"/> parameter.
@@ -74,7 +73,7 @@ public abstract record TestData(string Definition)
     => argsCode switch
     {
         ArgsCode.Instance => [this],
-        ArgsCode.Properties => [GetTestCaseName()],
+        ArgsCode.Properties => [TestCaseName],
         _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
     };
 
@@ -96,7 +95,7 @@ public abstract record TestData(string Definition)
         PropsCode propsCode,
         out string testCaseName)
     {
-        testCaseName = GetTestCaseName();
+        testCaseName = TestCaseName;
         return ToParams(argsCode, propsCode);
     }
 
@@ -160,14 +159,7 @@ public abstract record TestData(string Definition)
     /// Overrides and seals the `ToString()` method to return the value of <see cref="GetTestCaseName"/> method.
     /// </summary>
     public override sealed string ToString()
-    => GetTestCaseName();
-
-    #region Abstract methods
-    /// <summary>
-    /// Gets the unique name identifying this test case.
-    /// </summary>
-    public abstract string GetTestCaseName();
-    #endregion
+    => TestCaseName;
     #endregion
 
     #region Helper members
@@ -201,7 +193,7 @@ public abstract record TestData(string Definition)
         var expected = this as IExpected;
         bool isExpected = expected is not null;
 
-        paramName = isExpected ? "Expected" : nameof(result);
+        paramName = isExpected ? nameof(expected) : nameof(result);
         result = validated(result);
 
         return isExpected ?
@@ -236,7 +228,7 @@ public record TestData<T1>(
 ITestData<string, T1>
 {
     /// <inheritdoc/>
-    public override sealed string GetTestCaseName()
+    public override sealed string TestCaseName
     => GetTestCaseName(Expected);
 
     /// <inheritdoc/>
