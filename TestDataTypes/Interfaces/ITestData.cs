@@ -21,6 +21,15 @@ public interface ITestData : INamedTestCase
     /// </summary>
     string Definition { get; }
 
+    ///// <summary>
+    ///// Gets the complete display name of the test case.
+    ///// </summary>
+    ///// <value>
+    ///// Typically combines the <see cref="Definition"/> with expected outcome.
+    ///// Example: "Login with invalid credentials => throws AuthenticationException"
+    ///// </value>
+    //string TestCaseName { get; }
+
     /// <summary>
     /// Converts the test case to an array of arguments based on the specified <see cref="ArgsCode"> parameter.
     /// </summary>
@@ -62,15 +71,6 @@ public interface ITestData : INamedTestCase
 public interface ITestData<out TResult> : ITestData
     where TResult : notnull
 {
-    /// <summary>
-    /// Gets the complete display name of the test case.
-    /// </summary>
-    /// <value>
-    /// Typically combines the <see cref="ITestData.Definition"/> with expected outcome.
-    /// Example: "Login with invalid credentials => throws AuthenticationException"
-    /// </value>
-    string TestCaseName { get; }
-
     /// <summary>
     /// Gets the expected result of the test case.
     /// </summary>

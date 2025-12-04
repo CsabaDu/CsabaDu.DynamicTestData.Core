@@ -21,24 +21,20 @@ public abstract record TestDataThrows<TException>(
 ITestDataThrows<TException>
 where TException : Exception
 {
-    /// <summary>
-    /// Gets the formatted test case name including the expected exception runtime type name.
-    /// </summary>
-    /// <example>
-    /// "Invalid login => throws ArgumentException"
-    /// </example>
-    public string TestCaseName
-    => GetTestCaseName($"throws {Expected.GetType().Name}");
+    /// <inheritdoc/>
+    public string ResultPrefix
+    => "throws";
 
     /// <inheritdoc/>
     public override sealed string GetTestCaseName()
-    => TestCaseName;
+    => GetTestCaseName(ResultPrefix, Expected.GetType().Name);
 
     /// <summary>
     /// Gets the expected exception instance.
     /// </summary>
     /// <returns>The exception object that should be thrown.</returns>
-    public object GetExpected() => Expected;
+    public object GetExpected()
+    => Expected;
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)"/>
     /// <remarks>

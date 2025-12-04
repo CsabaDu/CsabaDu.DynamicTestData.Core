@@ -20,6 +20,14 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 public abstract record TestData(string Definition)
 : ITestData
 {
+    //#region Properties
+    ///// <summary>
+    ///// Gets the formatted test case name combining definition and result expectedToString.
+    ///// </summary>
+    //public string TestCaseName
+    //=> GetTestCaseName();
+    //#endregion
+
     #region Methods
     /// <summary>
     /// Determines whether the current instance is contained within the specified collection of named test cases.
@@ -170,33 +178,40 @@ public abstract record TestData(string Definition)
         "Insufficient PropsCode for the requested operation.";
 
     /// <summary>
-    /// Constructs a standardized test case name by combining the test definition with its result.
+    /// Constructs a standardized test case name by combining the test definition with its expectedToString.
     /// </summary>
-    /// <param name="result">The test result or outcome to append to the definition.</param>
+    /// <param name="result">The test expectedToString or outcome to append to the definition.</param>
     /// <returns>
-    /// A formatted test case name in the format: "{Definition} => {result}".
+    /// A formatted test case name in the format: "{Definition} => {expectedToString}".
     /// If the Definition is null or whitespace, uses the literal "Definition" as the definition.
     /// </returns>
     /// <remarks>
     /// This method ensures consistent naming across all test cases by:
     /// <list type="bullet">
     ///   <item>Handling null/empty definitions gracefully</item>
-    ///   <item>Providing a clear visual separator (" => ") between definition and result</item>
+    ///   <item>Providing a clear visual separator (" => ") between definition and expectedToString</item>
     ///   <item>Maintaining a predictable format for test reporting</item>
     /// </list>
     /// </remarks>
-    protected string GetTestCaseName(string result)
+    protected string GetTestCaseName(string? resultPrefix, string? result)
     {
-        result = string.IsNullOrWhiteSpace(result) ?
-            nameof(result)
-            : result;
+        string paramName = nameof(Definition);
+        string definition = validated(Definition);
+        paramName = resultPrefix is null ? nameof(result) : "Expected";
+        result = validated(result);
 
-        string definition = string.IsNullOrWhiteSpace(Definition) ?
-            nameof(Definition)
-            : Definition;
+        return resultPrefix is null ?
+            $"{definition} => {result}"
+            : $"{definition} => {resultPrefix} {result}";
 
-        return $"{definition} => {result}";
+        #region Local function
+        string validated(string? value)
+        => string.IsNullOrWhiteSpace(value) ?
+            paramName
+            : value;
+        #endregion
     }
+
     #endregion
 }
 #endregion
@@ -207,7 +222,7 @@ public abstract record TestData(string Definition)
 /// </summary>
 /// <typeparam name="T1">Type of the first test argument.</typeparam>
 /// <param name="Definition">Description of the test scenario.</param>
-/// <param name="Expected">The expected result description.</param>
+/// <param name="Expected">The result expectedToString description.</param>
 /// <param name="Arg1">First test argument value.</param>
 public record TestData<T1>(
     string Definition,
@@ -216,18 +231,9 @@ public record TestData<T1>(
 : TestData(Definition),
 ITestData<string, T1>
 {
-    /// <summary>
-    /// Gets the formatted test case name combining definition and expected result.
-    /// </summary>
-    public string TestCaseName
-    => GetTestCaseName(
-        string.IsNullOrWhiteSpace(Expected) ?
-            nameof(Expected)
-            : Expected);
-
     /// <inheritdoc/>
     public override sealed string GetTestCaseName()
-    => TestCaseName;
+    => GetTestCaseName(null, Expected);
 
     /// <inheritdoc/>
     public override object?[] ToArgs(ArgsCode argsCode)

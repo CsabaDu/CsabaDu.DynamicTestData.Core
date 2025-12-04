@@ -347,6 +347,7 @@ public static class TestDataFactory
         if (string.IsNullOrEmpty(testMethodName)) return null;
 
         var testCaseName = args?.FirstOrDefault();
+
         return !string.IsNullOrEmpty(testCaseName?.ToString()) ?
             $"{testMethodName}(testData: {testCaseName})"
             : null;

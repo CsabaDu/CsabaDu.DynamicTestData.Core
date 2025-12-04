@@ -20,24 +20,20 @@ public abstract record TestDataReturns<TStruct>(
 ITestDataReturns<TStruct>
 where TStruct : struct
 {
-    /// <summary>
-    /// Gets the formatted test case name including the expected return value.
-    /// </summary>
-    /// <example>
-    /// "Test scenario => returns 42"
-    /// </example>
-    public string TestCaseName
-    => GetTestCaseName($"returns {Expected.ToString() ?? nameof(Expected)}");
+    /// <inheritdoc/>
+    public string ResultPrefix
+    => "returns";
 
     /// <inheritdoc/>
     public override sealed string GetTestCaseName()
-    => TestCaseName;
+    => GetTestCaseName(ResultPrefix, Expected.ToString());
 
     /// <summary>
     /// Gets the expected return value as an object.
     /// </summary>
     /// <returns>The boxed expected value.</returns>
-    public object GetExpected() => Expected;
+    public object GetExpected()
+    => Expected;
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)"/>
     /// <remarks>
