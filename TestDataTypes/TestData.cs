@@ -193,16 +193,20 @@ public abstract record TestData(string Definition)
     ///   <item>Maintaining a predictable format for test reporting</item>
     /// </list>
     /// </remarks>
-    protected string GetTestCaseName(string? resultPrefix, string? result)
+    protected string GetTestCaseName(string? result)
     {
         string paramName = nameof(Definition);
         string definition = validated(Definition);
-        paramName = resultPrefix is null ? nameof(result) : "Expected";
+
+        var expected = this as IExpected;
+        bool isExpected = expected is not null;
+
+        paramName = isExpected ? "Expected" : nameof(result);
         result = validated(result);
 
-        return resultPrefix is null ?
-            $"{definition} => {result}"
-            : $"{definition} => {resultPrefix} {result}";
+        return isExpected ?
+            $"{definition} => {expected!.ResultPrefix} {result}"
+            : $"{definition} => {result}";
 
         #region Local function
         string validated(string? value)
@@ -233,7 +237,7 @@ ITestData<string, T1>
 {
     /// <inheritdoc/>
     public override sealed string GetTestCaseName()
-    => GetTestCaseName(null, Expected);
+    => GetTestCaseName(Expected);
 
     /// <inheritdoc/>
     public override object?[] ToArgs(ArgsCode argsCode)

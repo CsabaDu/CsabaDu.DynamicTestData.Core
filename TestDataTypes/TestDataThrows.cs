@@ -27,7 +27,7 @@ where TException : Exception
 
     /// <inheritdoc/>
     public override sealed string GetTestCaseName()
-    => GetTestCaseName(ResultPrefix, Expected.GetType().Name);
+    => GetTestCaseName(Expected.GetType().Name);
 
     /// <summary>
     /// Gets the expected exception instance.
