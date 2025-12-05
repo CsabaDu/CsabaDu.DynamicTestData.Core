@@ -187,13 +187,13 @@ public abstract record TestData(string Definition)
     /// </remarks>
     protected string GetTestCaseName(string? result)
     {
-        string paramName = nameof(Definition);
+        string substitute = nameof(Definition);
         string definition = validated(Definition);
 
         var expected = this as IExpected;
         bool isExpected = expected is not null;
 
-        paramName = isExpected ? nameof(expected) : nameof(result);
+        substitute = isExpected ? nameof(expected) : nameof(result);
         result = validated(result);
 
         return isExpected ?
@@ -202,12 +202,11 @@ public abstract record TestData(string Definition)
 
         #region Local function
         string validated(string? value)
-        => string.IsNullOrWhiteSpace(value) ?
-            paramName
+        => string.IsNullOrEmpty(value) ?
+            substitute
             : value;
         #endregion
     }
-
     #endregion
 }
 #endregion
