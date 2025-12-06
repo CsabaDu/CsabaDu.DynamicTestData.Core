@@ -23,13 +23,13 @@ public enum PropsCode
 
     /// <summary>
     /// Excludes the Expected property if the <see cref="ITestData"/> instance implements
-    /// <see cref="ITestDataReturns"/>. Otherwise, the Expected property is included.
+    /// <see cref="IReturns"/>. Otherwise, the Expected property is included.
     /// </summary>
     Returns,
 
     /// <summary>
     /// Excludes the Expected property if the <see cref="ITestData"/> instance implements
-    /// <see cref="ITestDataThrows"/>. Otherwise, the Expected property is included.
+    /// <see cref="IThrows"/>. Otherwise, the Expected property is included.
     /// </summary>
     Throws,
 }

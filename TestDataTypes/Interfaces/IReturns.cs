@@ -9,7 +9,7 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 /// <remarks>
 /// Serves as a semantic indicator for tests verifying successful execution paths with return values.
 /// </remarks>
-public interface ITestDataReturns
+public interface IReturns
 : IExpected;
 
 /// <summary>
@@ -25,6 +25,6 @@ public interface ITestDataReturns
 /// </list>
 /// </remarks>
 public interface ITestDataReturns<out TStruct>
-: ITestDataReturns,
+: IReturns,
 ITestData<TStruct>
 where TStruct : struct;

@@ -10,7 +10,7 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 /// <remarks>
 /// Identifies tests verifying error handling and exceptional execution paths.
 /// </remarks>
-public interface ITestDataThrows
+public interface IThrows
 : IExpected;
 
 /// <summary>
@@ -26,6 +26,6 @@ public interface ITestDataThrows
 /// </list>
 /// </remarks>
 public interface ITestDataThrows<out TException>
-: ITestDataThrows,
+: IThrows,
 ITestData<TException>
 where TException : Exception;

@@ -129,8 +129,8 @@ public abstract record TestData(string Definition)
                 PropsCode.Expected => argsWithoutTestCaseName(),
 
                 // Useful for NUnit/TestNG style tests returning values
-                PropsCode.Returns => argsWithoutExpectedIf(this is ITestDataReturns),
-                PropsCode.Throws => argsWithoutExpectedIf(this is ITestDataThrows),
+                PropsCode.Returns => argsWithoutExpectedIf(this is IReturns),
+                PropsCode.Throws => argsWithoutExpectedIf(this is IThrows),
 
                 _ => throw propsCode.GetInvalidEnumArgumentException(nameof(propsCode)),
             },
