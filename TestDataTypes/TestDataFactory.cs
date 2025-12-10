@@ -349,7 +349,7 @@ public static class TestDataFactory
         var testCaseName = args?.FirstOrDefault();
 
         return !string.IsNullOrEmpty(testCaseName?.ToString()) ?
-            $"{testMethodName}(testData: {testCaseName})"
+            $"{testMethodName}({testCaseName})"
             : null;
     }
     #endregion
