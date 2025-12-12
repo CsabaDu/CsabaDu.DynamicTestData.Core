@@ -1,6 +1,8 @@
 ﻿// SPDX-License-Identifier: MIT
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
+using CsabaDu.DynamicTestData.Core.Extensions;
+
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 
 #region Abstract type
@@ -122,7 +124,7 @@ public abstract record TestData(string Definition)
             {
                 // For MSTest: include the test case name so
                 // DynamicDataAttribute.DynamicDataDisplayName can use
-                // TestDataFactory.GetDisplayName to construct the display name.
+                // TestDataFactory.CreateDisplayName to construct the display name.
                 PropsCode.TestCaseName => args,
 
                 // Most common case: exclude test case name from args

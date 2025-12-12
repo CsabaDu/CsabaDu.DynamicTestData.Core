@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: MIT
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
-namespace CsabaDu.DynamicTestData.Core.Statics;
+namespace CsabaDu.DynamicTestData.Core.DataStrategyTypes;
 
 /// <summary>
 /// Specifies whether the test data object array contains the <see cref="ITestData"/> instance itself
