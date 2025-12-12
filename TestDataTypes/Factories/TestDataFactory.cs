@@ -13,7 +13,6 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Factories;
 /// <item>Test data with expected return values</item>
 /// <item>Test data with expected exceptions</item>
 /// </list>
-/// Also includes utility methods for test display and parameter conversion.
 /// </remarks>
 public static class TestDataFactory
 {
