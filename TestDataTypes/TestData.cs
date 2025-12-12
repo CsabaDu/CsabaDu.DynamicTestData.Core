@@ -211,6 +211,44 @@ public abstract record TestData(string Definition)
             : value;
         #endregion
     }
+
+    /// <summary>
+    /// Conditionally extends an arguments array based on the specified <see cref="ArgsCode"/> strategy.
+    /// </summary>
+    /// <typeparam name="T">The type of newArg to potentially add.</typeparam>
+    /// <param name="baseArgs">The source arguments array.</param>
+    /// <param name="argsCode">Determines the processing strategy:
+    /// <list type="bullet">
+    ///   <item><see cref="ArgsCode.Instance"/>: Returns the original array reference</item>
+    ///   <item><see cref="ArgsCode.Properties"/>: Returns a new array with the newArg appended</item>
+    /// </list>
+    /// </param>
+    /// <param name="newArg">The value to potentially append.</param>
+    /// <returns>
+    /// Either:
+    /// <list type="bullet">
+    ///   <item>The original <paramref name="baseArgs"/> array (when argsCode is Instance)</item>
+    ///   <item>A new array containing existing elements plus <paramref name="newArg"/> (when argsCode is Properties)</item>
+    /// </list>
+    /// </returns>
+    /// <exception cref="InvalidEnumArgumentException">
+    /// Thrown when <paramref name="argsCode"/> is neither Instance nor Properties.
+    /// </exception>
+    /// <remarks>
+    /// Important behavior notes:
+    /// <list type="bullet">
+    ///   <item>For <see cref="ArgsCode.Instance"/>: Returns the original array reference without modification</item>
+    ///   <item>For <see cref="ArgsCode.Properties"/>: Creates and returns a new array instance, with the specified newArg added.</item>
+    ///   <item>Null <paramref name="baseArgs"/> will throw NullReferenceException</item>
+    /// </list>
+    /// </remarks>
+    protected static object?[] Extend<T>(object?[] baseArgs, T? newArg, ArgsCode argsCode)
+    => argsCode switch
+    {
+        ArgsCode.Instance => baseArgs,
+        ArgsCode.Properties => [.. baseArgs, newArg],
+        _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
+    };
     #endregion
 }
 #endregion
@@ -236,7 +274,7 @@ ITestData<string, T1>
 
     /// <inheritdoc/>
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg1);
+    => Extend(base.ToArgs(argsCode), Arg1, argsCode);
 }
 
 /// <summary>
@@ -255,7 +293,7 @@ ITestData<string, T1, T2>
 {
     /// <inheritdoc/>
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg2);
+    => Extend(base.ToArgs(argsCode), Arg2, argsCode);
 }
 
 /// <summary>
@@ -273,7 +311,7 @@ ITestData<string, T1, T2, T3>
 {
     /// <inheritdoc/>
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg3);
+    => Extend(base.ToArgs(argsCode), Arg3, argsCode);
 }
 
 /// <summary>
@@ -294,7 +332,7 @@ public record TestData<T1, T2, T3, T4>(
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg4);
+    => Extend(base.ToArgs(argsCode), Arg4, argsCode);
 }
 
 /// <summary>
@@ -315,7 +353,7 @@ public record TestData<T1, T2, T3, T4, T5>(
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg5);
+    => Extend(base.ToArgs(argsCode), Arg5, argsCode);
 }
 
 /// <summary>
@@ -336,7 +374,7 @@ public record TestData<T1, T2, T3, T4, T5, T6>(
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg6);
+    => Extend(base.ToArgs(argsCode), Arg6, argsCode);
 }
 
 /// <summary>
@@ -357,7 +395,7 @@ public record TestData<T1, T2, T3, T4, T5, T6, T7>(
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg7);
+    => Extend(base.ToArgs(argsCode), Arg7, argsCode);
 }
 
 /// <summary>
@@ -378,7 +416,7 @@ public record TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg8);
+    => Extend(base.ToArgs(argsCode), Arg8, argsCode);
 }
 
 /// <summary>
@@ -399,6 +437,6 @@ public record TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg9);
+    => Extend(base.ToArgs(argsCode), Arg9, argsCode);
 }
 #endregion

@@ -2,7 +2,6 @@
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
 using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
-using CsabaDu.DynamicTestData.Core.Extensions;
 using CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
@@ -44,7 +43,7 @@ where TStruct : struct
     /// Adds the expected return value to the argument array when <see cref="ArgsCode.Properties"/> is specified.
     /// </remarks>
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Expected);
+    => Extend(base.ToArgs(argsCode), Expected, argsCode);
 }
 #endregion
 
@@ -67,7 +66,7 @@ where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg1);
+    => Extend(base.ToArgs(argsCode), Arg1, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1}" />
@@ -86,7 +85,7 @@ where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg2);
+    => Extend(base.ToArgs(argsCode), Arg2, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2}" />
@@ -105,7 +104,7 @@ where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg3);
+    => Extend(base.ToArgs(argsCode), Arg3, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3}" />
@@ -124,7 +123,7 @@ where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg4);
+    => Extend(base.ToArgs(argsCode), Arg4, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4}" />
@@ -143,7 +142,7 @@ where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg5);
+    => Extend(base.ToArgs(argsCode), Arg5, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4, T5}" />
@@ -162,7 +161,7 @@ where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg6);
+    => Extend(base.ToArgs(argsCode), Arg6, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4, T5, T6}" />
@@ -181,7 +180,7 @@ where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg7);
+    => Extend(base.ToArgs(argsCode), Arg7, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4, T5, T6, T7}" />
@@ -200,7 +199,7 @@ where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg8);
+    => Extend(base.ToArgs(argsCode), Arg8, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4, T5, T6, T7, T8}" />
@@ -219,6 +218,6 @@ where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => base.ToArgs(argsCode).Add(argsCode, Arg9);
+    => Extend(base.ToArgs(argsCode), Arg9, argsCode);
 }
 #endregion
