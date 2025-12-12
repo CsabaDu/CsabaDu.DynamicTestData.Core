@@ -1,7 +1,9 @@
 ﻿// SPDX-License-Identifier: MIT
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
+using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
 using CsabaDu.DynamicTestData.Core.Extensions;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 

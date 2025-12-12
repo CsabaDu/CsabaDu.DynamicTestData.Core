@@ -1,8 +1,17 @@
 ﻿// SPDX-License-Identifier: MIT
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
+using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
+
 namespace CsabaDu.DynamicTestData.Core.Extensions;
 
+/// <summary>
+/// Provides extension methods for manipulating arrays of <see langword="object"/> values with conditional strategies.
+/// </summary>
+/// <remarks>The <see cref="ObjectArrayExtensions"/> class offers utility methods for extending or processing
+/// arrays of objects based on specified strategies, such as appending elements or returning the original array. These
+/// methods are intended to simplify argument handling scenarios where the behavior may vary depending on a strategy
+/// code.</remarks>
 public static class ObjectArrayExtensions
 {
     /// <summary>
