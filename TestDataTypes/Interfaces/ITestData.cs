@@ -23,15 +23,6 @@ public interface ITestData : INamedTestCase
     /// </summary>
     string Definition { get; }
 
-    ///// <summary>
-    ///// Gets the complete display name of the test case.
-    ///// </summary>
-    ///// <value>
-    ///// Typically combines the <see cref="Definition"/> with expected outcome.
-    ///// Example: "Login with invalid credentials => throws AuthenticationException"
-    ///// </value>
-    //string TestCaseName { get; }
-
     /// <summary>
     /// Converts the test case to an array of arguments based on the specified <see cref="ArgsCode"> parameter.
     /// </summary>
