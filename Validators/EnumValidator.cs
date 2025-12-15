@@ -1,15 +1,15 @@
 ﻿// SPDX-License-Identifier: MIT
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
-namespace CsabaDu.DynamicTestData.Core.Extensions;
+namespace CsabaDu.DynamicTestData.Core.Validators;
 
 /// <summary>
 /// Provides extension methods for validating and handling enumeration values in a type-safe manner.
 /// </summary>
-/// <remarks>The <see cref="EnumExtensions"/> class offers utility methods to ensure that enumeration values are
+/// <remarks>The <see cref="EnumValidator"/> class offers utility methods to ensure that enumeration values are
 /// valid and to standardize exception handling for invalid enum arguments. These methods are intended to simplify
 /// validation logic and promote consistent error reporting when working with strongly typed enums.</remarks>
-public static class EnumExtensions
+public static class EnumValidator
 {
     /// <summary>
     /// Validates that the <see cref="enum"/> value is defined in the 'TEnum'-type enumeration.
