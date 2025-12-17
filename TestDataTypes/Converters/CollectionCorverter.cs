@@ -28,8 +28,7 @@ public static class CollectionCorverter
 
     public static IEnumerable<TRow> Convert<TTestData, TRow>(
         this IEnumerable<TTestData> testDataCollection,
-        Func<TTestData, ArgsCode, string?, TRow> convertRow,
-        string rowConverterName,
+        Func<TTestData, ArgsCode, string?, TRow> testDataConverter,
         ArgsCode argsCode,
         string? testMethodName)
     where TTestData : notnull, ITestData
@@ -38,12 +37,12 @@ public static class CollectionCorverter
             testDataCollection,
             nameof(testDataCollection));
         ArgumentNullException.ThrowIfNull(
-            convertRow,
-            rowConverterName);
+            testDataConverter,
+            nameof(testDataConverter));
 
         foreach (var testData in testDataCollection)
         {
-            yield return convertRow(
+            yield return testDataConverter(
                 testData,
                 argsCode,
                 testMethodName);
