@@ -2,8 +2,9 @@
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
 using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
-using CsabaDu.DynamicTestData.Core.Validators;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.Factories;
 using CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
+using CsabaDu.DynamicTestData.Core.Validators;
 
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 
@@ -41,6 +42,11 @@ public abstract record TestData(string Definition)
     /// langword="null"/>.</returns>
     public bool ContainedBy(IEnumerable<INamedTestCase>? namedTestCases)
     => namedTestCases?.Any(Equals) == true;
+
+    public string? GetDisplayName(string? testMethodName)
+    => DisplayNameFactory.CreateDisplayName(
+        testMethodName,
+        TestCaseName);
 
     /// <summary>
     /// Determines equality with another <see cref="INamedTestCase"/> based on test case name comparison.
@@ -81,27 +87,8 @@ public abstract record TestData(string Definition)
         _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
     };
 
-    /// <summary>
-    /// Converts the specified argument and property codes into an array of parameters,  and optionally retrieves the
-    /// test case name.
-    /// </summary>
-    /// <param name="argsCode">Specifies the type of arguments to include in the resulting parameter array.</param>
-    /// <param name="propsCode">Specifies the type of properties to include in the resulting parameter array.</param>
-    /// <param name="testCaseName">When this method returns, contains the name of the test case, or <see langword="null"/>  if no test case name is
-    /// available. This parameter is passed uninitialized.</param>
-    /// <returns>An array of objects representing the parameters based on the specified <paramref name="argsCode"/>  and
-    /// <paramref name="propsCode"/>.</returns>
-    /// <exception cref="InvalidEnumArgumentException">
-    /// Thrown when invalid enum values are provided.
-    /// </exception>
-    public object?[] ToParams(
-        ArgsCode argsCode,
-        PropsCode propsCode,
-        out string testCaseName)
-    {
-        testCaseName = TestCaseName;
-        return ToParams(argsCode, propsCode);
-    }
+    public object?[] ToParams(ArgsCode argsCode)
+    => ToParams(argsCode, PropsCode.Expected);
 
     /// <summary>
     /// Converts the test data to a parameter array with precise control over included properties.
@@ -265,8 +252,7 @@ public record TestData<T1>(
     string Definition,
     string Expected,
     T1? Arg1)
-: TestData(Definition),
-ITestData<string, T1>
+: TestData(Definition)
 {
     /// <inheritdoc/>
     public override sealed string TestCaseName
@@ -288,8 +274,7 @@ public record TestData<T1, T2>(
     string Definition,
     string Expected,
     T1? Arg1, T2? Arg2)
-: TestData<T1>(Definition, Expected, Arg1),
-ITestData<string, T1, T2>
+: TestData<T1>(Definition, Expected, Arg1)
 {
     /// <inheritdoc/>
     public override object?[] ToArgs(ArgsCode argsCode)
@@ -306,8 +291,7 @@ public record TestData<T1, T2, T3>(
     string Definition,
     string Expected,
     T1? Arg1, T2? Arg2, T3? Arg3)
-: TestData<T1, T2>(Definition, Expected, Arg1, Arg2),
-ITestData<string, T1, T2, T3>
+: TestData<T1, T2>(Definition, Expected, Arg1, Arg2)
 {
     /// <inheritdoc/>
     public override object?[] ToArgs(ArgsCode argsCode)
@@ -327,8 +311,7 @@ public record TestData<T1, T2, T3, T4>(
 : TestData<T1, T2, T3>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3),
-    ITestData<string, T1, T2, T3, T4>
+    Arg1, Arg2, Arg3)
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
@@ -348,8 +331,7 @@ public record TestData<T1, T2, T3, T4, T5>(
 : TestData<T1, T2, T3, T4>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4),
-    ITestData<string, T1, T2, T3, T4, T5>
+    Arg1, Arg2, Arg3, Arg4)
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
@@ -369,8 +351,7 @@ public record TestData<T1, T2, T3, T4, T5, T6>(
 : TestData<T1, T2, T3, T4, T5>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5),
-    ITestData<string, T1, T2, T3, T4, T5, T6>
+    Arg1, Arg2, Arg3, Arg4, Arg5)
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
@@ -390,8 +371,7 @@ public record TestData<T1, T2, T3, T4, T5, T6, T7>(
 : TestData<T1, T2, T3, T4, T5, T6>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6),
-    ITestData<string, T1, T2, T3, T4, T5, T6, T7>
+    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
@@ -411,8 +391,7 @@ public record TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
 : TestData<T1, T2, T3, T4, T5, T6, T7>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7),
-    ITestData<string, T1, T2, T3, T4, T5, T6, T7, T8>
+    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7)
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
@@ -432,8 +411,7 @@ public record TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
 : TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8),
-    ITestData<string, T1, T2, T3, T4, T5, T6, T7, T8, T9>
+    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)

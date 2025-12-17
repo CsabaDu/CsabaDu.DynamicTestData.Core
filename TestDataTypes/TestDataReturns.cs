@@ -20,7 +20,7 @@ public abstract record TestDataReturns<TStruct>(
     string Definition,
     TStruct Expected)
 : TestData(Definition),
-ITestDataReturns<TStruct>
+ITestData<TStruct>
 where TStruct : struct
 {
     /// <inheritdoc/>
@@ -60,8 +60,7 @@ public record TestDataReturns<TStruct, T1>(
     T1? Arg1)
 : TestDataReturns<TStruct>(
     Definition,
-    Expected),
-    ITestData<TStruct, T1>
+    Expected)
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -79,8 +78,7 @@ public record TestDataReturns<TStruct, T1, T2>(
 : TestDataReturns<TStruct, T1>(
     Definition,
     Expected,
-    Arg1),
-    ITestData<TStruct, T1, T2>
+    Arg1)
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -98,8 +96,7 @@ public record TestDataReturns<TStruct, T1, T2, T3>(
 : TestDataReturns<TStruct, T1, T2>(
     Definition,
     Expected,
-    Arg1, Arg2),
-    ITestData<TStruct, T1, T2, T3>
+    Arg1, Arg2)
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -117,8 +114,7 @@ public record TestDataReturns<TStruct, T1, T2, T3, T4>(
 : TestDataReturns<TStruct, T1, T2, T3>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3),
-    ITestData<TStruct, T1, T2, T3, T4>
+    Arg1, Arg2, Arg3)
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -136,8 +132,7 @@ public record TestDataReturns<TStruct, T1, T2, T3, T4, T5>(
 : TestDataReturns<TStruct, T1, T2, T3, T4>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4),
-    ITestData<TStruct, T1, T2, T3, T4, T5>
+    Arg1, Arg2, Arg3, Arg4)
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -155,8 +150,7 @@ public record TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6>(
 : TestDataReturns<TStruct, T1, T2, T3, T4, T5>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5),
-    ITestData<TStruct, T1, T2, T3, T4, T5, T6>
+    Arg1, Arg2, Arg3, Arg4, Arg5)
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -174,8 +168,7 @@ public record TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7>(
 : TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6),
-    ITestData<TStruct, T1, T2, T3, T4, T5, T6, T7>
+    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -193,8 +186,7 @@ public record TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8>(
 : TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7),
-    ITestData<TStruct, T1, T2, T3, T4, T5, T6, T7, T8>
+    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7)
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -212,8 +204,7 @@ public record TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
 : TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8),
-    ITestData<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>
+    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />

@@ -18,3 +18,23 @@ public interface IExpected
     /// </summary>
     object GetExpected();
 }
+
+/// <summary>
+/// Marker interface for test cases validating method return values.
+/// Inherits from <see cref="IExpected"/> and marks test data designed to return a value.
+/// </summary>
+/// <remarks>
+/// Serves as a semantic indicator for tests verifying successful execution paths with return values.
+/// </remarks>
+public interface IReturns
+: IExpected;
+
+/// <summary>
+/// Marker interface for test cases validating exception throwing behavior.
+/// Inherits from <see cref="IExpected"/> and marks test data designed to throw an exception.
+/// </summary>
+/// <remarks>
+/// Identifies tests verifying error handling and exceptional execution paths.
+/// </remarks>
+public interface IThrows
+: IExpected;

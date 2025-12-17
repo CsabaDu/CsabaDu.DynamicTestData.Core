@@ -34,6 +34,13 @@ public interface INamedTestCase : IEquatable<INamedTestCase>
     bool ContainedBy(IEnumerable<INamedTestCase>? namedTestCases);
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="testMethodName"></param>
+    /// <returns></returns>
+    string? GetDisplayName(string? testMethodName);
+
+    /// <summary>
     /// Generates a complete, descriptive name for the test case suitable for display in test runners.
     /// </summary>
     /// <returns>

@@ -21,7 +21,7 @@ public abstract record TestDataThrows<TException>(
     string Definition,
     TException Expected)
 : TestData(Definition),
-ITestDataThrows<TException>
+ITestData<TException>
 where TException : Exception
 {
     /// <inheritdoc/>
@@ -61,8 +61,7 @@ public record TestDataThrows<TException, T1>(
     T1? Arg1)
 : TestDataThrows<TException>(
     Definition,
-    Expected),
-    ITestData<TException, T1>
+    Expected)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -80,8 +79,7 @@ public record TestDataThrows<TException, T1, T2>(
 : TestDataThrows<TException, T1>(
     Definition,
     Expected,
-    Arg1),
-    ITestData<TException, T1, T2>
+    Arg1)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -99,8 +97,7 @@ public record TestDataThrows<TException, T1, T2, T3>(
 : TestDataThrows<TException, T1, T2>(
     Definition,
     Expected,
-    Arg1, Arg2),
-    ITestData<TException, T1, T2, T3>
+    Arg1, Arg2)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -118,8 +115,7 @@ public record TestDataThrows<TException, T1, T2, T3, T4>(
 : TestDataThrows<TException, T1, T2, T3>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3),
-    ITestData<TException, T1, T2, T3, T4>
+    Arg1, Arg2, Arg3)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -137,8 +133,7 @@ public record TestDataThrows<TException, T1, T2, T3, T4, T5>(
 : TestDataThrows<TException, T1, T2, T3, T4>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4),
-    ITestData<TException, T1, T2, T3, T4, T5>
+    Arg1, Arg2, Arg3, Arg4)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -156,8 +151,7 @@ public record TestDataThrows<TException, T1, T2, T3, T4, T5, T6>(
 : TestDataThrows<TException, T1, T2, T3, T4, T5>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5),
-    ITestData<TException, T1, T2, T3, T4, T5, T6>
+    Arg1, Arg2, Arg3, Arg4, Arg5)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -175,8 +169,7 @@ public record TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7>(
 : TestDataThrows<TException, T1, T2, T3, T4, T5, T6>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6),
-    ITestData<TException, T1, T2, T3, T4, T5, T6, T7>
+    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -194,8 +187,7 @@ public record TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8>(
 : TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7),
-    ITestData<TException, T1, T2, T3, T4, T5, T6, T7, T8>
+    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
@@ -213,8 +205,7 @@ public record TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
 : TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8>(
     Definition,
     Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8),
-    ITestData<TException, T1, T2, T3, T4, T5, T6, T7, T8, T9>
+    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
