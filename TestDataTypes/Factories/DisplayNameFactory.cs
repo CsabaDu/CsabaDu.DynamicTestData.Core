@@ -26,7 +26,7 @@ public static class DisplayNameFactory
         var testCaseName = args?.FirstOrDefault();
 
         return !string.IsNullOrEmpty(testCaseName?.ToString()) ?
-            $"{testMethodName}({testCaseName})"
+            $"{testMethodName}(testData: {testCaseName})"
             : null;
     }
 }
