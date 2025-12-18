@@ -8,12 +8,6 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Converters;
 
 public static class TestDataConverter
 {
-    public static object?[] ReturnsToParams<TTestData>(
-        this TTestData testData,
-        ArgsCode argsCode)
-    where TTestData : notnull, ITestData
-    => testData.ToParams(argsCode, PropsCode.Returns);
-
     public static Type[]? GetTypeArgs<TTestData>(
         this TTestData testData,
         ArgsCode argsCode)
