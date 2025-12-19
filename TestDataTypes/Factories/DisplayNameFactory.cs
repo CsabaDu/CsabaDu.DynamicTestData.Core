@@ -24,9 +24,10 @@ public static class DisplayNameFactory
         if (string.IsNullOrEmpty(testMethodName)) return null;
 
         var testCaseName = args?.FirstOrDefault();
+        var argToString = testCaseName?.ToString();
 
-        return !string.IsNullOrEmpty(testCaseName?.ToString()) ?
-            $"{testMethodName}(testData: {testCaseName})"
-            : null;
+        if (string.IsNullOrEmpty(argToString)) return null;
+
+        return $"{testMethodName}(testData: {testCaseName})";
     }
 }

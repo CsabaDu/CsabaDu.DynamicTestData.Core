@@ -6,7 +6,12 @@ using CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Converters;
 
-public static class CollectionCorverter
+/// <summary>
+/// Provides extension methods for transforming collections of <see cref="ITestData"/> 
+/// into framework-ready representations. Acts as a dual-strategy converter supporting 
+/// both parameter arrays and custom row formats.
+/// </summary>
+public static class CollectionConverter
 {
     public static IEnumerable<object?[]> Convert<TTestData>(
         this IEnumerable<TTestData> testDataCollection,
