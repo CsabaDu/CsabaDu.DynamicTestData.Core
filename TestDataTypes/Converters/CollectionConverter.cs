@@ -3,6 +3,7 @@
 
 using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
 using CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
+using CsabaDu.DynamicTestData.Core.Validators;
 
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Converters;
 
@@ -13,29 +14,112 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Converters;
 /// </summary>
 public static class CollectionConverter
 {
+    /// <summary>
+    /// Converts a collection of <see cref="ITestData"/> into an enumeration of 
+    /// parameter arrays (<c>object?[]</c>) suitable for direct consumption by 
+    /// parameterized test runners (e.g., NUnit, xUnit, MSTest).
+    /// </summary>
+    /// <typeparam name="TTestData">
+    /// The concrete test data type, constrained to <see cref="ITestData"/>.
+    /// </typeparam>
+    /// <param name="testDataCollection">
+    /// The source collection of test data objects to be transformed.
+    /// </param>
+    /// <param name="argsCode">
+    /// Specifies the argument transformation strategy (e.g., instance vs. properties).
+    /// </param>
+    /// <param name="propsCode">
+    /// Specifies the property transformation semantics (e.g., expected, returns, throws).
+    /// </param>
+    /// <returns>
+    /// An <see cref="IEnumerable{T}"/> of parameter arrays, each representing a 
+    /// fully shaped test case for direct invocation.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="testDataCollection"/> is <c>null</c>.
+    /// </exception>
     public static IEnumerable<object?[]> Convert<TTestData>(
         this IEnumerable<TTestData> testDataCollection,
         ArgsCode argsCode,
         PropsCode propsCode)
     where TTestData : notnull, ITestData
-    {
-        ArgumentNullException.ThrowIfNull(
-            testDataCollection,
-            nameof(testDataCollection));
+    => testDataCollection.ConvertDistinctRows(
+        testData => testData.ToParams(argsCode, propsCode));
 
-        foreach (var testData in testDataCollection)
-        {
-            yield return testData.ToParams(
-                argsCode,
-                propsCode);
-        }
-    }
+    /// <summary>
+    /// Converts a collection of <see cref="ITestData"/> into an enumeration of
+    /// parameter arrays using the default <see cref="PropsCode.Expected"/> semantics.
+    /// </summary>
+    /// <typeparam name="TTestData">
+    /// The concrete test data type, constrained to <see cref="ITestData"/>.
+    /// </typeparam>
+    /// <param name="testDataCollection">
+    /// The source collection of test data objects to convert.
+    /// </param>
+    /// <param name="argsCode">
+    /// Specifies the argument transformation strategy (e.g., instance vs. properties).
+    /// </param>
+    /// <returns>
+    /// An <see cref="IEnumerable{T}"/> of parameter arrays representing the
+    /// transformed test cases.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="testDataCollection"/> is <c>null</c>.
+    /// </exception>
+    public static IEnumerable<object?[]> Convert<TTestData>(
+        this IEnumerable<TTestData> testDataCollection,
+        ArgsCode argsCode)
+    where TTestData : notnull, ITestData
+    => testDataCollection.ConvertDistinctRows(
+        testData => testData.ToParams(argsCode));
 
+    /// <summary>
+    /// Converts a collection of <see cref="ITestData"/> into a sequence of custom 
+    /// row objects using a caller-provided transformation function. This enables 
+    /// integration with external systems such as reporting tools, visualizers, 
+    /// or databases.
+    /// </summary>
+    /// <typeparam name="TTestData">
+    /// The concrete test data type, constrained to <see cref="ITestData"/>.
+    /// </typeparam>
+    /// <typeparam name="TRow">
+    /// The target row type produced by the transformation function.
+    /// </typeparam>
+    /// <param name="testDataCollection">
+    /// The source collection of test data objects to be transformed.
+    /// </param>
+    /// <param name="testDataConverter">
+    /// A delegate that defines how each test data object is converted into a 
+    /// <typeparamref name="TRow"/> instance.
+    /// </param>
+    /// <param name="argsCode">
+    /// Specifies the argument transformation strategy (e.g., instance vs. properties).
+    /// </param>
+    /// <param name="testMethodName">
+    /// An optional test method name used for constructing descriptive display names.
+    /// </param>
+    /// <returns>
+    /// An <see cref="IEnumerable{T}"/> of custom row objects, each representing 
+    /// a transformed test case suitable for external consumption.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="testDataCollection"/> or <paramref name="testDataConverter"/> is <c>null</c>.
+    /// </exception>
     public static IEnumerable<TRow> Convert<TTestData, TRow>(
         this IEnumerable<TTestData> testDataCollection,
         Func<TTestData, ArgsCode, string?, TRow> testDataConverter,
         ArgsCode argsCode,
         string? testMethodName)
+    where TTestData : notnull, ITestData
+    => testDataCollection.ConvertDistinctRows(
+        testData => testDataConverter(
+            testData,
+            argsCode.Defined(nameof(argsCode)),
+            testMethodName));
+
+    private static IEnumerable<TRow> ConvertDistinctRows<TTestData, TRow>(
+        this IEnumerable<TTestData> testDataCollection,
+        Func<TTestData, TRow> testDataConverter)
     where TTestData : notnull, ITestData
     {
         ArgumentNullException.ThrowIfNull(
@@ -45,12 +129,15 @@ public static class CollectionConverter
             testDataConverter,
             nameof(testDataConverter));
 
+        HashSet<INamedTestCase> testCases = [];
+
+        // Deduplicate based on INamedTestCase identity/equality semantics
         foreach (var testData in testDataCollection)
         {
-            yield return testDataConverter(
-                testData,
-                argsCode,
-                testMethodName);
+            if (testCases.Add(testData))
+            {
+                yield return testDataConverter(testData);
+            }
         }
     }
 }
