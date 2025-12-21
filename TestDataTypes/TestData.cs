@@ -2,7 +2,6 @@
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
 using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
-using CsabaDu.DynamicTestData.Core.TestDataTypes.Factories;
 using CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 using CsabaDu.DynamicTestData.Core.Validators;
 
@@ -10,65 +9,30 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 
 #region Abstract type
 /// <summary>
-/// Abstract base record representing test case data with core functionality for test argument generation.
+/// Abstract base class representing test case data with core functionality for test argument generation.
 /// </summary>
-/// <param name="Definition">The descriptive definition of the test case scenario.</param>
+/// <param name="definition">The descriptive definition of the test case scenario.</param>
 /// <remarks>
 /// Provides foundational implementation for:
 /// <list type="bullet">
 /// <item>Test case naming and identification</item>
-/// <item>Argument generation strategies</item>
+/// <item>argument generation strategies</item>
 /// <item>Equality comparison based on test case names</item>
 /// <item>Conversion to parameter arrays for test execution</item>
 /// </list>
 /// </remarks>
-public abstract record TestData(string Definition)
-: ITestData
+public abstract class TestData(string definition)
+: NamedTestCase, ITestData
 {
-    #region Abstract properties
-    /// <summary>
-    /// Gets the unique name identifying this test case.
-    /// </summary>
-    public abstract string TestCaseName { get; }
+    #region Properties
+    public string Definition { get; init; } = definition;
     #endregion
 
     #region Methods
     /// <summary>
-    /// Determines whether the current instance is contained within the specified collection of named test cases.
-    /// </summary>
-    /// <param name="namedTestCases">The collection of <see cref="INamedTestCase"/> instances to search. Can be <see langword="null"/>.</param>
-    /// <returns><see langword="true"/> if the current instance is found in the specified collection; otherwise, <see
-    /// langword="false"/>.  Returns <see langword="false"/> if <paramref name="namedTestCases"/> is <see
-    /// langword="null"/>.</returns>
-    public bool ContainedBy(IEnumerable<INamedTestCase>? namedTestCases)
-    => namedTestCases?.Any(Equals) == true;
-
-    public string? GetDisplayName(string? testMethodName)
-    => DisplayNameFactory.CreateDisplayName(
-        testMethodName,
-        TestCaseName);
-
-    /// <summary>
-    /// Determines equality with another <see cref="INamedTestCase"/> based on test case name comparison.
-    /// </summary>
-    /// <param name="other">The <see cref="INamedTestCase"/> to compare against.</param>
-    /// <returns>
-    /// <c>true</c> if the test case names match; otherwise <c>false</c>.
-    /// </returns>
-    public bool Equals(INamedTestCase? other)
-    => other?.TestCaseName == TestCaseName;
-
-    /// <summary>
-    /// Generates a hash code derived from the return value of the <see cref="GetTestCaseName"/> method.
-    /// </summary>
-    /// <returns>A stable hash code for the test case.</returns>
-    public override int GetHashCode()
-    => TestCaseName.GetHashCode();
-
-    /// <summary>
     /// Converts the test data to an argument array based on the specified <see cref="ArgsCode"/> parameter.
     /// </summary>
-    /// <param name="argsCode">Determines whether to include the instance itself or its properties.</param>
+    /// <param name="ArgsCode">Determines whether to include the instance itself or its properties.</param>
     /// <returns>
     /// An array containing:
     /// <list type="bullet">
@@ -76,8 +40,8 @@ public abstract record TestData(string Definition)
     /// <item>The test case properties when <see cref="ArgsCode.Properties"/></item>
     /// </list>
     /// </returns>
-    /// <exception cref="InvalidEnumArgumentException">
-    /// Thrown when an undefined <paramref name="argsCode"/> value is provided.
+    /// <exception cref="InvalidEnumargumentException">
+    /// Thrown when an undefined <paramref name="ArgsCode"/> value is provided.
     /// </exception>
     public virtual object?[] ToArgs(ArgsCode argsCode)
     => argsCode switch
@@ -93,12 +57,12 @@ public abstract record TestData(string Definition)
     /// <summary>
     /// Converts the test data to a parameter array with precise control over included properties.
     /// </summary>
-    /// <param name="argsCode">Determines instance vs properties inclusion.</param>
+    /// <param name="ArgsCode">Determines instance vs properties inclusion.</param>
     /// <param name="propsCode">Specifies which properties to include when using <see cref="ArgsCode.Properties"/>.</param>
     /// <returns>
     /// A parameter array tailored for test execution based on the specified codes.
     /// </returns>
-    /// <exception cref="InvalidEnumArgumentException">
+    /// <exception cref="InvalidEnumargumentException">
     /// Thrown when invalid enum values are provided.
     /// </exception>
     public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
@@ -142,31 +106,19 @@ public abstract record TestData(string Definition)
             args[index..]
             : throw new ArgumentOutOfRangeException(
                 nameof(propsCode),
-                PropsCountNotEnoughMessage);
+                "Insufficient PropsCode for the requested operation.");
         #endregion
     }
-
-    /// <summary>
-    /// Overrides and seals the `ToString()` method to return the value of <see cref="GetTestCaseName"/> method.
-    /// </summary>
-    public override sealed string ToString()
-    => TestCaseName;
     #endregion
 
-    #region Helper members
-    /// <summary>
-    /// Error message for insufficient test data properties.
-    /// </summary>
-    protected const string PropsCountNotEnoughMessage =
-        "Insufficient PropsCode for the requested operation.";
-
+    #region Helper methods
     /// <summary>
     /// Constructs a standardized test case name by combining the test definition with its expectedToString.
     /// </summary>
     /// <param name="result">The test expectedToString or outcome to append to the definition.</param>
     /// <returns>
-    /// A formatted test case name in the format: "{Definition} => {expectedToString}".
-    /// If the Definition is null or whitespace, uses the literal "Definition" as the definition.
+    /// A formatted test case name in the format: "{definition} => {expectedToString}".
+    /// If the definition is null or whitespace, uses the literal "definition" as the definition.
     /// </returns>
     /// <remarks>
     /// This method ensures consistent naming across all test cases by:
@@ -204,7 +156,7 @@ public abstract record TestData(string Definition)
     /// </summary>
     /// <typeparam name="T">The type of newArg to potentially add.</typeparam>
     /// <param name="baseArgs">The source arguments array.</param>
-    /// <param name="argsCode">Determines the processing strategy:
+    /// <param name="ArgsCode">Determines the processing strategy:
     /// <list type="bullet">
     ///   <item><see cref="ArgsCode.Instance"/>: Returns the original array reference</item>
     ///   <item><see cref="ArgsCode.Properties"/>: Returns a new array with the newArg appended</item>
@@ -214,12 +166,12 @@ public abstract record TestData(string Definition)
     /// <returns>
     /// Either:
     /// <list type="bullet">
-    ///   <item>The original <paramref name="baseArgs"/> array (when argsCode is Instance)</item>
-    ///   <item>A new array containing existing elements plus <paramref name="newArg"/> (when argsCode is Properties)</item>
+    ///   <item>The original <paramref name="baseArgs"/> array (when ArgsCode is Instance)</item>
+    ///   <item>A new array containing existing elements plus <paramref name="newArg"/> (when ArgsCode is Properties)</item>
     /// </list>
     /// </returns>
-    /// <exception cref="InvalidEnumArgumentException">
-    /// Thrown when <paramref name="argsCode"/> is neither Instance nor Properties.
+    /// <exception cref="InvalidEnumargumentException">
+    /// Thrown when <paramref name="ArgsCode"/> is neither Instance nor Properties.
     /// </exception>
     /// <remarks>
     /// Important behavior notes:
@@ -245,18 +197,22 @@ public abstract record TestData(string Definition)
 /// Test data implementation for test cases with 1 type argument.
 /// </summary>
 /// <typeparam name="T1">Type of the first test argument.</typeparam>
-/// <param name="Definition">Description of the test scenario.</param>
-/// <param name="Expected">The result expectedToString description.</param>
-/// <param name="Arg1">First test argument value.</param>
-public record TestData<T1>(
-    string Definition,
-    string Expected,
-    T1? Arg1)
-: TestData(Definition)
+/// <param name="definition">Description of the test scenario.</param>
+/// <param name="expected">The result expectedToString description.</param>
+/// <param name="arg1">First test argument value.</param>
+public class TestData<T1>(
+    string definition,
+    string expected,
+    T1? arg1)
+: TestData(definition), ITestData<string>
 {
+    public T1? Arg1 { get; init; } =  arg1;
+
     /// <inheritdoc/>
     public override sealed string TestCaseName
     => GetTestCaseName(Expected);
+
+    public string Expected { get; init; } = expected;
 
     /// <inheritdoc/>
     public override object?[] ToArgs(ArgsCode argsCode)
@@ -268,14 +224,16 @@ public record TestData<T1>(
 /// </summary>
 /// <inheritdoc cref="TestData{T1}"/>
 /// <typeparam name="T2">Type of the second test argument.</typeparam>
-/// /// <param name="Arg2">Second test argument value.</param>
+/// /// <param name="arg2">Second test argument value.</param>
 
-public record TestData<T1, T2>(
-    string Definition,
-    string Expected,
-    T1? Arg1, T2? Arg2)
-: TestData<T1>(Definition, Expected, Arg1)
+public class TestData<T1, T2>(
+    string definition,
+    string expected,
+    T1? arg1, T2? arg2)
+: TestData<T1>(definition, expected, arg1)
 {
+    public T2? Arg2 { get; init; } = arg2;
+
     /// <inheritdoc/>
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Arg2, argsCode);
@@ -286,13 +244,15 @@ public record TestData<T1, T2>(
 /// </summary>
 /// <inheritdoc cref="TestData{T1, T2}"/>
 /// <typeparam name="T3">Type of the third test argument.</typeparam>
-/// /// <param name="Arg3">Third test argument value.</param>
-public record TestData<T1, T2, T3>(
-    string Definition,
-    string Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3)
-: TestData<T1, T2>(Definition, Expected, Arg1, Arg2)
+/// /// <param name="arg3">Third test argument value.</param>
+public class TestData<T1, T2, T3>(
+    string definition,
+    string expected,
+    T1? arg1, T2? arg2, T3? arg3)
+: TestData<T1, T2>(definition, expected, arg1, arg2)
 {
+    public T3? Arg3 { get; init; } = arg3;
+
     /// <inheritdoc/>
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Arg3, argsCode);
@@ -303,17 +263,19 @@ public record TestData<T1, T2, T3>(
 /// </summary>
 /// <inheritdoc cref="TestData{T1, T2, T3}" />
 /// <typeparam name="T4">The type of the fourth argument.</typeparam>
-/// <param name="Arg4">The fourth test argument value..</param>
-public record TestData<T1, T2, T3, T4>(
-    string Definition,
-    string Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4)
+/// <param name="arg4">The fourth test argument value..</param>
+public class TestData<T1, T2, T3, T4>(
+    string definition,
+    string expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4)
 : TestData<T1, T2, T3>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3)
+    definition,
+    expected,
+    arg1, arg2, arg3)
 {
-    /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
+    public T4? Arg4 { get; init; } = arg4;
+
+    /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Arg4, argsCode);
 }
@@ -323,17 +285,19 @@ public record TestData<T1, T2, T3, T4>(
 /// </summary>
 /// <inheritdoc cref="TestData{T1, T2, T3, T4}" />
 /// <typeparam name="T5">The type of the fifth argument.</typeparam>
-/// <param name="Arg5">The fifth test argument value..</param>
-public record TestData<T1, T2, T3, T4, T5>(
-    string Definition,
-    string Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4, T5? Arg5)
+/// <param name="arg5">The fifth test argument value..</param>
+public class TestData<T1, T2, T3, T4, T5>(
+    string definition,
+    string expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5)
 : TestData<T1, T2, T3, T4>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3, Arg4)
+    definition,
+    expected,
+    arg1, arg2, arg3, arg4)
 {
-    /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
+    public T5? Arg5 { get; init; } = arg5;
+
+    /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Arg5, argsCode);
 }
@@ -343,17 +307,19 @@ public record TestData<T1, T2, T3, T4, T5>(
 /// </summary>
 /// <inheritdoc cref="TestData{T1, T2, T3, T4, T5}" />
 /// <typeparam name="T6">The type of the sixth argument.</typeparam>
-/// <param name="Arg6">The sixth test argument value..</param>
-public record TestData<T1, T2, T3, T4, T5, T6>(
-    string Definition,
-    string Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4, T5? Arg5, T6? Arg6)
+/// <param name="arg6">The sixth test argument value..</param>
+public class TestData<T1, T2, T3, T4, T5, T6>(
+    string definition,
+    string expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6)
 : TestData<T1, T2, T3, T4, T5>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5)
+    definition,
+    expected,
+    arg1, arg2, arg3, arg4, arg5)
 {
-    /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
+    public T6? Arg6 { get; init; } = arg6;
+
+    /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Arg6, argsCode);
 }
@@ -363,17 +329,19 @@ public record TestData<T1, T2, T3, T4, T5, T6>(
 /// </summary>
 // <inheritdoc cref="TestData{T1, T2, T3, T4, T5, T6}" />
 /// <typeparam name="T7">The type of the seventh argument.</typeparam>
-/// <param name="Arg7">The seventh test argument value..</param>
-public record TestData<T1, T2, T3, T4, T5, T6, T7>(
-    string Definition,
-    string Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4, T5? Arg5, T6? Arg6, T7? Arg7)
+/// <param name="arg7">The seventh test argument value..</param>
+public class TestData<T1, T2, T3, T4, T5, T6, T7>(
+    string definition,
+    string expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6, T7? arg7)
 : TestData<T1, T2, T3, T4, T5, T6>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)
+    definition,
+    expected,
+    arg1, arg2, arg3, arg4, arg5, arg6)
 {
-    /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
+    public T7? Arg7 { get; init; } = arg7;
+
+    /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Arg7, argsCode);
 }
@@ -383,17 +351,19 @@ public record TestData<T1, T2, T3, T4, T5, T6, T7>(
 /// </summary>
 /// <inheritdoc cref="TestData{T1, T2, T3, T4, T5, T6, T7}" />
 /// <typeparam name="T8">The type of the eighth argument.</typeparam>
-/// <param name="Arg8">The eighth test argument value..</param>
-public record TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
-    string Definition,
-    string Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4, T5? Arg5, T6? Arg6, T7? Arg7, T8? Arg8)
+/// <param name="arg8">The eighth test argument value..</param>
+public class TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
+    string definition,
+    string expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6, T7? arg7, T8? arg8)
 : TestData<T1, T2, T3, T4, T5, T6, T7>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7)
+    definition,
+    expected,
+    arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 {
-    /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
+    public T8? Arg8 { get; init; } = arg8;
+
+    /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Arg8, argsCode);
 }
@@ -403,17 +373,19 @@ public record TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
 /// </summary>
 /// <inheritdoc cref="TestData{T1, T2, T3, T4, T5, T6, T7, T8}" />
 /// <typeparam name="T9">The type of the ninth argument.</typeparam>
-/// <param name="Arg9">The ninth test argument value..</param>
-public record TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-    string Definition,
-    string Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4, T5? Arg5, T6? Arg6, T7? Arg7, T8? Arg8, T9? Arg9)
+/// <param name="arg9">The ninth test argument value..</param>
+public class TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+    string definition,
+    string expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6, T7? arg7, T8? arg8, T9? arg9)
 : TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
+    definition,
+    expected,
+    arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 {
-    /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
+    public T9? Arg9 { get; init; } = arg9;
+
+    /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Arg9, argsCode);
 }

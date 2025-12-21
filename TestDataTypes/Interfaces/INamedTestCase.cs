@@ -13,7 +13,7 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 /// </para>
 /// <list type="bullet">
 ///   <item>The test scenario (what is being tested)</item>
-///   <item>The expected behavior or outcome</item>
+///   <item>The Expected behavior or outcome</item>
 ///   <item>Any important parameters or conditions</item>
 /// </list>
 /// <para>
@@ -47,7 +47,7 @@ public interface INamedTestCase : IEquatable<INamedTestCase>
     /// A formatted TEnum that clearly describes:
     /// <list type="bullet">
     ///   <item>The test scenario (from definition)</item>
-    ///   <item>The expected outcome (actual result/exception)</item>
+    ///   <item>The Expected outcome (actual result/exception)</item>
     /// </list>
     /// </returns>
     /// <remarks>

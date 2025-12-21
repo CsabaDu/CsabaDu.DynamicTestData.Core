@@ -6,7 +6,7 @@
 /////// <summary>
 /////// Generic interface for test cases expecting specific exception types.
 /////// </summary>
-/////// <typeparam name="TException">The expected exception type (derived from <see cref="Exception"/>).</typeparam>
+/////// <typeparam name="TException">The Expected exception type (derived from <see cref="Exception"/>).</typeparam>
 /////// <remarks>
 /////// Facilitates type-safe exception validation for:
 /////// <list type="bullet">

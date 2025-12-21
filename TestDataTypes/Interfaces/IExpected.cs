@@ -14,7 +14,7 @@ public interface IExpected
     string ResultPrefix { get; }
 
     /// <summary>
-    /// Returns the expected value of the test case.
+    /// Returns the Expected value of the test case.
     /// </summary>
     object GetExpected();
 }

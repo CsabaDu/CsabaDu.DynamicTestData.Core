@@ -8,22 +8,25 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 
 #region Abstract type
 /// <summary>
-/// Abstract base record for test data that expects exception throwing behavior.
+/// Abstract base class for test data that expects exception throwing behavior.
 /// </summary>
-/// <typeparam name="TException">The type of exception expected to be thrown (must derive from <see cref="Exception"/>).</typeparam>
-/// <param name="Definition">Description of the test scenario that should throw.</param>
-/// <param name="Expected">The exception instance expected to be thrown.</param>
+/// <typeparam name="TException">The type of exception Expected to be thrown (must derive from <see cref="Exception"/>).</typeparam>
+/// <param name="definition">Description of the test scenario that should throw.</param>
+/// <param name="expected">The exception instance Expected to be thrown.</param>
 /// <remarks>
 /// Specializes <see cref="TestData"/> for test cases that verify exception throwing behavior.
 /// Provides consistent test case naming through the base <see cref="TestData.GetTestCaseName(string)"/> method.
 /// </remarks>
-public abstract record TestDataThrows<TException>(
-    string Definition,
-    TException Expected)
-: TestData(Definition),
+public abstract class TestDataThrows<TException>(
+    string definition,
+    TException expected)
+: TestData(definition),
 ITestData<TException>
 where TException : Exception
 {
+    /// <inheritdoc/>
+    public TException Expected { get; init; } = expected;
+
     /// <inheritdoc/>
     public string ResultPrefix
     => "throws";
@@ -33,7 +36,7 @@ where TException : Exception
     => GetTestCaseName(Expected.GetType().Name);
 
     /// <summary>
-    /// Gets the expected exception instance.
+    /// Gets the Expected exception instance.
     /// </summary>
     /// <returns>The exception object that should be thrown.</returns>
     public object GetExpected()
@@ -41,7 +44,7 @@ where TException : Exception
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)"/>
     /// <remarks>
-    /// Adds the expected exception to the argument array when <see cref="ArgsCode.Properties"/> is specified.
+    /// Adds the Expected exception to the argument array when <see cref="ArgsCode.Properties"/> is specified.
     /// </remarks>
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Expected, argsCode);
@@ -54,16 +57,18 @@ where TException : Exception
 /// </summary>
 /// <inheritdoc cref="TestDataThrows{TException}"/>
 /// <typeparam name="T1">Type of the first test argument.</typeparam>
-/// <param name="Arg1">The first argument value.</param>
-public record TestDataThrows<TException, T1>(
-    string Definition,
-    TException Expected,
-    T1? Arg1)
+/// <param name="arg1">The first argument value.</param>
+public class TestDataThrows<TException, T1>(
+    string definition,
+    TException expected,
+    T1? arg1)
 : TestDataThrows<TException>(
-    Definition,
-    Expected)
+    definition,
+    expected)
 where TException : Exception
 {
+    public T1? Arg1 { get; init; } = arg1;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Arg1, argsCode);
@@ -71,17 +76,19 @@ where TException : Exception
 
 /// <inheritdoc cref="TestDataThrows{TException, T1}" />
 /// <typeparam name="T2">The type of the second argument.</typeparam>
-/// <param name="Arg2">The second argument.</param>
-public record TestDataThrows<TException, T1, T2>(
-    string Definition,
-    TException Expected,
-    T1? Arg1, T2? Arg2)
+/// <param name="arg2">The second argument.</param>
+public class TestDataThrows<TException, T1, T2>(
+    string definition,
+    TException expected,
+    T1? arg1, T2? arg2)
 : TestDataThrows<TException, T1>(
-    Definition,
-    Expected,
-    Arg1)
+    definition,
+    expected,
+    arg1)
 where TException : Exception
 {
+    public T2? Arg2 { get; init; } = arg2;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Arg2, argsCode);
@@ -89,17 +96,19 @@ where TException : Exception
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2}" />
 /// <typeparam name="T3">The type of the third argument.</typeparam>
-/// <param name="Arg3">The third argument.</param>
-public record TestDataThrows<TException, T1, T2, T3>(
-    string Definition,
-    TException Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3)
+/// <param name="arg3">The third argument.</param>
+public class TestDataThrows<TException, T1, T2, T3>(
+    string definition,
+    TException expected,
+    T1? arg1, T2? arg2, T3? arg3)
 : TestDataThrows<TException, T1, T2>(
-    Definition,
-    Expected,
-    Arg1, Arg2)
+    definition,
+    expected,
+    arg1, arg2)
 where TException : Exception
 {
+    public T3? Arg3 { get; init; } = arg3;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs(argsCode), Arg3, argsCode);
@@ -107,109 +116,109 @@ where TException : Exception
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3}" />
 /// <typeparam name="T4">The type of the fourth argument.</typeparam>
-/// <param name="Arg4">The fourth argument.</param>
-public record TestDataThrows<TException, T1, T2, T3, T4>(
-    string Definition,
-    TException Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4)
+/// <param name="arg4">The fourth argument.</param>
+public class TestDataThrows<TException, T1, T2, T3, T4>(
+    string definition,
+    TException expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4)
 : TestDataThrows<TException, T1, T2, T3>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3)
+    definition,
+    expected,
+    arg1, arg2, arg3)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg4, argsCode);
+    => Extend(base.ToArgs(argsCode), arg4, argsCode);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4}" />
 /// <typeparam name="T5">The type of the fifth argument.</typeparam>
-/// <param name="Arg5">The fifth argument.</param>
-public record TestDataThrows<TException, T1, T2, T3, T4, T5>(
-    string Definition,
-    TException Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4, T5? Arg5)
+/// <param name="arg5">The fifth argument.</param>
+public class TestDataThrows<TException, T1, T2, T3, T4, T5>(
+    string definition,
+    TException expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5)
 : TestDataThrows<TException, T1, T2, T3, T4>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3, Arg4)
+    definition,
+    expected,
+    arg1, arg2, arg3, arg4)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg5, argsCode);
+    => Extend(base.ToArgs(argsCode), arg5, argsCode);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5}" />
 /// <typeparam name="T6">The type of the sixth argument.</typeparam>
-/// <param name="Arg6">The sixth argument.</param>
-public record TestDataThrows<TException, T1, T2, T3, T4, T5, T6>(
-    string Definition,
-    TException Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4, T5? Arg5, T6? Arg6)
+/// <param name="arg6">The sixth argument.</param>
+public class TestDataThrows<TException, T1, T2, T3, T4, T5, T6>(
+    string definition,
+    TException expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6)
 : TestDataThrows<TException, T1, T2, T3, T4, T5>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5)
+    definition,
+    expected,
+    arg1, arg2, arg3, arg4, arg5)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg6, argsCode);
+    => Extend(base.ToArgs(argsCode), arg6, argsCode);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5, T6}" />
 /// <typeparam name="T7">The type of the seventh argument.</typeparam>
-/// <param name="Arg7">The seventh argument.</param>
-public record TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7>(
-    string Definition,
-    TException Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4, T5? Arg5, T6? Arg6, T7? Arg7)
+/// <param name="arg7">The seventh argument.</param>
+public class TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7>(
+    string definition,
+    TException expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6, T7? arg7)
 : TestDataThrows<TException, T1, T2, T3, T4, T5, T6>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6)
+    definition,
+    expected,
+    arg1, arg2, arg3, arg4, arg5, arg6)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg7, argsCode);
+    => Extend(base.ToArgs(argsCode), arg7, argsCode);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5, T6, T7}" />
 /// <typeparam name="T8">The type of the eighth argument.</typeparam>
-/// <param name="Arg8">The eighth argument.</param>
-public record TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8>(
-    string Definition,
-    TException Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4, T5? Arg5, T6? Arg6, T7? Arg7, T8? Arg8)
+/// <param name="arg8">The eighth argument.</param>
+public class TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8>(
+    string definition,
+    TException expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6, T7? arg7, T8? arg8)
 : TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7)
+    definition,
+    expected,
+    arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg8, argsCode);
+    => Extend(base.ToArgs(argsCode), arg8, argsCode);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5, T6, T7, T8}" />
 /// <typeparam name="T9">The type of the ninth argument.</typeparam>
-/// <param name="Arg9">The ninth argument.</param>
-public record TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
-    string Definition,
-    TException Expected,
-    T1? Arg1, T2? Arg2, T3? Arg3, T4? Arg4, T5? Arg5, T6? Arg6, T7? Arg7, T8? Arg8, T9? Arg9)
+/// <param name="arg9">The ninth argument.</param>
+public class TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+    string definition,
+    TException expected,
+    T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6, T7? arg7, T8? arg8, T9? arg9)
 : TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8>(
-    Definition,
-    Expected,
-    Arg1, Arg2, Arg3, Arg4, Arg5, Arg6, Arg7, Arg8)
+    definition,
+    expected,
+    arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg9, argsCode);
+    => Extend(base.ToArgs(argsCode), arg9, argsCode);
 }
 #endregion

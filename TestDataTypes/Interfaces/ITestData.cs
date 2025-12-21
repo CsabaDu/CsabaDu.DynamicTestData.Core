@@ -46,17 +46,17 @@ public interface ITestData : INamedTestCase
 }
 
 /// <summary>
-/// Represents a generic test data interface that extends <see cref="ITestData" with the generic type of the expected non-nullable result of the test case.
+/// Represents a generic test data interface that extends <see cref="ITestData" with the generic type of the Expected non-nullable result of the test case.
 /// </summary>
-/// <typeparam name="TResult">The type of expected result (non-nullable).</typeparam>
+/// <typeparam name="TResult">The type of Expected result (non-nullable).</typeparam>
 /// <remarks>
-/// Extends <see cref="ITestData"/> with type-safe expected result handling.
+/// Extends <see cref="ITestData"/> with type-safe Expected result handling.
 /// </remarks>
 public interface ITestData<out TResult> : ITestData
     where TResult : notnull
 {
     /// <summary>
-    /// Gets the expected result of the test case.
+    /// Gets the Expected result of the test case.
     /// </summary>
     TResult Expected { get; }
 }
@@ -64,7 +64,7 @@ public interface ITestData<out TResult> : ITestData
 ///// <summary>
 ///// Test data interface with one typed argument.
 ///// </summary>
-///// <typeparam name="TResult">The type of expected result (non-nullable).</typeparam>
+///// <typeparam name="TResult">The type of Expected result (non-nullable).</typeparam>
 ///// <typeparam name="T1">The type of the first test argument.</typeparam>
 ///// <param name="Arg1">First test argument value.</param>
 //public interface ITestData<out TResult, out T1> : ITestData<TResult>
@@ -79,7 +79,7 @@ public interface ITestData<out TResult> : ITestData
 ///// <summary>
 ///// Test data interface with two typed arguments.
 ///// </summary>
-///// <typeparam name="TResult">The type of expected result (non-nullable).</typeparam>
+///// <typeparam name="TResult">The type of Expected result (non-nullable).</typeparam>
 ///// <typeparam name="T1">The type of the first test argument.</typeparam>
 ///// <typeparam name="T2">The type of the second test argument.</typeparam>
 //public interface ITestData<out TResult, out T1, out T2> : ITestData<TResult, T1>
@@ -94,7 +94,7 @@ public interface ITestData<out TResult> : ITestData
 ///// <summary>
 ///// Test data interface with three typed arguments.
 ///// </summary>
-///// <typeparam name="TResult">The type of expected result (non-nullable).</typeparam>
+///// <typeparam name="TResult">The type of Expected result (non-nullable).</typeparam>
 ///// <typeparam name="T1">The type of the first test argument.</typeparam>
 ///// <typeparam name="T2">The type of the second test argument.</typeparam>
 ///// <typeparam name="T3">The type of the third test argument.</typeparam>

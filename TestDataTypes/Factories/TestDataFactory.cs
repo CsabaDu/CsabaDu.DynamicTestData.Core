@@ -10,8 +10,8 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Factories;
 /// Provides static factory methods for creating:
 /// <list type="bullet">
 /// <item>Standard test data</item>
-/// <item>Test data with expected return values</item>
-/// <item>Test data with expected exceptions</item>
+/// <item>Test data with Expected return values</item>
+/// <item>Test data with Expected exceptions</item>
 /// </list>
 /// </remarks>
 public static class TestDataFactory
@@ -115,9 +115,9 @@ public static class TestDataFactory
 
     #region CreateTestDataReturns methods
     /// <summary>
-    /// Creates test data with an expected return value and one argument.
+    /// Creates test data with an Expected return value and one argument.
     /// </summary>
-    /// <typeparam name="TStruct">Type of the expected return value (must be a non-nullable <see cref="ValueType"/> ).</typeparam>
+    /// <typeparam name="TStruct">Type of the Expected return value (must be a non-nullable <see cref="ValueType"/> ).</typeparam>
     /// <typeparam name="T1">Type of the test argument.</typeparam>
     /// <param name="definition">Description of the test scenario.</param>
     /// <param name="expected">Expected return value.</param>
@@ -133,7 +133,7 @@ public static class TestDataFactory
         arg1);
 
     /// <summary>
-    /// Creates test data with an expected return value and two arguments.
+    /// Creates test data with an Expected return value and two arguments.
     /// </summary>
     /// <inheritdoc cref="CreateTestDataReturns{TStruct, T1}"/>
     /// <typeparam name="T1">Type of the first test argument.</typeparam>
@@ -221,9 +221,9 @@ public static class TestDataFactory
 
     #region CreateTestDataThrows methods
     /// <summary>
-    /// Creates test data with an expected exception and one argument.
+    /// Creates test data with an Expected exception and one argument.
     /// </summary>
-    /// <typeparam name="TException">Type of the expected exception.</typeparam>
+    /// <typeparam name="TException">Type of the Expected exception.</typeparam>
     /// <typeparam name="T1">Type of the test argument.</typeparam>
     /// <param name="definition">Description of the test scenario.</param>
     /// <param name="expected">Expected exception instance.</param>
@@ -240,7 +240,7 @@ public static class TestDataFactory
         arg1);
 
     /// <summary>
-    /// Creates test data with an expected exception and two arguments.
+    /// Creates test data with an Expected exception and two arguments.
     /// </summary>
     /// <inheritdoc cref="CreateTestDataThrows{TException, T1}"/>
     /// <typeparam name="T1">Type of the first test argument.</typeparam>
