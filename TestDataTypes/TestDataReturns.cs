@@ -20,7 +20,8 @@ public abstract class TestDataReturns<TStruct>(
     string definition,
     TStruct expected)
 : TestData(definition),
-ITestData<TStruct>
+ITestData<TStruct>,
+IReturns
 where TStruct : struct
 {
     /// <inheritdoc/>

@@ -21,7 +21,8 @@ public abstract class TestDataThrows<TException>(
     string definition,
     TException expected)
 : TestData(definition),
-ITestData<TException>
+ITestData<TException>,
+IThrows
 where TException : Exception
 {
     /// <inheritdoc/>

@@ -43,7 +43,7 @@ public static class CollectionConverter
         ArgsCode argsCode,
         PropsCode propsCode)
     where TTestData : notnull, ITestData
-    => testDataCollection.Convert(
+    => testDataCollection.ConvertDistinct(
         testData => testData.ToParams(argsCode, propsCode));
 
     /// <summary>
@@ -70,7 +70,7 @@ public static class CollectionConverter
         this IEnumerable<TTestData> testDataCollection,
         ArgsCode argsCode)
     where TTestData : notnull, ITestData
-    => testDataCollection.Convert(
+    => testDataCollection.ConvertDistinct(
         testData => testData.ToParams(argsCode));
 
     /// <summary>
@@ -111,7 +111,7 @@ public static class CollectionConverter
         ArgsCode argsCode,
         string? testMethodName)
     where TTestData : notnull, ITestData
-    => testDataCollection.Convert(
+    => testDataCollection.ConvertDistinct(
         testData => testDataConverter(
             testData,
             argsCode.Defined(nameof(argsCode)),
@@ -151,7 +151,7 @@ public static class CollectionConverter
     /// Thrown if <paramref name="testDataCollection"/> or
     /// <paramref name="testDataConverter"/> is <c>null</c>.
     /// </exception>
-    private static IEnumerable<TRow> Convert<TTestData, TRow>(
+    private static IEnumerable<TRow> ConvertDistinct<TTestData, TRow>(
         this IEnumerable<TTestData> testDataCollection,
         Func<TTestData, TRow> testDataConverter)
     where TTestData : notnull, ITestData
