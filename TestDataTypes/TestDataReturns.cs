@@ -46,8 +46,8 @@ where TStruct : struct
     /// <remarks>
     /// Adds the Expected return value to the argument array when <see cref="ArgsCode.Properties"/> is specified.
     /// </remarks>
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Expected, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Expected, argsCode);
 }
 #endregion
 
@@ -70,8 +70,8 @@ where TStruct : struct
     public T1? Arg1 { get; init; } = arg1;
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg1, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg1, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1}" />
@@ -90,8 +90,8 @@ where TStruct : struct
     public T2? Arg2 { get; init; } = arg2;
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg2, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg2, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2}" />
@@ -110,8 +110,8 @@ where TStruct : struct
     public T3? Arg3 { get; init; } = arg3;
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg3, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg3, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3}" />
@@ -128,8 +128,8 @@ public class TestDataReturns<TStruct, T1, T2, T3, T4>(
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), arg4, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, arg4, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4}" />
@@ -148,8 +148,8 @@ where TStruct : struct
     public T5? Arg5 { get; init; } = arg5;
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg5, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg5, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4, T5}" />
@@ -168,8 +168,8 @@ where TStruct : struct
     public T6? Arg6 { get; init; } = arg6;
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg6, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg6, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4, T5, T6}" />
@@ -186,8 +186,8 @@ public class TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7>(
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), arg7, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, arg7, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4, T5, T6, T7}" />
@@ -204,8 +204,8 @@ public class TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8>(
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), arg8, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, arg8, argsCode);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4, T5, T6, T7, T8}" />
@@ -222,7 +222,7 @@ public class TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
 where TStruct : struct
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), arg9, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, arg9, argsCode);
 }
 #endregion

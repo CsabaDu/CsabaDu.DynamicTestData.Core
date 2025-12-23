@@ -29,28 +29,6 @@ public abstract class TestData(string definition)
     #endregion
 
     #region Methods
-    /// <summary>
-    /// Converts the test data to an argument array based on the specified <see cref="ArgsCode"/> parameter.
-    /// </summary>
-    /// <param name="ArgsCode">Determines whether to include the instance itself or its properties.</param>
-    /// <returns>
-    /// An array containing:
-    /// <list type="bullet">
-    /// <item>The test data instance itself when <see cref="ArgsCode.Instance"/></item>
-    /// <item>The test case properties when <see cref="ArgsCode.Properties"/></item>
-    /// </list>
-    /// </returns>
-    /// <exception cref="InvalidEnumargumentException">
-    /// Thrown when an undefined <paramref name="ArgsCode"/> value is provided.
-    /// </exception>
-    public virtual object?[] ToArgs(ArgsCode argsCode)
-    => argsCode switch
-    {
-        ArgsCode.Instance => [this],
-        ArgsCode.Properties => [TestCaseName],
-        _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
-    };
-
     public object?[] ToParams(ArgsCode argsCode)
     => ToParams(argsCode, PropsCode.Expected);
 
@@ -67,7 +45,7 @@ public abstract class TestData(string definition)
     /// </exception>
     public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
     {
-        const int idx_Expected = (int)PropsCode.Expected;
+        const int idxExpected = (int)PropsCode.Expected;
         var args = ToArgs(argsCode);
 
         return argsCode switch
@@ -95,11 +73,11 @@ public abstract class TestData(string definition)
         #region Local methods
         object?[] argsWithoutExpectedIf(bool typeMatches)
         => typeMatches ?
-            argsFrom(idx_Expected + 1)
+            argsFrom(idxExpected + 1)
             : argsWithoutTestCaseName();
 
         object?[] argsWithoutTestCaseName()
-        => argsFrom(idx_Expected);
+        => argsFrom(idxExpected);
 
         object?[] argsFrom(int index)
         => args.Length > index ?
@@ -152,42 +130,79 @@ public abstract class TestData(string definition)
     }
 
     /// <summary>
-    /// Conditionally extends an arguments array based on the specified <see cref="ArgsCode"/> strategy.
+    /// Converts the test data to an argument array based on the specified <see cref="ArgsCode"/> parameter.
     /// </summary>
-    /// <typeparam name="T">The type of newArg to potentially add.</typeparam>
-    /// <param name="baseArgs">The source arguments array.</param>
-    /// <param name="ArgsCode">Determines the processing strategy:
-    /// <list type="bullet">
-    ///   <item><see cref="ArgsCode.Instance"/>: Returns the original array reference</item>
-    ///   <item><see cref="ArgsCode.Properties"/>: Returns a new array with the newArg appended</item>
-    /// </list>
-    /// </param>
-    /// <param name="newArg">The value to potentially append.</param>
+    /// <param name="ArgsCode">Determines whether to include the instance itself or its properties.</param>
     /// <returns>
-    /// Either:
+    /// An array containing:
     /// <list type="bullet">
-    ///   <item>The original <paramref name="baseArgs"/> array (when ArgsCode is Instance)</item>
-    ///   <item>A new array containing existing elements plus <paramref name="newArg"/> (when ArgsCode is Properties)</item>
+    /// <item>The test data instance itself when <see cref="ArgsCode.Instance"/></item>
+    /// <item>The test case properties when <see cref="ArgsCode.Properties"/></item>
     /// </list>
     /// </returns>
     /// <exception cref="InvalidEnumargumentException">
-    /// Thrown when <paramref name="ArgsCode"/> is neither Instance nor Properties.
+    /// Thrown when an undefined <paramref name="ArgsCode"/> value is provided.
     /// </exception>
-    /// <remarks>
-    /// Important behavior notes:
-    /// <list type="bullet">
-    ///   <item>For <see cref="ArgsCode.Instance"/>: Returns the original array reference without modification</item>
-    ///   <item>For <see cref="ArgsCode.Properties"/>: Creates and returns a new array instance, with the specified newArg added.</item>
-    ///   <item>Null <paramref name="baseArgs"/> will throw NullReferenceException</item>
-    /// </list>
-    /// </remarks>
-    protected static object?[] Extend<T>(object?[] baseArgs, T? newArg, ArgsCode argsCode)
+    protected virtual object?[] ToArgs(ArgsCode argsCode)
     => argsCode switch
     {
-        ArgsCode.Instance => baseArgs,
-        ArgsCode.Properties => [.. baseArgs, newArg],
+        ArgsCode.Instance => [this],
+        ArgsCode.Properties => [TestCaseName],
         _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
     };
+
+    protected static object?[] Extend<T>(
+        Func<ArgsCode, object?[]> baseToArgs,
+        T? newArg,
+        ArgsCode argsCode)
+    {
+        var args = baseToArgs(argsCode);
+
+        return argsCode switch
+        {
+            ArgsCode.Instance => args,
+            ArgsCode.Properties => [.. args, newArg],
+            _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
+        };
+    }
+
+    ///// <summary>
+    ///// Conditionally extends an arguments array based on the specified <see cref="ArgsCode"/> strategy.
+    ///// </summary>
+    ///// <typeparam name="T">The type of newArg to potentially add.</typeparam>
+    ///// <param name="args">The source arguments array.</param>
+    ///// <param name="ArgsCode">Determines the processing strategy:
+    ///// <list type="bullet">
+    /////   <item><see cref="ArgsCode.Instance"/>: Returns the original array reference</item>
+    /////   <item><see cref="ArgsCode.Properties"/>: Returns a new array with the newArg appended</item>
+    ///// </list>
+    ///// </param>
+    ///// <param name="newArg">The value to potentially append.</param>
+    ///// <returns>
+    ///// Either:
+    ///// <list type="bullet">
+    /////   <item>The original <paramref name="args"/> array (when ArgsCode is Instance)</item>
+    /////   <item>A new array containing existing elements plus <paramref name="newArg"/> (when ArgsCode is Properties)</item>
+    ///// </list>
+    ///// </returns>
+    ///// <exception cref="InvalidEnumargumentException">
+    ///// Thrown when <paramref name="ArgsCode"/> is neither Instance nor Properties.
+    ///// </exception>
+    ///// <remarks>
+    ///// Important behavior notes:
+    ///// <list type="bullet">
+    /////   <item>For <see cref="ArgsCode.Instance"/>: Returns the original array reference without modification</item>
+    /////   <item>For <see cref="ArgsCode.Properties"/>: Creates and returns a new array instance, with the specified newArg added.</item>
+    /////   <item>Null <paramref name="args"/> will throw NullReferenceException</item>
+    ///// </list>
+    ///// </remarks>
+    //protected static object?[] Extend<T>(object?[] args, T? newArg, ArgsCode argsCode)
+    //=> argsCode switch
+    //{
+    //    ArgsCode.Instance => args,
+    //    ArgsCode.Properties => [.. args, newArg],
+    //    _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
+    //};
     #endregion
 }
 #endregion
@@ -215,8 +230,8 @@ public class TestData<T1>(
     public string Expected { get; init; } = expected;
 
     /// <inheritdoc/>
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg1, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg1, argsCode);
 }
 
 /// <summary>
@@ -235,8 +250,8 @@ public class TestData<T1, T2>(
     public T2? Arg2 { get; init; } = arg2;
 
     /// <inheritdoc/>
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg2, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg2, argsCode);
 }
 
 /// <summary>
@@ -254,8 +269,8 @@ public class TestData<T1, T2, T3>(
     public T3? Arg3 { get; init; } = arg3;
 
     /// <inheritdoc/>
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg3, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg3, argsCode);
 }
 
 /// <summary>
@@ -276,8 +291,8 @@ public class TestData<T1, T2, T3, T4>(
     public T4? Arg4 { get; init; } = arg4;
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg4, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg4, argsCode);
 }
 
 /// <summary>
@@ -298,8 +313,8 @@ public class TestData<T1, T2, T3, T4, T5>(
     public T5? Arg5 { get; init; } = arg5;
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg5, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg5, argsCode);
 }
 
 /// <summary>
@@ -320,8 +335,8 @@ public class TestData<T1, T2, T3, T4, T5, T6>(
     public T6? Arg6 { get; init; } = arg6;
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg6, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg6, argsCode);
 }
 
 /// <summary>
@@ -342,8 +357,8 @@ public class TestData<T1, T2, T3, T4, T5, T6, T7>(
     public T7? Arg7 { get; init; } = arg7;
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg7, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg7, argsCode);
 }
 
 /// <summary>
@@ -364,8 +379,8 @@ public class TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
     public T8? Arg8 { get; init; } = arg8;
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg8, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg8, argsCode);
 }
 
 /// <summary>
@@ -386,7 +401,7 @@ public class TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
     public T9? Arg9 { get; init; } = arg9;
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
-    public override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs(argsCode), Arg9, argsCode);
+    protected override object?[] ToArgs(ArgsCode argsCode)
+    => Extend(base.ToArgs, Arg9, argsCode);
 }
 #endregion
