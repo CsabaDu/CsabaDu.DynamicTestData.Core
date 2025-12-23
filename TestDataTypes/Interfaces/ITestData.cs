@@ -18,10 +18,10 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 /// </remarks>
 public interface ITestData : INamedTestCase
 {
-    /// <summary>
-    /// Gets the description of the test scenario being verified.
-    /// </summary>
-    string Definition { get; }
+    ///// <summary>
+    ///// Gets the description of the test scenario being verified.
+    ///// </summary>
+    //string Definition { get; }
 
     ///// <summary>
     ///// Converts the test case to an array of arguments based on the specified <see cref="ArgsCode"> parameter.

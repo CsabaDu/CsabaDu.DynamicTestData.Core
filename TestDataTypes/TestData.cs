@@ -25,7 +25,7 @@ public abstract class TestData(string definition)
 : NamedTestCase, ITestData
 {
     #region Properties
-    public string Definition { get; init; } = definition;
+    protected string Definition { get; init; } = definition;
     #endregion
 
     #region Methods
