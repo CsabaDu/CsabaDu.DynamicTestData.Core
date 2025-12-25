@@ -19,9 +19,15 @@ public abstract class NamedTestCase : INamedTestCase
     : IEqualityComparer<INamedTestCase>
     {
         public bool Equals(INamedTestCase? x, INamedTestCase? y)
-        => ReferenceEquals(x, y) ||
-            (x is not null && y is not null &&
-            StringComparer.Ordinal.Equals(x.TestCaseName, y.TestCaseName));
+        {
+            if (ReferenceEquals(x, y)) return true;
+
+            if (x is null || y is null) return false;
+
+            return StringComparer.Ordinal.Equals(
+                x.TestCaseName,
+                y.TestCaseName);
+        }
 
         public int GetHashCode(INamedTestCase obj)
         => StringComparer.Ordinal.GetHashCode(obj.TestCaseName);
