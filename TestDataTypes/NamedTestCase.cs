@@ -12,6 +12,21 @@ public abstract class NamedTestCase : INamedTestCase
     /// </summary>
     public abstract string TestCaseName { get; }
 
+    public static IEqualityComparer<INamedTestCase> Comparer { get; } =
+        new NamedTestCaseEqualityComparer();
+
+    private sealed class NamedTestCaseEqualityComparer
+    : IEqualityComparer<INamedTestCase>
+    {
+        public bool Equals(INamedTestCase? x, INamedTestCase? y)
+        => ReferenceEquals(x, y) ||
+            (x is not null && y is not null &&
+            StringComparer.Ordinal.Equals(x.TestCaseName, y.TestCaseName));
+
+        public int GetHashCode(INamedTestCase obj)
+        => StringComparer.Ordinal.GetHashCode(obj.TestCaseName);
+    }
+
     /// <summary>
     /// Determines whether the current instance is contained within the specified collection of named test cases.
     /// </summary>
@@ -33,7 +48,7 @@ public abstract class NamedTestCase : INamedTestCase
     /// <c>true</c> if the test case names match; otherwise <c>false</c>.
     /// </returns>
     public bool Equals(INamedTestCase? other)
-    => other?.TestCaseName == TestCaseName;
+    => Comparer.Equals(this, other);
 
     public override sealed bool Equals(object? obj)
     => Equals(obj as INamedTestCase);
@@ -43,7 +58,7 @@ public abstract class NamedTestCase : INamedTestCase
     /// </summary>
     /// <returns>A stable hash code for the test case.</returns>
     public override sealed int GetHashCode()
-    => TestCaseName.GetHashCode();
+    => Comparer.GetHashCode(this);
 
     /// <summary>
     /// Overrides and seals the `ToString()` method to return the value of <see cref="GetTestCaseName"/> method.

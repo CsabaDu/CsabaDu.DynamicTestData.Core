@@ -92,7 +92,9 @@ public abstract class TestData(string definition)
             args[index..]
             : throw new ArgumentOutOfRangeException(
                 nameof(propsCode),
-                "Insufficient 'PropsCode' for the requested operation.");
+                $"Insufficient 'PropsCode' for the requested operation. " +
+                $"args.Length={args.Length}, requiredIndex={index}, testCase={TestCaseName}");
+
         #endregion
     }
 
@@ -100,13 +102,6 @@ public abstract class TestData(string definition)
     #endregion
 
     #region Helper methods
-    protected static string GetExpectedResult(IExpected expectedType, string? expectedString)
-    {
-        var prefix = expectedType.ResultPrefix;
-        var expected = GetOrSubstitute(expectedString, "expected");
-
-        return $"{prefix} {expected}";
-    }
 
     protected static string GetOrSubstitute(string? value, string substitute)
     => string.IsNullOrEmpty(value) ?

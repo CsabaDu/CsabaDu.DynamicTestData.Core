@@ -6,49 +6,49 @@ using CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 
-#region Abstract type
-/// <summary>
-/// Abstract base class for test data that expects exception throwing behavior.
-/// </summary>
-/// <typeparam name="TException">The type of exception Expected to be thrown (must derive from <see cref="Exception"/>).</typeparam>
-/// <param name="definition">Description of the test scenario that should throw.</param>
-/// <param name="expected">The exception instance Expected to be thrown.</param>
-/// <remarks>
-/// Specializes <see cref="TestData"/> for test cases that verify exception throwing behavior.
-/// Provides consistent test case naming through the base <see cref="TestData.GetTestCaseName(string)"/> method.
-/// </remarks>
-public abstract class TestDataThrows<TException>(
-    string definition,
-    TException expected)
-: TestData(definition),
-IThrows<TException>
-where TException : Exception
-{
-    /// <inheritdoc/>
-    public TException Expected { get; init; } = expected;
+//#region Abstract type
+///// <summary>
+///// Abstract base class for test data that expects exception throwing behavior.
+///// </summary>
+///// <typeparam name="TException">The type of exception Expected to be thrown (must derive from <see cref="Exception"/>).</typeparam>
+///// <param name="definition">Description of the test scenario that should throw.</param>
+///// <param name="expected">The exception instance Expected to be thrown.</param>
+///// <remarks>
+///// Specializes <see cref="TestData"/> for test cases that verify exception throwing behavior.
+///// Provides consistent test case naming through the base <see cref="TestData.GetTestCaseName(string)"/> method.
+///// </remarks>
+//public abstract class TestDataThrows<TException>(
+//    string definition,
+//    TException expected)
+//: TestData(definition),
+//IThrows<TException>
+//where TException : Exception
+//{
+//    /// <inheritdoc/>
+//    public TException Expected { get; init; } = expected;
 
-    /// <inheritdoc/>
-    public string ResultPrefix
-    => "throws";
+//    /// <inheritdoc/>
+//    public string ResultPrefix
+//    => "throws";
 
-    /// <summary>
-    /// Gets the Expected exception instance.
-    /// </summary>
-    /// <returns>The exception object that should be thrown.</returns>
-    public override sealed string GetResult()
-    => GetExpectedResult(this, Expected.GetType().Name);
+//    /// <summary>
+//    /// Gets the Expected exception instance.
+//    /// </summary>
+//    /// <returns>The exception object that should be thrown.</returns>
+//    public override sealed string GetResult()
+//    => GetExpectedResult(this, Expected.GetType().Name);
 
-    public object GetExpected()
-    => Expected;
+//    public object GetExpected()
+//    => Expected;
 
-    /// <inheritdoc cref="TestData.ToArgs(ArgsCode)"/>
-    /// <remarks>
-    /// Adds the Expected exception to the argument array when <see cref="ArgsCode.Properties"/> is specified.
-    /// </remarks>
-    protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Expected, argsCode);
-}
-#endregion
+//    /// <inheritdoc cref="TestData.ToArgs(ArgsCode)"/>
+//    /// <remarks>
+//    /// Adds the Expected exception to the argument array when <see cref="ArgsCode.Properties"/> is specified.
+//    /// </remarks>
+//    protected override object?[] ToArgs(ArgsCode argsCode)
+//    => Extend(base.ToArgs, Expected, argsCode);
+//}
+//#endregion
 
 #region Concrete types
 /// <summary>
@@ -61,12 +61,24 @@ public class TestDataThrows<TException, T1>(
     string definition,
     TException expected,
     T1? arg1)
-: TestDataThrows<TException>(
+: TestDataExpected<TException>(
     definition,
-    expected)
+    expected),
+IThrows<TException>
 where TException : Exception
 {
+    /// <inheritdoc/>
+    public override sealed string ResultPrefix
+    => "throws";
+
     public T1? Arg1 { get; init; } = arg1;
+
+    /// <summary>
+    /// Gets the Expected exception instance.
+    /// </summary>
+    /// <returns>The exception object that should be thrown.</returns>
+    public override sealed string GetResult()
+    => GetResult(Expected.GetType().Name);
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)

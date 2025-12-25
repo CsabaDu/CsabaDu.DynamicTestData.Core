@@ -6,48 +6,48 @@ using CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 
-#region Abstract type
-/// <summary>
-/// Abstract base class for test data that expects a non-nullable <see cref="ValueType"/> return result.
-/// </summary>
-/// <typeparam name="TStruct">The value type of the Expected return result (must be a non-nullable <see cref="ValueType").</typeparam>
-/// <param name="definition">Descriptive definition of the test scenario.</param>
-/// <param name="expected">The Expected return value for the test case.</param>
-/// <remarks>
-/// Specializes <see cref="TestData"/> for test cases that verify return values of struct types.
-/// </remarks>
-public abstract class TestDataReturns<TStruct>(
-    string definition,
-    TStruct expected)
-: TestData(definition),
-IReturns<TStruct>
-where TStruct : struct
-{
-    /// <inheritdoc/>
-    public TStruct Expected { get; init; } = expected;
+//#region Abstract type
+///// <summary>
+///// Abstract base class for test data that expects a non-nullable <see cref="ValueType"/> return result.
+///// </summary>
+///// <typeparam name="TStruct">The value type of the Expected return result (must be a non-nullable <see cref="ValueType").</typeparam>
+///// <param name="definition">Descriptive definition of the test scenario.</param>
+///// <param name="expected">The Expected return value for the test case.</param>
+///// <remarks>
+///// Specializes <see cref="TestData"/> for test cases that verify return values of struct types.
+///// </remarks>
+//public abstract class TestDataReturns<TStruct>(
+//    string definition,
+//    TStruct expected)
+//: TestDataExpected<TStruct>(definition, expected),
+//IReturns<TStruct>
+//where TStruct : struct
+//{
+//    /// <inheritdoc/>
+//    public TStruct Expected { get; init; } = expected;
 
-    /// <inheritdoc/>
-    public string ResultPrefix
-    => "returns";
+//    /// <inheritdoc/>
+//    public string ResultPrefix
+//    => "returns";
 
-    /// <summary>
-    /// Gets the Expected return value as an object.
-    /// </summary>
-    /// <returns>The boxed Expected value.</returns>
-    public override sealed string GetResult()
-    => GetExpectedResult(this, Expected.ToString());
+//    /// <summary>
+//    /// Gets the Expected return value as an object.
+//    /// </summary>
+//    /// <returns>The boxed Expected value.</returns>
+//    public override sealed string GetResult()
+//    => GetExpectedResult(this, Expected.ToString());
 
-    public object GetExpected()
-    => Expected;
+//    public object GetExpected()
+//    => Expected;
 
-    /// <inheritdoc cref="TestData.ToArgs(ArgsCode)"/>
-    /// <remarks>
-    /// Adds the Expected return value to the argument array when <see cref="ArgsCode.Properties"/> is specified.
-    /// </remarks>
-    protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Expected, argsCode);
-}
-#endregion
+//    /// <inheritdoc cref="TestData.ToArgs(ArgsCode)"/>
+//    /// <remarks>
+//    /// Adds the Expected return value to the argument array when <see cref="ArgsCode.Properties"/> is specified.
+//    /// </remarks>
+//    protected override object?[] ToArgs(ArgsCode argsCode)
+//    => Extend(base.ToArgs, Expected, argsCode);
+//}
+//#endregion
 
 #region Concrete types
 /// <summary>
@@ -60,12 +60,24 @@ public class TestDataReturns<TStruct, T1>(
     string definition,
     TStruct expected,
     T1? arg1)
-: TestDataReturns<TStruct>(
+: TestDataExpected<TStruct>(
     definition,
-    expected)
+    expected),
+IReturns<TStruct>
 where TStruct : struct
 {
+    /// <inheritdoc/>
+    public override sealed string ResultPrefix
+    => "returns";
+
     public T1? Arg1 { get; init; } = arg1;
+
+    /// <summary>
+    /// Gets the Expected return value as an object.
+    /// </summary>
+    /// <returns>The boxed Expected value.</returns>
+    public override sealed string GetResult()
+    => GetResult(Expected.ToString());
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)

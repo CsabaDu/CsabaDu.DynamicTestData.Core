@@ -163,11 +163,11 @@ public static class CollectionConverter
             testDataConverter,
             nameof(testDataConverter));
 
-        HashSet<INamedTestCase> testCases = [];
+        // Deduplicate based on INamedTestCase identity/equality semantics
+        HashSet<INamedTestCase> testCases = new(NamedTestCase.Comparer);
 
         foreach (var testData in testDataCollection)
         {
-            // Deduplicate based on INamedTestCase identity/equality semantics
             if (testCases.Add(testData))
             {
                 yield return testDataConverter(testData);
