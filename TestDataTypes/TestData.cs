@@ -24,11 +24,27 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 public abstract class TestData(string definition)
 : NamedTestCase, ITestData
 {
+    #region Fields
+    private readonly string _definition = definition;
+    #endregion
+
     #region Properties
-    protected string Definition { get; init; } = definition;
+    public override sealed string TestCaseName
+    {
+        get
+        {
+            var definition = GetDefinition();
+            var result = GetResult();
+
+            return $"{definition} => {result}";
+        }
+    }
     #endregion
 
     #region Methods
+    public string GetDefinition()
+    => GetOrSubstitute(_definition, "definition");
+
     public object?[] ToParams(ArgsCode argsCode)
     => ToParams(argsCode, PropsCode.Expected);
 
@@ -53,18 +69,10 @@ public abstract class TestData(string definition)
             ArgsCode.Instance => args,
             ArgsCode.Properties => propsCode switch
             {
-                // For MSTest: include the test case name so
-                // DynamicDataAttribute.DynamicDataDisplayName can use
-                // TestDataFactory.CreateDisplayName to construct the display name.
                 PropsCode.TestCaseName => args,
-
-                // Most common case: exclude test case name from args
                 PropsCode.Expected => argsWithoutTestCaseName(),
-
-                // Useful for NUnit/TestNG style tests returning values
                 PropsCode.Returns => argsWithoutExpectedIf(this is IReturns),
                 PropsCode.Throws => argsWithoutExpectedIf(this is IThrows),
-
                 _ => throw propsCode.GetInvalidEnumArgumentException(nameof(propsCode)),
             },
             _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
@@ -84,50 +92,26 @@ public abstract class TestData(string definition)
             args[index..]
             : throw new ArgumentOutOfRangeException(
                 nameof(propsCode),
-                "Insufficient PropsCode for the requested operation.");
+                "Insufficient 'PropsCode' for the requested operation.");
         #endregion
     }
+
+    public abstract string GetResult();
     #endregion
 
     #region Helper methods
-    /// <summary>
-    /// Constructs a standardized test case name by combining the test definition with its expectedToString.
-    /// </summary>
-    /// <param name="result">The test expectedToString or outcome to append to the definition.</param>
-    /// <returns>
-    /// A formatted test case name in the format: "{definition} => {expectedToString}".
-    /// If the definition is null or whitespace, uses the literal "definition" as the definition.
-    /// </returns>
-    /// <remarks>
-    /// This method ensures consistent naming across all test cases by:
-    /// <list type="bullet">
-    ///   <item>Handling null/empty definitions gracefully</item>
-    ///   <item>Providing a clear visual separator (" => ") between definition and expectedToString</item>
-    ///   <item>Maintaining a predictable format for test reporting</item>
-    /// </list>
-    /// </remarks>
-    protected string GetTestCaseName(string? result)
+    protected static string GetExpectedResult(IExpected expectedType, string? expectedString)
     {
-        string substitute = nameof(Definition);
-        string definition = validated(Definition);
+        var prefix = expectedType.ResultPrefix;
+        var expected = GetOrSubstitute(expectedString, "expected");
 
-        var expected = this as IExpected;
-        bool isExpected = expected is not null;
-
-        substitute = isExpected ? nameof(expected) : nameof(result);
-        result = validated(result);
-
-        return isExpected ?
-            $"{definition} => {expected!.ResultPrefix} {result}"
-            : $"{definition} => {result}";
-
-        #region Local function
-        string validated(string? value)
-        => string.IsNullOrEmpty(value) ?
-            substitute
-            : value;
-        #endregion
+        return $"{prefix} {expected}";
     }
+
+    protected static string GetOrSubstitute(string? value, string substitute)
+    => string.IsNullOrEmpty(value) ?
+        substitute
+        : value;
 
     /// <summary>
     /// Converts the test data to an argument array based on the specified <see cref="ArgsCode"/> parameter.
@@ -165,44 +149,6 @@ public abstract class TestData(string definition)
             _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
         };
     }
-
-    ///// <summary>
-    ///// Conditionally extends an arguments array based on the specified <see cref="ArgsCode"/> strategy.
-    ///// </summary>
-    ///// <typeparam name="T">The type of newArg to potentially add.</typeparam>
-    ///// <param name="args">The source arguments array.</param>
-    ///// <param name="ArgsCode">Determines the processing strategy:
-    ///// <list type="bullet">
-    /////   <item><see cref="ArgsCode.Instance"/>: Returns the original array reference</item>
-    /////   <item><see cref="ArgsCode.Properties"/>: Returns a new array with the newArg appended</item>
-    ///// </list>
-    ///// </param>
-    ///// <param name="newArg">The value to potentially append.</param>
-    ///// <returns>
-    ///// Either:
-    ///// <list type="bullet">
-    /////   <item>The original <paramref name="args"/> array (when ArgsCode is Instance)</item>
-    /////   <item>A new array containing existing elements plus <paramref name="newArg"/> (when ArgsCode is Properties)</item>
-    ///// </list>
-    ///// </returns>
-    ///// <exception cref="InvalidEnumargumentException">
-    ///// Thrown when <paramref name="ArgsCode"/> is neither Instance nor Properties.
-    ///// </exception>
-    ///// <remarks>
-    ///// Important behavior notes:
-    ///// <list type="bullet">
-    /////   <item>For <see cref="ArgsCode.Instance"/>: Returns the original array reference without modification</item>
-    /////   <item>For <see cref="ArgsCode.Properties"/>: Creates and returns a new array instance, with the specified newArg added.</item>
-    /////   <item>Null <paramref name="args"/> will throw NullReferenceException</item>
-    ///// </list>
-    ///// </remarks>
-    //protected static object?[] Extend<T>(object?[] args, T? newArg, ArgsCode argsCode)
-    //=> argsCode switch
-    //{
-    //    ArgsCode.Instance => args,
-    //    ArgsCode.Properties => [.. args, newArg],
-    //    _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
-    //};
     #endregion
 }
 #endregion
@@ -213,21 +159,19 @@ public abstract class TestData(string definition)
 /// </summary>
 /// <typeparam name="T1">Type of the first test argument.</typeparam>
 /// <param name="definition">Description of the test scenario.</param>
-/// <param name="expected">The result expectedToString description.</param>
+/// <param name="result">The result expectedToString description.</param>
 /// <param name="arg1">First test argument value.</param>
 public class TestData<T1>(
     string definition,
-    string expected,
+    string result,
     T1? arg1)
-: TestData(definition), ITestData<string>
+: TestData(definition)
 {
-    public T1? Arg1 { get; init; } =  arg1;
+    private readonly string _result = result;
+    public T1? Arg1 { get; init; } = arg1;
 
-    /// <inheritdoc/>
-    public override sealed string TestCaseName
-    => GetTestCaseName(Expected);
-
-    public string Expected { get; init; } = expected;
+    public override sealed string GetResult()
+    => GetOrSubstitute(_result, "result");
 
     /// <inheritdoc/>
     protected override object?[] ToArgs(ArgsCode argsCode)
@@ -243,9 +187,9 @@ public class TestData<T1>(
 
 public class TestData<T1, T2>(
     string definition,
-    string expected,
+    string result,
     T1? arg1, T2? arg2)
-: TestData<T1>(definition, expected, arg1)
+: TestData<T1>(definition, result, arg1)
 {
     public T2? Arg2 { get; init; } = arg2;
 
@@ -262,9 +206,9 @@ public class TestData<T1, T2>(
 /// /// <param name="arg3">Third test argument value.</param>
 public class TestData<T1, T2, T3>(
     string definition,
-    string expected,
+    string result,
     T1? arg1, T2? arg2, T3? arg3)
-: TestData<T1, T2>(definition, expected, arg1, arg2)
+: TestData<T1, T2>(definition, result, arg1, arg2)
 {
     public T3? Arg3 { get; init; } = arg3;
 
@@ -281,11 +225,11 @@ public class TestData<T1, T2, T3>(
 /// <param name="arg4">The fourth test argument value..</param>
 public class TestData<T1, T2, T3, T4>(
     string definition,
-    string expected,
+    string result,
     T1? arg1, T2? arg2, T3? arg3, T4? arg4)
 : TestData<T1, T2, T3>(
     definition,
-    expected,
+    result,
     arg1, arg2, arg3)
 {
     public T4? Arg4 { get; init; } = arg4;
@@ -303,11 +247,11 @@ public class TestData<T1, T2, T3, T4>(
 /// <param name="arg5">The fifth test argument value..</param>
 public class TestData<T1, T2, T3, T4, T5>(
     string definition,
-    string expected,
+    string result,
     T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5)
 : TestData<T1, T2, T3, T4>(
     definition,
-    expected,
+    result,
     arg1, arg2, arg3, arg4)
 {
     public T5? Arg5 { get; init; } = arg5;
@@ -325,11 +269,11 @@ public class TestData<T1, T2, T3, T4, T5>(
 /// <param name="arg6">The sixth test argument value..</param>
 public class TestData<T1, T2, T3, T4, T5, T6>(
     string definition,
-    string expected,
+    string result,
     T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6)
 : TestData<T1, T2, T3, T4, T5>(
     definition,
-    expected,
+    result,
     arg1, arg2, arg3, arg4, arg5)
 {
     public T6? Arg6 { get; init; } = arg6;
@@ -347,11 +291,11 @@ public class TestData<T1, T2, T3, T4, T5, T6>(
 /// <param name="arg7">The seventh test argument value..</param>
 public class TestData<T1, T2, T3, T4, T5, T6, T7>(
     string definition,
-    string expected,
+    string result,
     T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6, T7? arg7)
 : TestData<T1, T2, T3, T4, T5, T6>(
     definition,
-    expected,
+    result,
     arg1, arg2, arg3, arg4, arg5, arg6)
 {
     public T7? Arg7 { get; init; } = arg7;
@@ -369,11 +313,11 @@ public class TestData<T1, T2, T3, T4, T5, T6, T7>(
 /// <param name="arg8">The eighth test argument value..</param>
 public class TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
     string definition,
-    string expected,
+    string result,
     T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6, T7? arg7, T8? arg8)
 : TestData<T1, T2, T3, T4, T5, T6, T7>(
     definition,
-    expected,
+    result,
     arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 {
     public T8? Arg8 { get; init; } = arg8;
@@ -391,11 +335,11 @@ public class TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
 /// <param name="arg9">The ninth test argument value..</param>
 public class TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
     string definition,
-    string expected,
+    string result,
     T1? arg1, T2? arg2, T3? arg3, T4? arg4, T5? arg5, T6? arg6, T7? arg7, T8? arg8, T9? arg9)
 : TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
     definition,
-    expected,
+    result,
     arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 {
     public T9? Arg9 { get; init; } = arg9;

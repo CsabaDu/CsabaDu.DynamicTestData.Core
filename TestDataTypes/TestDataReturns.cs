@@ -20,8 +20,7 @@ public abstract class TestDataReturns<TStruct>(
     string definition,
     TStruct expected)
 : TestData(definition),
-ITestData<TStruct>,
-IReturns
+IReturns<TStruct>
 where TStruct : struct
 {
     /// <inheritdoc/>
@@ -31,14 +30,13 @@ where TStruct : struct
     public string ResultPrefix
     => "returns";
 
-    /// <inheritdoc/>
-    public override sealed string TestCaseName
-    => GetTestCaseName(Expected.ToString());
-
     /// <summary>
     /// Gets the Expected return value as an object.
     /// </summary>
     /// <returns>The boxed Expected value.</returns>
+    public override sealed string GetResult()
+    => GetExpectedResult(this, Expected.ToString());
+
     public object GetExpected()
     => Expected;
 

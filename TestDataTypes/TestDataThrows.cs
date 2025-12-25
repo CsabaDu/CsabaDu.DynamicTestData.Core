@@ -21,8 +21,7 @@ public abstract class TestDataThrows<TException>(
     string definition,
     TException expected)
 : TestData(definition),
-ITestData<TException>,
-IThrows
+IThrows<TException>
 where TException : Exception
 {
     /// <inheritdoc/>
@@ -32,14 +31,13 @@ where TException : Exception
     public string ResultPrefix
     => "throws";
 
-    /// <inheritdoc/>
-    public override sealed string TestCaseName
-    => GetTestCaseName(Expected.GetType().Name);
-
     /// <summary>
     /// Gets the Expected exception instance.
     /// </summary>
     /// <returns>The exception object that should be thrown.</returns>
+    public override sealed string GetResult()
+    => GetExpectedResult(this, Expected.GetType().Name);
+
     public object GetExpected()
     => Expected;
 

@@ -13,10 +13,17 @@ public interface IExpected
     /// </summary>
     string ResultPrefix { get; }
 
-    /// <summary>
-    /// Returns the Expected value of the test case.
-    /// </summary>
     object GetExpected();
+}
+
+public interface IExpected<out TResult>
+: IExpected
+where TResult : notnull
+{
+    /// <summary>
+    /// Gets the strongly typed expected result of the test case.
+    /// </summary>
+    TResult Expected { get; }
 }
 
 /// <summary>
@@ -29,6 +36,11 @@ public interface IExpected
 public interface IReturns
 : IExpected;
 
+public interface IReturns<out TResult>
+: IExpected<TResult>,
+IReturns
+where TResult : notnull;
+
 /// <summary>
 /// Marker interface for test cases validating exception throwing behavior.
 /// Inherits from <see cref="IExpected"/> and marks test data designed to throw an exception.
@@ -38,3 +50,8 @@ public interface IReturns
 /// </remarks>
 public interface IThrows
 : IExpected;
+
+public interface IThrows<out TException>
+: IExpected<TException>,
+IThrows
+where TException : Exception;
