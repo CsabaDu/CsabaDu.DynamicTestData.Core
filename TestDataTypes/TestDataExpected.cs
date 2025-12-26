@@ -21,7 +21,7 @@ where TResult : notnull
     => Expected;
 
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Expected, argsCode);
+    => Extend(base.ToArgs, argsCode, Expected);
 
     protected string GetResult(string? expectedString)
     {
@@ -29,4 +29,10 @@ where TResult : notnull
 
         return $"{ResultPrefix} {expected}";
     }
+
+    public override object?[] ToParams(
+        ArgsCode argsCode,
+        PropsCode propsCode)
+    => Trim(base.ToParams, argsCode, propsCode,
+        propsCode != PropsCode.TestCaseName);
 }

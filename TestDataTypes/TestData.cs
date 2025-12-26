@@ -59,44 +59,41 @@ public abstract class TestData(string definition)
     /// <exception cref="InvalidEnumargumentException">
     /// Thrown when invalid enum values are provided.
     /// </exception>
-    public object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
-    {
-        const int idxExpected = (int)PropsCode.Expected;
-        var args = ToArgs(argsCode);
+    public virtual object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
+    => ToArgs(argsCode);
 
-        return argsCode switch
-        {
-            ArgsCode.Instance => args,
-            ArgsCode.Properties => propsCode switch
-            {
-                PropsCode.TestCaseName => args,
-                PropsCode.Expected => argsWithoutTestCaseName(),
-                PropsCode.Returns => argsWithoutExpectedIf(this is IReturns),
-                PropsCode.Throws => argsWithoutExpectedIf(this is IThrows),
-                _ => throw propsCode.GetInvalidEnumArgumentException(nameof(propsCode)),
-            },
-            _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
-        };
+        //return argsCode switch
+        //{
+        //    ArgsCode.Instance => baseArgs,
+        //    ArgsCode.Properties => propsCode switch
+        //    {
+        //        PropsCode.TestCaseName => baseArgs,
+        //        PropsCode.Expected => argsWithoutTestCaseName(),
+        //        PropsCode.Returns => argsWithoutExpectedIf(this is IReturns),
+        //        PropsCode.Throws => argsWithoutExpectedIf(this is IThrows),
+        //        _ => throw propsCode.GetInvalidEnumArgumentException(nameof(propsCode)),
+        //    },
+        //    _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
+        //};
 
-        #region Local methods
-        object?[] argsWithoutExpectedIf(bool typeMatches)
-        => typeMatches ?
-            argsFrom(idxExpected + 1)
-            : argsWithoutTestCaseName();
+        //#region Local methods
+        //object?[] argsWithoutExpectedIf(bool typeMatches)
+        //=> typeMatches ?
+        //    argsFrom(idxExpected + 1)
+        //    : argsWithoutTestCaseName();
 
-        object?[] argsWithoutTestCaseName()
-        => argsFrom(idxExpected);
+        //object?[] argsWithoutTestCaseName()
+        //=> argsFrom(idxExpected);
 
-        object?[] argsFrom(int index)
-        => args.Length > index ?
-            args[index..]
-            : throw new ArgumentOutOfRangeException(
-                nameof(propsCode),
-                $"Insufficient 'PropsCode' for the requested operation. " +
-                $"args.Length={args.Length}, requiredIndex={index}, testCase={TestCaseName}");
-
-        #endregion
-    }
+        //object?[] argsFrom(int index)
+        //=> baseArgs.Length > index ?
+        //    baseArgs[index..]
+        //    : throw new ArgumentOutOfRangeException(
+        //        nameof(propsCode),
+        //        $"Insufficient 'PropsCode' for the requested operation. " +
+        //        $"baseArgs.Length={baseArgs.Length}, requiredIndex={index}, testCase={TestCaseName}");
+        //#endregion
+    //}
 
     public abstract string GetResult();
     #endregion
@@ -130,17 +127,33 @@ public abstract class TestData(string definition)
         _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
     };
 
+    protected static object?[] Trim(
+        Func<ArgsCode, PropsCode, object?[]> baseToParams,
+        ArgsCode argsCode,
+        PropsCode propsCode,
+        bool propsCodeMatches)
+    {
+        var baseParams = baseToParams(argsCode, propsCode);
+        var strategyMatches =
+            argsCode == ArgsCode.Properties &&
+            propsCodeMatches;
+
+        return strategyMatches ?
+            baseParams[1..]
+            : baseParams;
+    }
+
     protected static object?[] Extend<T>(
         Func<ArgsCode, object?[]> baseToArgs,
-        T? newArg,
-        ArgsCode argsCode)
+        ArgsCode argsCode,
+        T? newArg)
     {
-        var args = baseToArgs(argsCode);
+        var baseArgs = baseToArgs(argsCode);
 
         return argsCode switch
         {
-            ArgsCode.Instance => args,
-            ArgsCode.Properties => [.. args, newArg],
+            ArgsCode.Instance => baseArgs,
+            ArgsCode.Properties => [.. baseArgs, newArg],
             _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
         };
     }
@@ -168,9 +181,15 @@ public class TestData<T1>(
     public override sealed string GetResult()
     => GetOrSubstitute(_result, "result");
 
+    public override sealed object?[] ToParams(
+        ArgsCode argsCode,
+        PropsCode propsCode)
+    => Trim(base.ToParams, argsCode, propsCode,
+        propsCode != PropsCode.TestCaseName);
+
     /// <inheritdoc/>
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg1, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg1);
 }
 
 /// <summary>
@@ -190,7 +209,7 @@ public class TestData<T1, T2>(
 
     /// <inheritdoc/>
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg2, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg2);
 }
 
 /// <summary>
@@ -209,7 +228,7 @@ public class TestData<T1, T2, T3>(
 
     /// <inheritdoc/>
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg3, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg3);
 }
 
 /// <summary>
@@ -231,7 +250,7 @@ public class TestData<T1, T2, T3, T4>(
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg4, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg4);
 }
 
 /// <summary>
@@ -253,7 +272,7 @@ public class TestData<T1, T2, T3, T4, T5>(
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg5, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg5);
 }
 
 /// <summary>
@@ -275,7 +294,7 @@ public class TestData<T1, T2, T3, T4, T5, T6>(
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg6, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg6);
 }
 
 /// <summary>
@@ -297,7 +316,7 @@ public class TestData<T1, T2, T3, T4, T5, T6, T7>(
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg7, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg7);
 }
 
 /// <summary>
@@ -319,7 +338,7 @@ public class TestData<T1, T2, T3, T4, T5, T6, T7, T8>(
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg8, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg8);
 }
 
 /// <summary>
@@ -341,6 +360,6 @@ public class TestData<T1, T2, T3, T4, T5, T6, T7, T8, T9>(
 
     /// <inheritdoc cref="TestData.ToArgs(argsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg9, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg9);
 }
 #endregion

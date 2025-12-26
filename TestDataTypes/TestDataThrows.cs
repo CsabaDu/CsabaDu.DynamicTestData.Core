@@ -80,9 +80,15 @@ where TException : Exception
     public override sealed string GetResult()
     => GetResult(Expected.GetType().Name);
 
+    public override sealed object?[] ToParams(
+        ArgsCode argsCode,
+        PropsCode propsCode)
+    => Trim(base.ToParams, argsCode, propsCode,
+        propsCode == PropsCode.Throws);
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg1, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg1);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1}" />
@@ -102,7 +108,7 @@ where TException : Exception
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg2, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg2);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2}" />
@@ -122,7 +128,7 @@ where TException : Exception
 
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, Arg3, argsCode);
+    => Extend(base.ToArgs, argsCode, Arg3);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3}" />
@@ -140,7 +146,7 @@ where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, arg4, argsCode);
+    => Extend(base.ToArgs, argsCode, arg4);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4}" />
@@ -158,7 +164,7 @@ where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, arg5, argsCode);
+    => Extend(base.ToArgs, argsCode, arg5);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5}" />
@@ -176,7 +182,7 @@ where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, arg6, argsCode);
+    => Extend(base.ToArgs, argsCode, arg6);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5, T6}" />
@@ -194,7 +200,7 @@ where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, arg7, argsCode);
+    => Extend(base.ToArgs, argsCode, arg7);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5, T6, T7}" />
@@ -212,7 +218,7 @@ where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, arg8, argsCode);
+    => Extend(base.ToArgs, argsCode, arg8);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5, T6, T7, T8}" />
@@ -230,6 +236,6 @@ where TException : Exception
 {
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, arg9, argsCode);
+    => Extend(base.ToArgs, argsCode, arg9);
 }
 #endregion
