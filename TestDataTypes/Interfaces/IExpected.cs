@@ -25,33 +25,3 @@ where TResult : notnull
     /// </summary>
     TResult Expected { get; }
 }
-
-/// <summary>
-/// Marker interface for test cases validating method return values.
-/// Inherits from <see cref="IExpected"/> and marks test data designed to return a value.
-/// </summary>
-/// <remarks>
-/// Serves as a semantic indicator for tests verifying successful execution paths with return values.
-/// </remarks>
-public interface IReturns
-: IExpected;
-
-public interface IReturns<out TResult>
-: IExpected<TResult>,
-IReturns
-where TResult : notnull;
-
-/// <summary>
-/// Marker interface for test cases validating exception throwing behavior.
-/// Inherits from <see cref="IExpected"/> and marks test data designed to throw an exception.
-/// </summary>
-/// <remarks>
-/// Identifies tests verifying error handling and exceptional execution paths.
-/// </remarks>
-public interface IThrows
-: IExpected;
-
-public interface IThrows<out TException>
-: IExpected<TException>,
-IThrows
-where TException : Exception;

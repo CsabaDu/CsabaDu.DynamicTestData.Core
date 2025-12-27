@@ -6,50 +6,6 @@ using CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 
-//#region Abstract type
-///// <summary>
-///// Abstract base class for test data that expects a non-nullable <see cref="ValueType"/> return result.
-///// </summary>
-///// <typeparam name="TStruct">The value type of the Expected return result (must be a non-nullable <see cref="ValueType").</typeparam>
-///// <param name="definition">Descriptive definition of the test scenario.</param>
-///// <param name="expected">The Expected return value for the test case.</param>
-///// <remarks>
-///// Specializes <see cref="TestData"/> for test cases that verify return values of struct types.
-///// </remarks>
-//public abstract class TestDataReturns<TStruct>(
-//    string definition,
-//    TStruct expected)
-//: TestDataExpected<TStruct>(definition, expected),
-//IReturns<TStruct>
-//where TStruct : struct
-//{
-//    /// <inheritdoc/>
-//    public TStruct Expected { get; init; } = expected;
-
-//    /// <inheritdoc/>
-//    public string ResultPrefix
-//    => "returns";
-
-//    /// <summary>
-//    /// Gets the Expected return value as an object.
-//    /// </summary>
-//    /// <returns>The boxed Expected value.</returns>
-//    public override sealed string GetResult()
-//    => GetExpectedResult(this, Expected.ToString());
-
-//    public object GetExpected()
-//    => Expected;
-
-//    /// <inheritdoc cref="TestData.ToArgs(ArgsCode)"/>
-//    /// <remarks>
-//    /// Adds the Expected return value to the argument array when <see cref="ArgsCode.Properties"/> is specified.
-//    /// </remarks>
-//    protected override object?[] ToArgs(ArgsCode argsCode)
-//    => Extend(base.ToArgs, Expected, argsCode);
-//}
-//#endregion
-
-#region Concrete types
 /// <summary>
 /// Test data implementation for return-value tests with 1 additional argument.
 /// </summary>
@@ -77,7 +33,7 @@ where TStruct : struct
     /// </summary>
     /// <returns>The boxed Expected value.</returns>
     public override sealed string GetResult()
-    => GetResult(Expected.ToString());
+    => GetExpectedResult(Expected.ToString());
 
     public override sealed object?[] ToParams(
         ArgsCode argsCode,
@@ -143,9 +99,11 @@ public class TestDataReturns<TStruct, T1, T2, T3, T4>(
     arg1, arg2, arg3)
 where TStruct : struct
 {
+    public T4? Arg4 { get; init; } = arg4;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, argsCode, arg4);
+    => Extend(base.ToArgs, argsCode, Arg4);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4}" />
@@ -201,9 +159,11 @@ public class TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7>(
     arg1, arg2, arg3, arg4, arg5, arg6)
 where TStruct : struct
 {
+    public T7? Arg7 { get; init; } = arg7;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, argsCode, arg7);
+    => Extend(base.ToArgs, argsCode, Arg7);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4, T5, T6, T7}" />
@@ -219,9 +179,11 @@ public class TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8>(
     arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 where TStruct : struct
 {
+    public T8? Arg8 { get; init; } = arg8;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, argsCode, arg8);
+    => Extend(base.ToArgs, argsCode, Arg8);
 }
 
 /// <inheritdoc cref="TestDataReturns{TStruct, T1, T2, T3, T4, T5, T6, T7, T8}" />
@@ -237,8 +199,9 @@ public class TestDataReturns<TStruct, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
     arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 where TStruct : struct
 {
+    public T9? Arg9 { get; init; } = arg9;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, argsCode, arg9);
+    => Extend(base.ToArgs, argsCode, Arg9);
 }
-#endregion

@@ -23,7 +23,7 @@ where TResult : notnull
     protected override object?[] ToArgs(ArgsCode argsCode)
     => Extend(base.ToArgs, argsCode, Expected);
 
-    protected string GetResult(string? expectedString)
+    protected string GetExpectedResult(string? expectedString)
     {
         var expected = GetOrSubstitute(expectedString, "expected");
 

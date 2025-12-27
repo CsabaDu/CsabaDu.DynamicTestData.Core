@@ -35,7 +35,7 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 //    /// Gets the Expected exception instance.
 //    /// </summary>
 //    /// <returns>The exception object that should be thrown.</returns>
-//    public override sealed string GetResult()
+//    public override sealed string GetExpectedResult()
 //    => GetExpectedResult(this, Expected.GetType().Name);
 
 //    public object GetExpected()
@@ -78,7 +78,7 @@ where TException : Exception
     /// </summary>
     /// <returns>The exception object that should be thrown.</returns>
     public override sealed string GetResult()
-    => GetResult(Expected.GetType().Name);
+    => GetExpectedResult(Expected.GetType().Name);
 
     public override sealed object?[] ToParams(
         ArgsCode argsCode,
@@ -144,9 +144,11 @@ public class TestDataThrows<TException, T1, T2, T3, T4>(
     arg1, arg2, arg3)
 where TException : Exception
 {
+    public T4? Arg4 { get; init; } = arg4;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, argsCode, arg4);
+    => Extend(base.ToArgs, argsCode, Arg4);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4}" />
@@ -162,9 +164,11 @@ public class TestDataThrows<TException, T1, T2, T3, T4, T5>(
     arg1, arg2, arg3, arg4)
 where TException : Exception
 {
+    public T5? Arg5 { get; init; } = arg5;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, argsCode, arg5);
+    => Extend(base.ToArgs, argsCode, Arg5);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5}" />
@@ -180,9 +184,11 @@ public class TestDataThrows<TException, T1, T2, T3, T4, T5, T6>(
     arg1, arg2, arg3, arg4, arg5)
 where TException : Exception
 {
+    public T6? Arg6 { get; init; } = arg6;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, argsCode, arg6);
+    => Extend(base.ToArgs, argsCode, Arg6);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5, T6}" />
@@ -198,9 +204,11 @@ public class TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7>(
     arg1, arg2, arg3, arg4, arg5, arg6)
 where TException : Exception
 {
+    public T7? Arg7 { get; init; } = arg7;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, argsCode, arg7);
+    => Extend(base.ToArgs, argsCode, Arg7);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5, T6, T7}" />
@@ -216,9 +224,11 @@ public class TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8>(
     arg1, arg2, arg3, arg4, arg5, arg6, arg7)
 where TException : Exception
 {
+    public T8? Arg8 { get; init; } = arg8;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, argsCode, arg8);
+    => Extend(base.ToArgs, argsCode, Arg8);
 }
 
 /// <inheritdoc cref="TestDataThrows{TException, T1, T2, T3, T4, T5, T6, T7, T8}" />
@@ -234,8 +244,10 @@ public class TestDataThrows<TException, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
     arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
 where TException : Exception
 {
+    public T9? Arg9 { get; init; } = arg9;
+
     /// <inheritdoc cref="TestData.ToArgs(ArgsCode)" />
     protected override object?[] ToArgs(ArgsCode argsCode)
-    => Extend(base.ToArgs, argsCode, arg9);
+    => Extend(base.ToArgs, argsCode, Arg9);
 }
 #endregion

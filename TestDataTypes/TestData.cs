@@ -60,7 +60,11 @@ public abstract class TestData(string definition)
     /// Thrown when invalid enum values are provided.
     /// </exception>
     public virtual object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
-    => ToArgs(argsCode);
+    {
+        _ = propsCode.Defined(nameof(propsCode));
+
+        return ToArgs(argsCode);
+    }
 
         //return argsCode switch
         //{
@@ -99,12 +103,6 @@ public abstract class TestData(string definition)
     #endregion
 
     #region Helper methods
-
-    protected static string GetOrSubstitute(string? value, string substitute)
-    => string.IsNullOrEmpty(value) ?
-        substitute
-        : value;
-
     /// <summary>
     /// Converts the test data to an argument array based on the specified <see cref="ArgsCode"/> parameter.
     /// </summary>
@@ -127,6 +125,21 @@ public abstract class TestData(string definition)
         _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
     };
 
+    protected static object?[] Extend<T>(
+    Func<ArgsCode, object?[]> baseToArgs,
+    ArgsCode argsCode,
+    T? newArg)
+    {
+        var baseArgs = baseToArgs(argsCode);
+
+        return argsCode switch
+        {
+            ArgsCode.Instance => baseArgs,
+            ArgsCode.Properties => [.. baseArgs, newArg],
+            _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
+        };
+    }
+
     protected static object?[] Trim(
         Func<ArgsCode, PropsCode, object?[]> baseToParams,
         ArgsCode argsCode,
@@ -143,20 +156,10 @@ public abstract class TestData(string definition)
             : baseParams;
     }
 
-    protected static object?[] Extend<T>(
-        Func<ArgsCode, object?[]> baseToArgs,
-        ArgsCode argsCode,
-        T? newArg)
-    {
-        var baseArgs = baseToArgs(argsCode);
-
-        return argsCode switch
-        {
-            ArgsCode.Instance => baseArgs,
-            ArgsCode.Properties => [.. baseArgs, newArg],
-            _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
-        };
-    }
+    protected static string GetOrSubstitute(string? value, string substitute)
+    => string.IsNullOrEmpty(value) ?
+        substitute
+        : value;
     #endregion
 }
 #endregion
