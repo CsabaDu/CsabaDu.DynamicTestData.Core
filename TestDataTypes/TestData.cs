@@ -61,43 +61,13 @@ public abstract class TestData(string definition)
     /// </exception>
     public virtual object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
     {
-        _ = propsCode.Defined(nameof(propsCode));
+        if (argsCode == ArgsCode.Properties)
+        {
+            _ = propsCode.Defined(nameof(propsCode));
+        }
 
         return ToArgs(argsCode);
     }
-
-        //return argsCode switch
-        //{
-        //    ArgsCode.Instance => baseArgs,
-        //    ArgsCode.Properties => propsCode switch
-        //    {
-        //        PropsCode.TestCaseName => baseArgs,
-        //        PropsCode.Expected => argsWithoutTestCaseName(),
-        //        PropsCode.Returns => argsWithoutExpectedIf(this is IReturns),
-        //        PropsCode.Throws => argsWithoutExpectedIf(this is IThrows),
-        //        _ => throw propsCode.GetInvalidEnumArgumentException(nameof(propsCode)),
-        //    },
-        //    _ => throw argsCode.GetInvalidEnumArgumentException(nameof(argsCode)),
-        //};
-
-        //#region Local methods
-        //object?[] argsWithoutExpectedIf(bool typeMatches)
-        //=> typeMatches ?
-        //    argsFrom(idxExpected + 1)
-        //    : argsWithoutTestCaseName();
-
-        //object?[] argsWithoutTestCaseName()
-        //=> argsFrom(idxExpected);
-
-        //object?[] argsFrom(int index)
-        //=> baseArgs.Length > index ?
-        //    baseArgs[index..]
-        //    : throw new ArgumentOutOfRangeException(
-        //        nameof(propsCode),
-        //        $"Insufficient 'PropsCode' for the requested operation. " +
-        //        $"baseArgs.Length={baseArgs.Length}, requiredIndex={index}, testCase={TestCaseName}");
-        //#endregion
-    //}
 
     public abstract string GetResult();
     #endregion
