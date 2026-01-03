@@ -26,6 +26,7 @@ public abstract class TestData(string definition)
 {
     #region Fields
     private readonly string _definition = definition;
+    private const string Definition = "definition";
     #endregion
 
     #region Properties
@@ -35,7 +36,7 @@ public abstract class TestData(string definition)
 
     #region Methods
     public string GetDefinition()
-    => GetOrSubstitute(_definition, "definition");
+    => GetOrSubstitute(_definition, Definition);
 
     public object?[] ToParams(ArgsCode argsCode)
     => ToParams(argsCode, PropsCode.Expected);
@@ -141,10 +142,11 @@ public class TestData<T1>(
 : TestData(definition)
 {
     private readonly string _result = result;
+    private const string Result = "result";
     public T1? Arg1 { get; init; } = arg1;
 
     public override sealed string GetResult()
-    => GetOrSubstitute(_result, "result");
+    => GetOrSubstitute(_result, Result);
 
     public override sealed object?[] ToParams(
         ArgsCode argsCode,

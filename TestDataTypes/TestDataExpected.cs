@@ -13,6 +13,8 @@ public abstract class TestDataExpected<TResult>(
 IExpected<TResult>
 where TResult : notnull
 {
+    private const string ExpectedString = "expected";
+
     public TResult Expected { get; init; } = expected;
 
     public abstract string ResultPrefix { get; }
@@ -25,7 +27,7 @@ where TResult : notnull
 
     protected string GetExpectedResult(string? expectedString)
     {
-        var expected = GetOrSubstitute(expectedString, "expected");
+        var expected = GetOrSubstitute(expectedString, ExpectedString);
 
         return $"{ResultPrefix} {expected}";
     }
