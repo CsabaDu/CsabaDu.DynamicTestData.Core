@@ -30,15 +30,7 @@ public abstract class TestData(string definition)
 
     #region Properties
     public override sealed string TestCaseName
-    {
-        get
-        {
-            var definition = GetDefinition();
-            var result = GetResult();
-
-            return $"{definition} => {result}";
-        }
-    }
+    => $"{GetDefinition()} => {GetResult()}";
     #endregion
 
     #region Methods
