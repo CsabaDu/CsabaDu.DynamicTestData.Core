@@ -143,6 +143,7 @@ public class TestData<T1>(
 {
     private readonly string _result = result;
     private const string Result = "result";
+
     public T1? Arg1 { get; init; } = arg1;
 
     public override sealed string GetResult()
