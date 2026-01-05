@@ -24,7 +24,7 @@ public static class EnumValidator
         this TEnum enumValue,
         string? paramName)
     where TEnum : struct, Enum
-    => Enum.IsDefined(typeof(TEnum), enumValue) ?
+    => Enum.IsDefined(enumValue) ?
         enumValue
         : throw enumValue.GetInvalidEnumArgumentException(paramName);
 

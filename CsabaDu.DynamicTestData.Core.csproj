@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageIcon>icon.png</PackageIcon>
@@ -39,5 +39,11 @@
       <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
-
+  
+  <ItemGroup>
+    <ProjectReference
+      Include="..\CsabaDu.DynamicTestData.Core.Generators\CsabaDu.DynamicTestData.Core.Generators.csproj"
+      OutputItemType="Analyzer"
+      ReferenceOutputAssembly="false" />
+  </ItemGroup>
 </Project>

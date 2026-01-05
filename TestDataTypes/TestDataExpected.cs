@@ -9,11 +9,12 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 public abstract class TestDataExpected<TResult>(
     string definition,
     TResult expected)
-: TestData(definition),
+: TestDataBase(definition),
 IExpected<TResult>
 where TResult : notnull
 {
     private const string ExpectedString = "expected";
+    private const string DefaultPrefixString = "results";
 
     public TResult Expected { get; init; } = expected;
 
@@ -28,8 +29,9 @@ where TResult : notnull
     protected string GetExpectedResult(string? expectedString)
     {
         var expected = GetOrSubstitute(expectedString, ExpectedString);
+        var prefix = GetOrSubstitute(ResultPrefix, DefaultPrefixString);
 
-        return $"{ResultPrefix} {expected}";
+        return $"{prefix} {expected}";
     }
 
     public override object?[] ToParams(
