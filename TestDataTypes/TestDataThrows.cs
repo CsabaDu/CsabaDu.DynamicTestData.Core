@@ -15,9 +15,11 @@ public abstract class TestDataThrows<TException>(
 IThrows<TException>
 where TException : Exception
 {
+    private const string ThrowsString = "throws";
+
     /// <inheritdoc/>
-    public override sealed string ResultPrefix
-    => "throws";
+    public override sealed string GetResultPrefix()
+    => GetResultPrefix(ThrowsString);
 
     /// <summary>
     /// Gets the Expected exception instance.

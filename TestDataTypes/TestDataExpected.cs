@@ -14,11 +14,11 @@ IExpected<TResult>
 where TResult : notnull
 {
     private const string ExpectedString = "expected";
-    private const string DefaultPrefixString = "results";
+    private const string ResultsString = "results";
 
     public TResult Expected { get; init; } = expected;
 
-    public abstract string ResultPrefix { get; }
+    public abstract string GetResultPrefix();
 
     public object GetExpected()
     => Expected;
@@ -28,11 +28,14 @@ where TResult : notnull
 
     protected string GetExpectedResult(string? expectedString)
     {
+        var resultPrefix = GetResultPrefix();
         var expected = GetOrSubstitute(expectedString, ExpectedString);
-        var prefix = GetOrSubstitute(ResultPrefix, DefaultPrefixString);
 
-        return $"{prefix} {expected}";
+        return $"{resultPrefix} {expected}";
     }
+
+    protected string GetResultPrefix(string resultPrefix)
+    => GetOrSubstitute(resultPrefix, ResultsString);
 
     public override object?[] ToParams(
         ArgsCode argsCode,

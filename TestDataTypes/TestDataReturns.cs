@@ -15,9 +15,11 @@ public abstract class TestDataReturns<TStruct>(
 IReturns<TStruct>
 where TStruct : struct
 {
+    private const string ReturnsString = "returns";
+
     /// <inheritdoc/>
-    public override sealed string ResultPrefix
-    => "returns";
+    public override sealed string GetResultPrefix()
+    => GetResultPrefix(ReturnsString);
 
     /// <summary>
     /// Gets the Expected return value as an object.
