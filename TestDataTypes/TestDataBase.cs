@@ -85,14 +85,18 @@ public abstract class TestDataBase(string definition)
             {
                 var (d, s, r) = state;
 
-                d.AsSpan().CopyTo(span);
+                var index = 0;
+                copy(d, span, index);
 
-                var length = d.Length;
-                s.AsSpan().CopyTo(span[length..]);
+                index = d.Length;
+                copy(s, span, index);
 
-                length += s.Length;
-                r.AsSpan().CopyTo(span[length..]);
+                index += s.Length;
+                copy(r, span, index);
             });
+
+        static void copy(string part, Span<char> span, int index)
+        => part.AsSpan().CopyTo(span[index..]);
     }
 
     /// <summary>

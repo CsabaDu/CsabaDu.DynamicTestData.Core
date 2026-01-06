@@ -5,8 +5,6 @@ VisualStudioVersion = 18.1.11312.151 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsabaDu.DynamicTestData.Core", "CsabaDu.DynamicTestData.Core.csproj", "{26329551-3F4D-4CBE-87AF-3FDC3D4F3C1E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsabaDu.DynamicTestData.Core.Generators", "..\CsabaDu.DynamicTestData.Core.Generators\CsabaDu.DynamicTestData.Core.Generators.csproj", "{4D426CF2-9AC0-4CFB-B6E5-CAB2EBB0C6A2}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{26329551-3F4D-4CBE-87AF-3FDC3D4F3C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26329551-3F4D-4CBE-87AF-3FDC3D4F3C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26329551-3F4D-4CBE-87AF-3FDC3D4F3C1E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4D426CF2-9AC0-4CFB-B6E5-CAB2EBB0C6A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4D426CF2-9AC0-4CFB-B6E5-CAB2EBB0C6A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4D426CF2-9AC0-4CFB-B6E5-CAB2EBB0C6A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4D426CF2-9AC0-4CFB-B6E5-CAB2EBB0C6A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
