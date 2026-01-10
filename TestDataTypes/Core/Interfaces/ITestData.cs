@@ -2,8 +2,9 @@
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
 using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.Foundational.Interfaces;
 
-namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
+namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Core.Interfaces;
 
 /// <summary>
 /// Core interface representing test data with basic test case functionality.
@@ -18,9 +19,9 @@ namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
 /// </remarks>
 public interface ITestData : INamedTestCase
 {
-    ///// <summary>
-    ///// Gets the description of the test scenario being verified.
-    ///// </summary>
+    /// <summary>
+    /// Gets the description of the test scenario being verified.
+    /// </summary>
     string GetDefinition();
 
     /// <summary>

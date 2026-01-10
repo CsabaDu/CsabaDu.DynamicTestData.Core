@@ -2,10 +2,10 @@
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
 using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
-using CsabaDu.DynamicTestData.Core.TestDataTypes.Interfaces;
-using CsabaDu.DynamicTestData.Core.Validators;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.Core.Interfaces;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.Foundational;
 
-namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
+namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Core;
 
 /// <summary>
 /// Abstract base class representing test case data with core functionality for test argument generation.
@@ -24,9 +24,9 @@ public abstract class TestDataBase(string definition)
 : NamedTestCase, ITestData
 {
     #region Fields
+    private readonly string _definition = definition;
     private const string DefinitionString = "definition";
     private const string Separator = " => ";
-    private readonly string _definition = definition;
     private string? _cachedTestCaseName;
     #endregion
 
@@ -41,18 +41,24 @@ public abstract class TestDataBase(string definition)
     public string GetDefinition()
     => GetOrSubstitute(_definition, DefinitionString);
 
+    /// <summary>
+    /// Convenience overload of <see cref="ToParams(ArgsCode, PropsCode)"/> for the most common use case:
+    /// use the <see cref="PropsCode.Expected"/> property selection.
+    /// </summary>
+    /// <param name="argsCode">Determines instance vs properties inclusion.</param>
+    /// <returns></returns>
     public object?[] ToParams(ArgsCode argsCode)
     => ToParams(argsCode, PropsCode.Expected);
 
     /// <summary>
     /// Converts the test data to a parameter array with precise control over included properties.
     /// </summary>
-    /// <param name="ArgsCode">Determines instance vs properties inclusion.</param>
+    /// <param name="argsCode">Determines instance vs properties inclusion.</param>
     /// <param name="propsCode">Specifies which properties to include when using <see cref="ArgsCode.Properties"/>.</param>
     /// <returns>
     /// A parameter array tailored for test execution based on the specified codes.
     /// </returns>
-    /// <exception cref="InvalidEnumargumentException">
+    /// <exception cref="InvalidEnumArgumentException">
     /// Thrown when invalid enum values are provided.
     /// </exception>
     public virtual object?[] ToParams(ArgsCode argsCode, PropsCode propsCode)
@@ -65,6 +71,7 @@ public abstract class TestDataBase(string definition)
         return ToArgs(argsCode);
     }
 
+    /// <inheritdoc />
     public abstract string GetResult();
     #endregion
 

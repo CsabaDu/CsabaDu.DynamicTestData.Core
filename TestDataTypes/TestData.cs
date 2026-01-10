@@ -2,6 +2,7 @@
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
 using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.Core;
 
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 
