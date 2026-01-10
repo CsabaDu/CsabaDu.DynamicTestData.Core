@@ -3,9 +3,9 @@
 
 using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
 using CsabaDu.DynamicTestData.Core.TestDataTypes.Core;
-using CsabaDu.DynamicTestData.Core.TestDataTypes.Specializations.Interfaces;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.PatternMarkers.Interfaces;
 
-namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Specializations;
+namespace CsabaDu.DynamicTestData.Core.TestDataTypes.PatternMarkers;
 
 public abstract class TestDataExpected<TResult>(
     string definition,

@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: MIT
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
-namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Foundational.Interfaces;
+namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Identity.Interfaces;
 
 /// <summary>
 /// Provides a standardized way to generate descriptive display names for test cases.

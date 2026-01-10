@@ -3,7 +3,7 @@
 
 using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
 using CsabaDu.DynamicTestData.Core.TestDataTypes.Core.Interfaces;
-using CsabaDu.DynamicTestData.Core.TestDataTypes.Foundational;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.Identity;
 
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Core;
 
@@ -102,8 +102,10 @@ public abstract class TestDataBase(string definition)
                 copy(r, span, index);
             });
 
+        #region Local method
         static void copy(string part, Span<char> span, int index)
         => part.AsSpan().CopyTo(span[index..]);
+        #endregion
     }
 
     /// <summary>
@@ -159,7 +161,7 @@ public abstract class TestDataBase(string definition)
             : baseParams;
     }
 
-    protected static string GetOrSubstitute(string? value, string substitute)
+    public static string GetOrSubstitute(string? value, string substitute)
     => string.IsNullOrEmpty(value) ?
         substitute
         : value;

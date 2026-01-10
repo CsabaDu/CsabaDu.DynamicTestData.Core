@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: MIT
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
-namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Specializations.Interfaces;
+namespace CsabaDu.DynamicTestData.Core.TestDataTypes.PatternMarkers.Interfaces;
 
 /// <summary>
 /// Represents a base interface for test data that has a primary test parameter for test case result.

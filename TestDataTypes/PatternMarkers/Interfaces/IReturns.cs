@@ -1,7 +1,7 @@
 ﻿// SPDX-License-Identifier: MIT
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
-namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Specializations.Interfaces;
+namespace CsabaDu.DynamicTestData.Core.TestDataTypes.PatternMarkers.Interfaces;
 
 /// <summary>
 /// Marker interface for test cases validating method return values.

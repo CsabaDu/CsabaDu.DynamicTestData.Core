@@ -3,8 +3,8 @@
 
 using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
 using CsabaDu.DynamicTestData.Core.TestDataTypes.Core.Interfaces;
-using CsabaDu.DynamicTestData.Core.TestDataTypes.Foundational;
-using CsabaDu.DynamicTestData.Core.TestDataTypes.Foundational.Interfaces;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.Identity;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.Identity.Interfaces;
 
 namespace CsabaDu.DynamicTestData.Core.Converters;
 

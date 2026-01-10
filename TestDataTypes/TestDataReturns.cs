@@ -3,8 +3,8 @@
 
 using CsabaDu.DynamicTestData.Core.DataStrategyTypes;
 using CsabaDu.DynamicTestData.Core.TestDataTypes.Core;
-using CsabaDu.DynamicTestData.Core.TestDataTypes.Specializations;
-using CsabaDu.DynamicTestData.Core.TestDataTypes.Specializations.Interfaces;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.PatternMarkers;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.PatternMarkers.Interfaces;
 
 namespace CsabaDu.DynamicTestData.Core.TestDataTypes;
 

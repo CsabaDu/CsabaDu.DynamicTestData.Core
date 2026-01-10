@@ -1,9 +1,9 @@
 ﻿// SPDX-License-Identifier: MIT
 // Copyright (c) 2025. Csaba Dudas (CsabaDu)
 
-using CsabaDu.DynamicTestData.Core.TestDataTypes.Foundational.Interfaces;
+using CsabaDu.DynamicTestData.Core.TestDataTypes.Identity.Interfaces;
 
-namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Foundational
+namespace CsabaDu.DynamicTestData.Core.TestDataTypes.Identity
     ;
 
 public abstract class NamedTestCase : INamedTestCase
